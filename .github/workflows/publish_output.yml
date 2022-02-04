@@ -1,6 +1,7 @@
 name: Publish output
 
 on:
+  workflow_dispatch: {}
   schedule:
     - cron: '2 15 1 * *'
 
