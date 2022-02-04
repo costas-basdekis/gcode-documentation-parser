@@ -12,4 +12,4 @@ rm -rf output/
 mv /tmp/output .
 git add output/
 git commit -m "Update documentation output"
-echo git push
+git push
