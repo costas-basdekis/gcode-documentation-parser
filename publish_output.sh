@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-set -eo pipefail
+set -eox pipefail
 
 poetry run ./update_documentation.py
 rm -rf /tmp/output/
 cp -r output/ /tmp/
+git fetch --depth=1
 git checkout output
 git clean -f -d
 rm -rf output/
