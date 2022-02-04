@@ -17,7 +17,7 @@ jobs:
         poetry install
     - name: Test
       run: |
-        pytest
+        poetry run pytest
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -32,7 +32,7 @@ jobs:
         poetry install
     - name: Lint
       run: |
-        pre-commit run --all-files
+        poetry run pre-commit run --all-files
     - name: Check for changes
       # Check if there are any changes by linting
       run: '[[ "$(git status --porcelain=v1 2>/dev/null | wc -l)" -eq "0" ]] || echo Linting made modifications. Please run this locally and commit'
