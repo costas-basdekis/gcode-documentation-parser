@@ -36,7 +36,7 @@ jobs:
       shell: bash
       id: check_status
       run: |
-        [[ "${LAST_STATUS" -ne "success" ]] && exit 1
+        [[ "${LAST_STATUS}" -ne "success" ]] && exit 1
     - uses: actions/checkout@v2
       with:
         ref: main
