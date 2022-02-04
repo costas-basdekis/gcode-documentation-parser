@@ -47,5 +47,10 @@ jobs:
       run: |
         pip install poetry
         poetry install
+    - name: Setup git access
+      run: |
+        git config --global user.name 'Costas Basdekis'
+        git config --global user.email 'costas@basdekis.io'
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
     - name: Publish
       run: ./publish_output.sh
