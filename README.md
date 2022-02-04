@@ -9,11 +9,11 @@ to generate an index of commands usage.
 Output
 --
 
-You can access the output from the [output branch] of this repo. Here are the 
+You can access the output from the [output branch] of this repo. Here are the
 raw links that you can reference or copy:
 
 * [all_codes.json]: A JSON file containing the documentation
-* [all_codes_window.json]: A JS file that defines `AllGcodes` on the global 
+* [all_codes_window.json]: A JS file that defines `AllGcodes` on the global
 * `window` object
 * [all_codes_const.js]: A JS file that defines a `const AllGcodes`
 * [all_codes_export.js]: A JS file that exports an `AllGcodes` value
@@ -21,7 +21,7 @@ raw links that you can reference or copy:
 The documentation is updated semi-regularly, at the start of every month, and
 published on this repo.
 
-You can also generate it locally by running the following, and checking the 
+You can also generate it locally by running the following, and checking the
 `output` folder
 
 ```shell
