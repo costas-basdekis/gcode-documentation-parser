@@ -44,11 +44,18 @@ pytest = "6.2.5"
 pytest-env = "0.6.2"
 pytest-pythonpath = "0.7.3"
 python-dotenv = "0.19.1"
+types-beautifulsoup4 = "^4.10.11"
+types-six = "^1.16.10"
+types-PyYAML = "^6.0.4"
 
 [tool.mypy]
 python_version = "3.8"
 disable_error_code = "misc"
 follow_imports = "silent"
+
+[[tool.mypy.overrides]]
+module = "wikitextparser.*"
+ignore_missing_imports = true
 
 [tool.pylint.messages_control]
 extension-pkg-whitelist = "pydantic"
@@ -57,6 +64,13 @@ disable = """,
     too-few-public-methods,
     fixme,
     missing-module-docstring,
+    no-self-use,
+    invalid-name,
+    unspecified-encoding,
+    f-string-without-interpolation,
+    no-else-return,
+    redefined-argument-from-local,
+    wrong-import-order,
     """
 score = "no"
 

@@ -13,6 +13,8 @@ __all__ = ['KlipperGcodeDocumentationParser']
 
 @ParserRegistry.register_parser
 class KlipperGcodeDocumentationParser(BaseDocumentationParser):
+    """Klipper documentation parser"""
+
     ID = "klipper"
     SOURCE = "Klipper"
     URL = "https://www.klipper3d.org/G-Codes.html"
@@ -32,6 +34,7 @@ class KlipperGcodeDocumentationParser(BaseDocumentationParser):
         six.moves.urllib.request.urlretrieve(self.SOURCE_URL, html_filename)
 
     def get_all_codes(self, document):
+        """Get all the GCodes from the document"""
         code_fragments_list_items_and_siblings = (
             (code.text.replace('\n', ' '), code.find_parent('li'),
              code.next_siblings)
@@ -42,6 +45,7 @@ class KlipperGcodeDocumentationParser(BaseDocumentationParser):
             self.parse_code, code_fragments_list_items_and_siblings)))
 
     def parse_code(self, code_fragments_list_items_and_siblings):
+        """Parse a GCode section"""
         code_fragment, list_item, siblings = \
             code_fragments_list_items_and_siblings
         if self.re_reprap.match(code_fragment):
@@ -52,6 +56,7 @@ class KlipperGcodeDocumentationParser(BaseDocumentationParser):
             return None
 
     def parse_reprap_code(self, code_fragment, list_item):
+        """Parse RepRap formatted code"""
         code, parameters_text = self.re_reprap.match(code_fragment).groups()
         previous_text = " ".join(
             sibling
@@ -69,6 +74,7 @@ class KlipperGcodeDocumentationParser(BaseDocumentationParser):
         }])
 
     def parse_reprap_parameters(self, parameters_text):
+        """Parse RepRap formatted parameters"""
         if not parameters_text:
             return []
         parameter_texts = map(str.strip, parameters_text.split(" "))
@@ -76,6 +82,7 @@ class KlipperGcodeDocumentationParser(BaseDocumentationParser):
             self.parse_reprap_parameter, parameter_texts)))
 
     def parse_reprap_parameter(self, parameter_text):
+        """Parse a RepRap formatted parameter"""
         if not parameter_text:
             return None
         optional = (
@@ -105,6 +112,7 @@ class KlipperGcodeDocumentationParser(BaseDocumentationParser):
         }
 
     def find_previous_id(self, element):
+        """Get the first ID from a previous sibling"""
         id_element = next((
             id_element
             for id_element in filter(None, (
@@ -120,6 +128,7 @@ class KlipperGcodeDocumentationParser(BaseDocumentationParser):
         return id_element.attrs['id']
 
     def parse_klipper_code(self, code_fragment, list_item, siblings):
+        """Parse a Klipper GCode"""
         code, parameters_text = self.re_klipper.match(code_fragment).groups()
         next_text = next(filter(None, siblings), "")\
             .replace('\n', '').strip().strip(':').strip()
@@ -134,6 +143,7 @@ class KlipperGcodeDocumentationParser(BaseDocumentationParser):
         }])
 
     def parse_klipper_parameters(self, parameters_text):
+        """Parse Klipper parameters"""
         if not parameters_text:
             return []
         parameter_texts = map(str.strip, parameters_text.split(" "))
@@ -141,6 +151,7 @@ class KlipperGcodeDocumentationParser(BaseDocumentationParser):
             self.parse_klipper_parameter, parameter_texts)))
 
     def parse_klipper_parameter(self, parameter_text):
+        """Parse a Klipper parameter"""
         if not parameter_text:
             return None
         optional = (

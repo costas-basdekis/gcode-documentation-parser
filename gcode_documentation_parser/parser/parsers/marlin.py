@@ -16,6 +16,8 @@ __all__ = ['MarlinGcodeDocumentationParser']
 
 @ParserRegistry.register_parser
 class MarlinGcodeDocumentationParser(BaseDocumentationParser):
+    """Merlin documentation parser"""
+
     ID = "marlin"
     SOURCE = "Marlin"
     URL_PREFIX = "https://marlinfw.org/docs/gcode"
@@ -44,11 +46,13 @@ class MarlinGcodeDocumentationParser(BaseDocumentationParser):
                 marlin_zip_file.extract(info, directory)
 
     def load_all_docs(self, directory):
+        """Load all document files"""
         paths_glob = os.path.join(directory, "*.md")
         paths = glob.glob(paths_glob)
         return [self.load_doc(path) for path in paths]
 
     def load_doc(self, path):
+        """Load a document file"""
         with open(path) as f:
             all_text = f.read()
         first_doc_yaml, *_ = filter(None, all_text.split('---'))
@@ -61,6 +65,7 @@ class MarlinGcodeDocumentationParser(BaseDocumentationParser):
         return doc
 
     def get_all_codes(self, docs):
+        """Extract all the GCodes from a doc"""
         return {
             code: [value for _, value in values]
             for code, values in itertools.groupby(sorted((
@@ -74,11 +79,13 @@ class MarlinGcodeDocumentationParser(BaseDocumentationParser):
         }
 
     def _get_code(self, code_and_parsed):
+        """Helper to extract the code"""
         gcode, _ = code_and_parsed
 
         return gcode
 
     def parse_doc(self, doc):
+        """Parse a document"""
         data = {
             "title": doc["title"],
             "brief": doc["brief"],
@@ -100,14 +107,17 @@ class MarlinGcodeDocumentationParser(BaseDocumentationParser):
         }
 
     def parse_doc_parameter(self, parameter):
+        """Parse a parameter"""
         has_values = "values" in parameter and parameter["values"] is not None
         return {
             **parameter,
             "optional": parameter.get("optional", True),
             "description": parameter.get("description", ""),
+            # pylint: disable=consider-using-f-string
             "label": "{lp}{tag}{values}{rp}".format(
                 lp="[" if parameter.get("optional", False) else "",
                 tag=parameter["tag"],
+                # pylint: disable=consider-using-f-string
                 values="<{}>".format("|".join(
                     str(value["tag"]) if "tag" in value else value["type"]
                     for value in parameter["values"]
@@ -119,6 +129,7 @@ class MarlinGcodeDocumentationParser(BaseDocumentationParser):
         }
 
     def _order_by_required_first(self, parameter):
+        """Helper to order by whether a parameter is required"""
         if parameter.get("optional", False):
             return 1
         else:

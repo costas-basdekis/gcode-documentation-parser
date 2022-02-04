@@ -16,6 +16,8 @@ __all__ = ['ReprapGcodeDocumentationParser']
 
 @ParserRegistry.register_parser
 class ReprapGcodeDocumentationParser(BaseDocumentationParser):
+    """RepRap documentation parser"""
+
     ID = "reprap"
     SOURCE = "RepRap"
     GCODE_URL = "https://reprap.org/wiki/G-code"
@@ -45,6 +47,7 @@ class ReprapGcodeDocumentationParser(BaseDocumentationParser):
         return path
 
     def load_documentation(self, path):
+        """Load the documentation from a page"""
         with open(path, "rb") as f:
             source = f.read().decode()
 
@@ -56,6 +59,7 @@ class ReprapGcodeDocumentationParser(BaseDocumentationParser):
     ]
 
     def parse_documentation(self, source):
+        """Parse the documentation page"""
         parsed = wtp.parse(source)
 
         gcode_wiki_sections = [
@@ -85,12 +89,14 @@ class ReprapGcodeDocumentationParser(BaseDocumentationParser):
         }
 
     def _get_code(self, code_and_command):
+        """Helper to extract the code"""
         code, _ = code_and_command
         return code
 
     RE_COMMAND = re.compile(r'^([A-Z]-?\d+(\.\d+)?)\s')
 
     def parse_command(self, wiki_section):
+        """Parse a command section"""
         title = wiki_section.title
         if title:
             title = title.strip()
@@ -152,6 +158,7 @@ class ReprapGcodeDocumentationParser(BaseDocumentationParser):
         }
 
     def parse_commands(self, title):
+        """Parse the commands from the section title"""
         if ':' in title:
             commands_str = title.split(':')[0].strip()
         else:
@@ -168,7 +175,7 @@ class ReprapGcodeDocumentationParser(BaseDocumentationParser):
             start_str, end_str = commands_str.replace('G', '').split('..')
             start, end = int(start_str), int(end_str)
             commands = [
-                'G{}'.format(number)
+                f"G{number}"
                 for number in range(start, end + 1)
             ]
         else:
@@ -177,6 +184,7 @@ class ReprapGcodeDocumentationParser(BaseDocumentationParser):
         return commands
 
     def parse_sections(self, lines):
+        """Parse the sections from the page lines"""
         section_indexes = [
             index
             for index, line in enumerate(lines)
@@ -205,6 +213,7 @@ class ReprapGcodeDocumentationParser(BaseDocumentationParser):
                ]
 
     def parse_parameter(self, line):
+        """Parse a parameter details"""
         parsed = wtp.parse(line)
         parameter_code = parsed.get_tags('code')[0]
         line = str(line[1:]).replace(str(parameter_code), '')
@@ -220,6 +229,7 @@ class ReprapGcodeDocumentationParser(BaseDocumentationParser):
         }
 
     def generate_url(self, title):
+        """Generate the source URL"""
         _hash = six.moves.urllib.parse\
             .quote_plus(title, safe=':')\
             .replace('+', '_')\

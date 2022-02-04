@@ -4,13 +4,17 @@ import tempfile
 
 __all__ = ['BaseDocumentationParser']
 
+from typing import ClassVar
 
-class BaseDocumentationParser(object):
+
+class BaseDocumentationParser:
+    """A base class for defining parsers, for a source of documentation"""
+
     # An id to be used internally
-    ID = NotImplemented
+    ID: ClassVar[str] = NotImplemented
 
     # The user-friendly source
-    SOURCE = NotImplemented
+    SOURCE: ClassVar[str] = NotImplemented
 
     def load_and_parse_all_codes(self, directory):
         """

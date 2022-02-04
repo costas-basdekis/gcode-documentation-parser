@@ -4,7 +4,7 @@ from pathlib import Path
 from gcode_documentation_parser.parser.parser_registry import ParserRegistry
 
 
-class DocumentationUpdater(object):
+class DocumentationUpdater:
     """Manage updating the documentation from all parsers"""
     OUTPUT_PREFIXES = {
         "_window.js": "window.AllGcodes = ",
@@ -18,6 +18,7 @@ class DocumentationUpdater(object):
     def update_documentation(
         self, directories=None, output_directory=None, chatty=True,
     ):
+        """Update the documentation and populate the output folder"""
         if chatty:
             parser_count = len(DocumentationUpdater.PARSER_REGISTRY.PARSERS)
             print(f"Updating using {parser_count} parsers")
@@ -68,6 +69,7 @@ class DocumentationUpdater(object):
         return all_codes
 
     def attach_id_to_docs(self, codes):
+        """Attach a unique ID to each definition"""
         for code in list(codes):
             codes[code] = [
                 dict(value, **{
@@ -77,6 +79,7 @@ class DocumentationUpdater(object):
             ]
 
     def load_existing_codes(self, ids_to_update, output_directory):
+        """Load existing codes from a previous run"""
         path = output_directory / f"all_codes{self.OUTPUT_PREFIXES['.json']}"
         expected_prefix = self.OUTPUT_PREFIXES[".json"]
         with open(path) as f:
@@ -99,11 +102,13 @@ class DocumentationUpdater(object):
         return all_codes
 
     def merge_codes(self, all_codes, codes_list):
+        """Merge two code sets"""
         for codes in codes_list:
             for code, values in codes.items():
                 all_codes.setdefault(code, []).extend(values)
 
     def sort_codes(self, all_codes):
+        """Sort codes deterministically"""
         for code, values in list(all_codes.items()):
             all_codes[code] = sorted(
                 values,
@@ -111,6 +116,7 @@ class DocumentationUpdater(object):
             )
 
     def save_codes_to_js(self, all_codes, output_directory):
+        """Save the output"""
         for name_suffix, content_prefix in self.OUTPUT_PREFIXES.items():
             with open(output_directory / f"all_codes{name_suffix}", "w") as f:
                 f.write(content_prefix)

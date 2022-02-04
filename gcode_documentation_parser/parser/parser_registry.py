@@ -1,15 +1,21 @@
 import importlib
+from typing import Dict, List, Set
+
+from gcode_documentation_parser.parser import BaseDocumentationParser
 
 
 class ParserRegistry:
-    PARSERS = {}
-    SOURCES = set()
-    PARSERS_IMPORTS = [
+    """A registry for all available parser classes"""
+
+    PARSERS: Dict[str, BaseDocumentationParser] = {}
+    SOURCES: Set[str] = set()
+    PARSERS_IMPORTS: List[str] = [
         'gcode_documentation_parser.parser.parsers',
     ]
 
     @classmethod
     def register_parser(cls, parser):
+        """Register a parser class"""
         cls.PARSERS[parser.ID] = parser
         cls.SOURCES.add(parser.SOURCE)
 
@@ -17,6 +23,7 @@ class ParserRegistry:
 
     @classmethod
     def import_parsers(cls):
+        """Import all the parsers"""
         for module_name in cls.PARSERS_IMPORTS:
             try:
                 importlib.import_module(module_name)
