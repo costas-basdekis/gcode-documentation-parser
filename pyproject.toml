@@ -1,4 +1,4 @@
-[project]
+[tool.poetry]
 name = "gcode-documentation-parser"
 version = "0.0.1"
 description = "A utility that parses the documentation pages from Marlin, RepRap, and Klipper, to generate an index of commands usage"
@@ -7,7 +7,6 @@ authors = [
 ]
 license = "MIT"
 readme = "README.md"
-python = "^3.8"
 homepage = "https://costas-basdekis.github.io/gcode-documentation-parser"
 repository = "https://costas-basdekis.github.io/gcode-documentation-parser"
 documentation = "https://costas-basdekis.github.io/gcode-documentation-parser"
@@ -27,13 +26,6 @@ classifiers = [
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.poetry]
-name = "gcode-documentation-parser"
-version = "0.0.1"
-description = ""
-authors = ["Costas Basdekis <costas.basdekis@gmail.com>"]
-license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.8"
