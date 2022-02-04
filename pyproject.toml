@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gcode-documentation-parser"
-version = "0.0.3"
+version = "0.1.0"
 description = "A utility that parses the documentation pages from Marlin, RepRap, and Klipper, to generate an index of commands usage"
 authors = [
     "Costas Basdekis <code@basdekis.io>"
