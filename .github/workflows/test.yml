@@ -1,0 +1,38 @@
+name: Test & Lint
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+    - name: Install dependencies
+      run: |
+        pip install poetry
+        poetry install
+    - name: Test
+      run: |
+        pytest
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+    - name: Install dependencies
+      run: |
+        pip install poetry
+        poetry install
+    - name: Lint
+      run: |
+        pre-commit run --all-files
+    - name: Check for changes
+      # Check if there are any changes by linting
+      run: '[[ "$(git status --porcelain=v1 2>/dev/null | wc -l)" -eq "0" ]] || echo Linting made modifications. Please run this locally and commit'
