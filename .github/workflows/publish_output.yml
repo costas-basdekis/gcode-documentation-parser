@@ -1,11 +1,6 @@
 name: Publish output
 
 on:
-  workflow_run:
-    workflows: ["Test & Lint"]
-    branches: [main]
-    types:
-      - completed
   schedule:
     - cron: '2 15 1 * *'
 
