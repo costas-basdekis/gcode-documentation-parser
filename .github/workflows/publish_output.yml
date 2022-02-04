@@ -1,0 +1,52 @@
+name: Publish output
+
+on:
+  workflow_run:
+    workflows: ["Test & Lint"]
+    branches: [main]
+    types:
+      - completed
+  schedule:
+    - cron: '2 15 1 * *'
+
+jobs:
+  publish_output:
+    runs-on: ubuntu-latest
+#    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+    - name: Get workflow id
+      shell: bash
+      run: |
+        WORKFLOW_ID=$(curl --header 'authorization: Bearer ${{ inputs.github_token }}' \
+                           --header 'content-type: application/json' \
+        https://api.github.com/repos/${{ github.repository }}/actions/runs/1794769003 | jq -r .workflow_id)
+        echo "WORKFLOW_ID=$WORKFLOW_ID" >> $GITHUB_ENV
+        echo "Workflow id: ${WORKFLOW_ID}"
+    - name: Get previous build status
+      shell: bash
+      id: last_status
+      run: |
+        last_status=$(curl --silent --header 'authorization: Bearer ${{ inputs.github_token }}' \
+                                    --header 'content-type: application/json' \
+        "https://api.github.com/repos/${{ github.repository }}/actions/workflows/${{ env.WORKFLOW_ID }}/runs?per_page=1&status=completed&branch=${{ env.BRANCH_NAME }}" \
+        | jq -r .workflow_runs[0].conclusion)
+        echo "LAST_STATUS=$last_status" >> $GITHUB_ENV
+        echo "Status of the previous build: ${LAST_STATUS}"
+    - name: Check status
+      shell: bash
+      id: check_status
+      run: |
+        [[ "${LAST_STATUS" -ne "success" ]] && exit 1
+    - uses: actions/checkout@v2
+      with:
+        ref: main
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+    - name: Install dependencies
+      run: |
+        pip install poetry
+        poetry install
+    - name: Publish
+      run: ./publish_output.sh
