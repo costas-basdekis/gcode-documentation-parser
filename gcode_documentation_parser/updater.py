@@ -1,2 +1,2 @@
 class Updater:
-    pass
+    """Update the documentation by scraping and parsing"""
