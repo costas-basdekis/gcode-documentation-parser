@@ -14,7 +14,7 @@ documentation = "https://costas-basdekis.github.io/gcode-documentation-parser"
 keywords = ["gcode", "marlin", "reprap", "klipper"]
 
 classifiers = [
-    "Development Status :: 1 - Planning",
+    "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
