@@ -11,5 +11,9 @@ git clean -f -d
 rm -rf output/
 mv /tmp/output .
 git add output/
+if git diff --cached --exit-code >/dev/null ; then
+  echo "No changes to commit"
+  exit 0
+fi
 git commit -m "Update documentation output"
 git push
