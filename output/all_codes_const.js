@@ -406,7 +406,7 @@ const AllGcodes = {
       "related": [],
       "source": "Klipper",
       "title": "",
-      "url": "https://www.klipper3d.org/G-Codes.html#firmware_retraction_1"
+      "url": "https://www.klipper3d.org/G-Codes.html#firmware_retraction"
     },
     {
       "brief": "Retract the filament",
@@ -576,7 +576,7 @@ const AllGcodes = {
       "related": [],
       "source": "Klipper",
       "title": "",
-      "url": "https://www.klipper3d.org/G-Codes.html#firmware_retraction_1"
+      "url": "https://www.klipper3d.org/G-Codes.html#firmware_retraction"
     },
     {
       "brief": "Recover the filament with firmware-based retract.",
@@ -3075,6 +3075,18 @@ const AllGcodes = {
       ],
       "id": "Marlin.G30[0]",
       "parameters": [
+        {
+          "description": "Probe with temperature compensation enabled (`PTC_PROBE`, `PTC_BED`, `PTC_HOTEND`)",
+          "label": "[C<bool>]",
+          "optional": true,
+          "tag": "C",
+          "values": [
+            {
+              "default": 1,
+              "type": "bool"
+            }
+          ]
+        },
         {
           "description": "X probe position",
           "label": "[X<pos>]",
@@ -15751,11 +15763,11 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Set the pin mode.",
-          "label": "[M<0|1|2|3>]",
+          "description": "Set the pin mode. Prior to Marlin 2.0.9.4 this is set with the `M` parameter.",
+          "label": "[T<0|1|2|3>]",
           "optional": true,
           "since": "2.0.5.2",
-          "tag": "M",
+          "tag": "T",
           "values": [
             {
               "description": "`INPUT`",
@@ -16728,6 +16740,18 @@ const AllGcodes = {
       "id": "Marlin.M48[0]",
       "parameters": [
         {
+          "description": "Probe with temperature compensation enabled (`PTC_PROBE`, `PTC_BED`, `PTC_HOTEND`)",
+          "label": "[C<bool>]",
+          "optional": true,
+          "tag": "C",
+          "values": [
+            {
+              "default": 1,
+              "type": "bool"
+            }
+          ]
+        },
+        {
           "description": "Engage for each probe",
           "label": "[E<engage>]",
           "optional": true,
@@ -16818,7 +16842,7 @@ const AllGcodes = {
       ],
       "related": [],
       "source": "Marlin",
-      "title": "Probe Accuracy Test",
+      "title": "Probe Repeatability Test",
       "url": "https://marlinfw.org/docs/gcode/M048"
     },
     {
@@ -18630,14 +18654,14 @@ const AllGcodes = {
           "values": []
         },
         {
-          "description": " Baud rate",
+          "description": " Baud rate (optional)",
           "label": "Bnnn",
           "optional": true,
           "tag": "B",
           "values": []
         },
         {
-          "description": " Whether checksums should be used",
+          "description": " Protocol (optional)",
           "label": "Snnn",
           "optional": true,
           "tag": "S",
