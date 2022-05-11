@@ -73,7 +73,7 @@ class DocumentationUpdater:
         for code in list(codes):
             codes[code] = [
                 dict(value, **{
-                    "id": f"{value['source']}.{code}[{index}]"
+                    "id": value.get("id", f"{value['source']}.{code}[{index}]")
                 })
                 for index, value in enumerate(codes[code])
             ]
