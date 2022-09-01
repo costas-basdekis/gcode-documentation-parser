@@ -123,6 +123,20 @@ window.AllGcodes = {
               "type": "float"
             }
           ]
+        },
+        {
+          "description": "Set the laser power for the move.",
+          "label": "[S<power>]",
+          "optional": true,
+          "requires": "LASER_FEATURE",
+          "since": "2.1.1",
+          "tag": "S",
+          "values": [
+            {
+              "tag": "power",
+              "type": "float"
+            }
+          ]
         }
       ],
       "related": [
@@ -321,6 +335,20 @@ window.AllGcodes = {
           "values": [
             {
               "tag": "rate",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set the laser power for the move.",
+          "label": "[S<power>]",
+          "optional": true,
+          "requires": "LASER_FEATURE",
+          "since": "2.1.1",
+          "tag": "S",
+          "values": [
+            {
+              "tag": "power",
               "type": "float"
             }
           ]
@@ -1870,23 +1898,11 @@ window.AllGcodes = {
       "url": "https://marlinfw.org/docs/gcode/G029-mbl"
     },
     {
-      "brief": "Probe the bed and enable leveling compensation",
-      "codes": [
-        "G29"
-      ],
-      "id": "Marlin.G29[1]",
-      "parameters": [],
-      "related": [],
-      "source": "Marlin",
-      "title": "Bed Leveling",
-      "url": "https://marlinfw.org/docs/gcode/G029"
-    },
-    {
       "brief": "Probe the bed and enable leveling compensation.",
       "codes": [
         "G29"
       ],
-      "id": "Marlin.G29[2]",
+      "id": "Marlin.G29[1]",
       "parameters": [
         {
           "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
@@ -2102,7 +2118,7 @@ window.AllGcodes = {
       "codes": [
         "G29"
       ],
-      "id": "Marlin.G29[3]",
+      "id": "Marlin.G29[2]",
       "parameters": [
         {
           "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
@@ -2202,7 +2218,7 @@ window.AllGcodes = {
       "codes": [
         "G29"
       ],
-      "id": "Marlin.G29[4]",
+      "id": "Marlin.G29[3]",
       "parameters": [
         {
           "description": "**Activate**\nUnified Bed Leveling (i.e., `M420 S1`)\n",
@@ -2495,6 +2511,18 @@ window.AllGcodes = {
       "source": "Marlin",
       "title": "Bed Leveling (Unified)",
       "url": "https://marlinfw.org/docs/gcode/G029-ubl"
+    },
+    {
+      "brief": "Probe the bed and enable leveling compensation",
+      "codes": [
+        "G29"
+      ],
+      "id": "Marlin.G29[4]",
+      "parameters": [],
+      "related": [],
+      "source": "Marlin",
+      "title": "Bed Leveling",
+      "url": "https://marlinfw.org/docs/gcode/G029"
     },
     {
       "brief": "Probe the bed and enable leveling compensation.",
@@ -3589,52 +3617,11 @@ window.AllGcodes = {
   ],
   "G34": [
     {
-      "brief": "Align multiple Z steppers using a bed probe",
-      "codes": [
-        "G34"
-      ],
-      "id": "Marlin.G34[0]",
-      "parameters": [
-        {
-          "description": "Iterations - must be between 1 - 30",
-          "label": "[I]",
-          "optional": true,
-          "tag": "I"
-        },
-        {
-          "description": "Target accuracy - must be between 0.01 - 1.0",
-          "label": "[T]",
-          "optional": true,
-          "tag": "T"
-        },
-        {
-          "description": "Amplification - must be between 0.5 - 2.0",
-          "label": "[A]",
-          "optional": true,
-          "tag": "A"
-        },
-        {
-          "description": "Stow probe after probing each point.",
-          "label": "[E]",
-          "optional": true,
-          "tag": "E"
-        }
-      ],
-      "related": [
-        "M422",
-        "M906",
-        "M907"
-      ],
-      "source": "Marlin",
-      "title": "Z Steppers Auto-Alignment",
-      "url": "https://marlinfw.org/docs/gcode/G034-zsaa"
-    },
-    {
       "brief": "Modern replacement for Pr\u016f\u0161a's TMC_Z_CALIBRATION",
       "codes": [
         "G34"
       ],
-      "id": "Marlin.G34[1]",
+      "id": "Marlin.G34[0]",
       "parameters": [
         {
           "description": "Current value to use for the raise move. (Default: `GANTRY_CALIBRATION_CURRENT`)",
@@ -3670,6 +3657,47 @@ window.AllGcodes = {
       "source": "Marlin",
       "title": "Mechanical Gantry Calibration",
       "url": "https://marlinfw.org/docs/gcode/G034-mgc"
+    },
+    {
+      "brief": "Align multiple Z steppers using a bed probe",
+      "codes": [
+        "G34"
+      ],
+      "id": "Marlin.G34[1]",
+      "parameters": [
+        {
+          "description": "Iterations - must be between 1 - 30",
+          "label": "[I]",
+          "optional": true,
+          "tag": "I"
+        },
+        {
+          "description": "Target accuracy - must be between 0.01 - 1.0",
+          "label": "[T]",
+          "optional": true,
+          "tag": "T"
+        },
+        {
+          "description": "Amplification - must be between 0.5 - 2.0",
+          "label": "[A]",
+          "optional": true,
+          "tag": "A"
+        },
+        {
+          "description": "Stow probe after probing each point.",
+          "label": "[E]",
+          "optional": true,
+          "tag": "E"
+        }
+      ],
+      "related": [
+        "M422",
+        "M906",
+        "M907"
+      ],
+      "source": "Marlin",
+      "title": "Z Steppers Auto-Alignment",
+      "url": "https://marlinfw.org/docs/gcode/G034-zsaa"
     },
     {
       "brief": "Use multiple Z steppers and a probe to align Z axis connection points. See M422 for other options.",
@@ -6087,7 +6115,48 @@ window.AllGcodes = {
   ],
   "M102": [
     {
-      "brief": "In BFB/RapMan firmware:\nTurn extruder on Reverse (Still to add)\nIn other firmwares:\nDeprecated.",
+      "brief": "Set the state or trigger distance (in 0.1mm units) for the Bed Distance Sensor.",
+      "codes": [
+        "M102"
+      ],
+      "id": "Marlin.M102[0]",
+      "parameters": [
+        {
+          "description": "Set the Bed Distance Sensor state and trigger distance.",
+          "label": "S<-6|-5|-1|0|>0>",
+          "optional": true,
+          "tag": "S",
+          "values": [
+            {
+              "description": "Start Calibration",
+              "tag": -6
+            },
+            {
+              "description": "Read raw Calibration data",
+              "tag": -5
+            },
+            {
+              "description": "Read sensor information",
+              "tag": -1
+            },
+            {
+              "description": "Disable Adjustable Z Height",
+              "tag": 0
+            },
+            {
+              "description": "Set Adjustable Z Height in 0.1mm units (e.g., `M102 S4` enables adjusting for Z <= 0.4mm.)",
+              "tag": ">0"
+            }
+          ]
+        }
+      ],
+      "related": [],
+      "source": "Marlin",
+      "title": "Configure Bed Distance Sensor",
+      "url": "https://marlinfw.org/docs/gcode/M102"
+    },
+    {
+      "brief": "In BFB/RapMan firmware:\nTurn extruder on Reverse (Still to add)",
       "codes": [
         "M102"
       ],
@@ -6097,6 +6166,18 @@ window.AllGcodes = {
       "source": "RepRap",
       "title": "M102: Turn extruder 1 on (Reverse)",
       "url": "https://reprap.org/wiki/G-code#M102:_Turn_extruder_1_on_.28Reverse.29"
+    },
+    {
+      "brief": "For Marlin's BD_SENSOR option, configure the sensor.\n: M102 S<10ths> : Set adjustable Z height in 10ths of a mm (e.g., 'M102 S4' enables adjusting for Z <= 0.4mm.)\n: M102 S0 : Disable adjustable Z height.",
+      "codes": [
+        "M102"
+      ],
+      "id": "RepRap.M102[1]",
+      "parameters": [],
+      "related": [],
+      "source": "RepRap",
+      "title": "M102: Configure Distance Sensor",
+      "url": "https://reprap.org/wiki/G-code#M102:_Configure_Distance_Sensor"
     }
   ],
   "M103": [
@@ -8831,6 +8912,18 @@ window.AllGcodes = {
               "type": "int"
             }
           ]
+        },
+        {
+          "description": "Keep all unspecified values unchanged (Requires `NEOPIXEL_LED`)",
+          "label": "[K<flag>]",
+          "optional": true,
+          "requires": "NEOPIXEL_LED",
+          "tag": "K",
+          "values": [
+            {
+              "type": "flag"
+            }
+          ]
         }
       ],
       "related": [],
@@ -9907,6 +10000,19 @@ window.AllGcodes = {
       "id": "Marlin.M20[0]",
       "parameters": [
         {
+          "description": "Only list BIN files. Used by host plugins to facilitate firmware upload.",
+          "label": "[F<flag>]",
+          "optional": true,
+          "requires": "CUSTOM_FIRMWARE_UPLOAD",
+          "since": "2.0.9.4",
+          "tag": "F",
+          "values": [
+            {
+              "type": "flag"
+            }
+          ]
+        },
+        {
           "description": "Include the long filename in the listing.",
           "experimental": true,
           "label": "[L<flag>]",
@@ -9914,6 +10020,19 @@ window.AllGcodes = {
           "requires": "LONG_FILENAME_HOST_SUPPORT",
           "since": "2.0.9",
           "tag": "L",
+          "values": [
+            {
+              "type": "flag"
+            }
+          ]
+        },
+        {
+          "description": "Include the file timestamp in the listing.",
+          "label": "[T<flag>]",
+          "optional": true,
+          "requires": "M20_TIMESTAMP_SUPPORT",
+          "since": "2.1.2",
+          "tag": "T",
           "values": [
             {
               "type": "flag"
@@ -12413,6 +12532,33 @@ window.AllGcodes = {
       "url": "https://reprap.org/wiki/G-code#M251:_Measure_Z_steps_from_homing_stop_.28Delta_printers.29"
     }
   ],
+  "M255": [
+    {
+      "brief": "Set and/or get the LCD Sleep Timeout.",
+      "codes": [
+        "M255"
+      ],
+      "id": "Marlin.M255[0]",
+      "parameters": [
+        {
+          "description": "Timeout delay in minutes.",
+          "label": "S<minutes>",
+          "optional": true,
+          "tag": "S",
+          "values": [
+            {
+              "tag": "minutes",
+              "type": "int"
+            }
+          ]
+        }
+      ],
+      "related": [],
+      "source": "Marlin",
+      "title": "LCD Sleep/Backlight Timeout",
+      "url": "https://marlinfw.org/docs/gcode/M255"
+    }
+  ],
   "M256": [
     {
       "brief": "Set and/or get the LCD brightness.",
@@ -14251,6 +14397,91 @@ window.AllGcodes = {
       "source": "RepRap",
       "title": "M31: Output time since last <code>M109</code> or SD card start to serial",
       "url": "https://reprap.org/wiki/G-code#M31:_Output_time_since_last_.3Ccode.3EM109.3C.2Fcode.3E_or_SD_card_start_to_serial"
+    }
+  ],
+  "M310": [
+    {
+      "brief": "",
+      "codes": [
+        "M310"
+      ],
+      "id": "RepRap.M310[0]",
+      "parameters": [
+        {
+          "description": " autotune C+R values",
+          "label": "A",
+          "optional": true,
+          "tag": "A",
+          "values": []
+        },
+        {
+          "description": " set 0=disable 1=enable",
+          "label": "Snnn",
+          "optional": true,
+          "tag": "S",
+          "values": []
+        },
+        {
+          "description": " resistance index position (0-15)",
+          "label": "Innn",
+          "optional": true,
+          "tag": "I",
+          "values": []
+        },
+        {
+          "description": " resistance value at index (K/W; requires :Innn)",
+          "label": "Rnnn",
+          "optional": true,
+          "tag": "R",
+          "values": []
+        },
+        {
+          "description": " power (W)",
+          "label": "Pnnn",
+          "optional": true,
+          "tag": "P",
+          "values": []
+        },
+        {
+          "description": " capacitance (J/K)",
+          "label": "Cnnn",
+          "optional": true,
+          "tag": "C",
+          "values": []
+        },
+        {
+          "description": " beep and warn when reaching warning threshold 0=disable 1=enable (default: 1)",
+          "label": "Bnnn",
+          "optional": true,
+          "tag": "B",
+          "values": []
+        },
+        {
+          "description": " error threshold (K/s; default in variant)",
+          "label": "Ennn",
+          "optional": true,
+          "tag": "E",
+          "values": []
+        },
+        {
+          "description": "' warning threshold (K/s; default in variant)",
+          "label": "Wnnn",
+          "optional": true,
+          "tag": "W",
+          "values": []
+        },
+        {
+          "description": " ambient temperature correction (K; default in variant)",
+          "label": "Tnnn",
+          "optional": true,
+          "tag": "T",
+          "values": []
+        }
+      ],
+      "related": [],
+      "source": "RepRap",
+      "title": "M310: Temperature model settings",
+      "url": "https://reprap.org/wiki/G-code#M310:_Temperature_model_settings"
     }
   ],
   "M32": [
@@ -19804,6 +20035,20 @@ window.AllGcodes = {
       "url": "https://reprap.org/wiki/G-code#M596:_Select_movement_queue_number"
     }
   ],
+  "M597": [
+    {
+      "brief": "",
+      "codes": [
+        "M597"
+      ],
+      "id": "RepRap.M597[0]",
+      "parameters": [],
+      "related": [],
+      "source": "RepRap",
+      "title": "M597: Collision avoidance",
+      "url": "https://reprap.org/wiki/G-code#M597:_Collision_avoidance"
+    }
+  ],
   "M6": [
     {
       "brief": "",
@@ -21811,7 +22056,7 @@ window.AllGcodes = {
       "parameters": [],
       "related": [],
       "source": "Marlin",
-      "title": "Pause Print Job",
+      "title": "Pause Print Job Timer",
       "url": "https://marlinfw.org/docs/gcode/M076"
     },
     {
