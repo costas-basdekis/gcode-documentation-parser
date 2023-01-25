@@ -13,7 +13,7 @@ jobs:
         python-version: '3.8'
     - name: Install dependencies
       run: |
-        pip install poetry
+        pip install 'poetry<1.2'
         poetry install
     - name: Test
       run: |
