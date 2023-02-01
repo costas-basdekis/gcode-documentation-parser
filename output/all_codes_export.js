@@ -27162,6 +27162,20 @@ export default const AllGcodes = {
       "url": "https://reprap.org/wiki/G-code#M957:_Raise_event"
     }
   ],
+  "M958": [
+    {
+      "brief": "",
+      "codes": [
+        "M958"
+      ],
+      "id": "RepRap.M958[0]",
+      "parameters": [],
+      "related": [],
+      "source": "RepRap",
+      "title": "M958: Excite harmonic vibration",
+      "url": "https://reprap.org/wiki/G-code#M958:_Excite_harmonic_vibration"
+    }
+  ],
   "M98": [
     {
       "brief": "",
