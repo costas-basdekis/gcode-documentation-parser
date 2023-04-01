@@ -1728,227 +1728,11 @@ window.AllGcodes = {
   ],
   "G29": [
     {
-      "brief": "Probe the bed and enable leveling compensation.",
-      "codes": [
-        "G29"
-      ],
-      "id": "Marlin.G29[0]",
-      "parameters": [
-        {
-          "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
-          "label": "[A<bool>]",
-          "optional": true,
-          "tag": "A",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Create a fake grid for testing. (`DEBUG_LEVELING_FEATURE`)",
-          "label": "[C<bool>]",
-          "optional": true,
-          "tag": "C",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Optional. If leveling is already enabled then exit without leveling. (1.1.9)",
-          "label": "[O]",
-          "optional": true,
-          "tag": "O",
-          "type": "bool"
-        },
-        {
-          "description": "Query the current leveling state (`PROBE_MANUALLY`, `DEBUG_LEVELING_FEATURE`)",
-          "label": "[Q<bool>]",
-          "optional": true,
-          "tag": "Q",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Set the number of columns (in X) that will be probed.",
-          "label": "[X<int>]",
-          "optional": true,
-          "tag": "X",
-          "values": [
-            {
-              "type": "int"
-            }
-          ]
-        },
-        {
-          "description": "Set the number of rows (in Y) that will be probed.",
-          "label": "[Y<int>]",
-          "optional": true,
-          "tag": "Y",
-          "values": [
-            {
-              "type": "int"
-            }
-          ]
-        },
-        {
-          "description": "Set the size of the square grid that will be probed - P x P points",
-          "label": "[P<int>]",
-          "optional": true,
-          "tag": "P",
-          "values": [
-            {
-              "type": "int"
-            }
-          ]
-        },
-        {
-          "description": "Set the XY travel speed between probe points.",
-          "label": "[S<rate>]",
-          "optional": true,
-          "tag": "S",
-          "values": [
-            {
-              "tag": "rate",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "- By default G29 will engage the Z probe, test the bed, then disengage.\n- Include \"E\" to engage/disengage the Z probe for each sample.\n- There's no extra effect if you have a fixed Z probe. (without `PROBE_MANUALLY`)\n",
-          "label": "[E<bool>]",
-          "optional": true,
-          "tag": "E",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Dry-Run mode. Just probe the grid but don't update the bed leveling data",
-          "label": "[D<bool>]",
-          "optional": true,
-          "tag": "D",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Generate a Bed Topology Report",
-          "label": "[T<bool>]",
-          "optional": true,
-          "tag": "T",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Set the square width and height of the area to probe.",
-          "label": "[H<linear>]",
-          "optional": true,
-          "tag": "H",
-          "values": [
-            {
-              "tag": "linear",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Set the front limit of the probing grid.",
-          "label": "[F<linear>]",
-          "optional": true,
-          "tag": "F",
-          "values": [
-            {
-              "tag": "linear",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Set the back limit of the probing grid.",
-          "label": "[B<linear>]",
-          "optional": true,
-          "tag": "B",
-          "values": [
-            {
-              "tag": "linear",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Set the left limit of the probing grid.",
-          "label": "[L<linear>]",
-          "optional": true,
-          "tag": "L",
-          "values": [
-            {
-              "tag": "linear",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Set the right limit of the probing grid.",
-          "label": "[R<linear>]",
-          "optional": true,
-          "tag": "R",
-          "values": [
-            {
-              "tag": "linear",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Jettison the leveling data stored in SRAM and turn off leveling compensation. Data in EEPROM is not affected.",
-          "label": "[J<bool>]",
-          "optional": true,
-          "tag": "J",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Set the verbose level. Level 2 and up act like 'T'.",
-          "label": "[V<0-4>]",
-          "optional": true,
-          "tag": "V",
-          "values": [
-            {
-              "tag": "0-4",
-              "type": "int"
-            }
-          ]
-        }
-      ],
-      "related": [
-        "M420"
-      ],
-      "source": "Marlin",
-      "title": "Bed Leveling (Linear)",
-      "url": "https://marlinfw.org/docs/gcode/G029-abl-linear"
-    },
-    {
       "brief": "Probe the bed and enable leveling compensation",
       "codes": [
         "G29"
       ],
-      "id": "Marlin.G29[1]",
+      "id": "Marlin.G29[0]",
       "parameters": [],
       "related": [],
       "source": "Marlin",
@@ -1960,7 +1744,7 @@ window.AllGcodes = {
       "codes": [
         "G29"
       ],
-      "id": "Marlin.G29[2]",
+      "id": "Marlin.G29[1]",
       "parameters": [
         {
           "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
@@ -2060,7 +1844,7 @@ window.AllGcodes = {
       "codes": [
         "G29"
       ],
-      "id": "Marlin.G29[3]",
+      "id": "Marlin.G29[2]",
       "parameters": [
         {
           "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
@@ -2273,119 +2057,11 @@ window.AllGcodes = {
       "url": "https://marlinfw.org/docs/gcode/G029-abl-bilinear"
     },
     {
-      "brief": "Measure Z heights in a grid, enable leveling compensation",
-      "codes": [
-        "G29"
-      ],
-      "id": "Marlin.G29[4]",
-      "parameters": [
-        {
-          "description": "",
-          "label": "S<0|1|2|3|4|5>",
-          "optional": false,
-          "tag": "S",
-          "values": [
-            {
-              "description": "Produce a mesh report (see examples below).",
-              "tag": 0
-            },
-            {
-              "description": "Start probing mesh points.",
-              "tag": 1
-            },
-            {
-              "description": "Probe the next mesh point.",
-              "tag": 2
-            },
-            {
-              "description": "Manually modify a single point with `X` `Y` `Z` parameters. (See also [`M421`](/docs/gcode/M421.html).)",
-              "tag": 3
-            },
-            {
-              "description": "Set a global Z offset. Positive values are away from the bed; negative values are closer.",
-              "tag": 4
-            },
-            {
-              "description": "Reset and disable mesh.",
-              "tag": 5
-            }
-          ]
-        },
-        {
-          "description": "**(Marlin 2.x)** With `S3`, the (0...n-1) X index of the mesh value to modify.",
-          "label": "[I<index>]",
-          "optional": true,
-          "tag": "I",
-          "values": [
-            {
-              "tag": "index",
-              "type": "int"
-            }
-          ]
-        },
-        {
-          "description": "**(Marlin 2.x)** With `S3`, the (0...n-1) Y index of the mesh value to modify.",
-          "label": "[J<index>]",
-          "optional": true,
-          "tag": "J",
-          "values": [
-            {
-              "tag": "index",
-              "type": "int"
-            }
-          ]
-        },
-        {
-          "description": "**(Marlin 1.x)** With `S3`, the (1...n) X count of the mesh value to modify.",
-          "label": "[X<count>]",
-          "optional": true,
-          "tag": "X",
-          "values": [
-            {
-              "tag": "count",
-              "type": "int"
-            }
-          ]
-        },
-        {
-          "description": "**(Marlin 1.x)** With `S3`, the (1...n) Y count of the mesh value to modify.",
-          "label": "[Y<count>]",
-          "optional": true,
-          "tag": "Y",
-          "values": [
-            {
-              "tag": "count",
-              "type": "int"
-            }
-          ]
-        },
-        {
-          "description": "With `S3`, the new mesh Z value.",
-          "label": "[Z<linear>]",
-          "optional": true,
-          "tag": "Z",
-          "values": [
-            {
-              "tag": "linear",
-              "type": "float"
-            }
-          ]
-        }
-      ],
-      "related": [
-        "M420",
-        "M421"
-      ],
-      "source": "Marlin",
-      "title": "Bed Leveling (Manual)",
-      "url": "https://marlinfw.org/docs/gcode/G029-mbl"
-    },
-    {
       "brief": "Probe the bed and enable leveling compensation.",
       "codes": [
         "G29"
       ],
-      "id": "Marlin.G29[5]",
+      "id": "Marlin.G29[3]",
       "parameters": [
         {
           "description": "**Activate** Unified Bed Leveling (i.e., `M420 S1`)",
@@ -2678,6 +2354,330 @@ window.AllGcodes = {
       "source": "Marlin",
       "title": "Bed Leveling (Unified)",
       "url": "https://marlinfw.org/docs/gcode/G029-ubl"
+    },
+    {
+      "brief": "Measure Z heights in a grid, enable leveling compensation",
+      "codes": [
+        "G29"
+      ],
+      "id": "Marlin.G29[4]",
+      "parameters": [
+        {
+          "description": "",
+          "label": "S<0|1|2|3|4|5>",
+          "optional": false,
+          "tag": "S",
+          "values": [
+            {
+              "description": "Produce a mesh report (see examples below).",
+              "tag": 0
+            },
+            {
+              "description": "Start probing mesh points.",
+              "tag": 1
+            },
+            {
+              "description": "Probe the next mesh point.",
+              "tag": 2
+            },
+            {
+              "description": "Manually modify a single point with `X` `Y` `Z` parameters. (See also [`M421`](/docs/gcode/M421.html).)",
+              "tag": 3
+            },
+            {
+              "description": "Set a global Z offset. Positive values are away from the bed; negative values are closer.",
+              "tag": 4
+            },
+            {
+              "description": "Reset and disable mesh.",
+              "tag": 5
+            }
+          ]
+        },
+        {
+          "description": "**(Marlin 2.x)** With `S3`, the (0...n-1) X index of the mesh value to modify.",
+          "label": "[I<index>]",
+          "optional": true,
+          "tag": "I",
+          "values": [
+            {
+              "tag": "index",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "**(Marlin 2.x)** With `S3`, the (0...n-1) Y index of the mesh value to modify.",
+          "label": "[J<index>]",
+          "optional": true,
+          "tag": "J",
+          "values": [
+            {
+              "tag": "index",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "**(Marlin 1.x)** With `S3`, the (1...n) X count of the mesh value to modify.",
+          "label": "[X<count>]",
+          "optional": true,
+          "tag": "X",
+          "values": [
+            {
+              "tag": "count",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "**(Marlin 1.x)** With `S3`, the (1...n) Y count of the mesh value to modify.",
+          "label": "[Y<count>]",
+          "optional": true,
+          "tag": "Y",
+          "values": [
+            {
+              "tag": "count",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "With `S3`, the new mesh Z value.",
+          "label": "[Z<linear>]",
+          "optional": true,
+          "tag": "Z",
+          "values": [
+            {
+              "tag": "linear",
+              "type": "float"
+            }
+          ]
+        }
+      ],
+      "related": [
+        "M420",
+        "M421"
+      ],
+      "source": "Marlin",
+      "title": "Bed Leveling (Manual)",
+      "url": "https://marlinfw.org/docs/gcode/G029-mbl"
+    },
+    {
+      "brief": "Probe the bed and enable leveling compensation.",
+      "codes": [
+        "G29"
+      ],
+      "id": "Marlin.G29[5]",
+      "parameters": [
+        {
+          "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
+          "label": "[A<bool>]",
+          "optional": true,
+          "tag": "A",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Create a fake grid for testing. (`DEBUG_LEVELING_FEATURE`)",
+          "label": "[C<bool>]",
+          "optional": true,
+          "tag": "C",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Optional. If leveling is already enabled then exit without leveling. (1.1.9)",
+          "label": "[O]",
+          "optional": true,
+          "tag": "O",
+          "type": "bool"
+        },
+        {
+          "description": "Query the current leveling state (`PROBE_MANUALLY`, `DEBUG_LEVELING_FEATURE`)",
+          "label": "[Q<bool>]",
+          "optional": true,
+          "tag": "Q",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Set the number of columns (in X) that will be probed.",
+          "label": "[X<int>]",
+          "optional": true,
+          "tag": "X",
+          "values": [
+            {
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Set the number of rows (in Y) that will be probed.",
+          "label": "[Y<int>]",
+          "optional": true,
+          "tag": "Y",
+          "values": [
+            {
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Set the size of the square grid that will be probed - P x P points",
+          "label": "[P<int>]",
+          "optional": true,
+          "tag": "P",
+          "values": [
+            {
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Set the XY travel speed between probe points.",
+          "label": "[S<rate>]",
+          "optional": true,
+          "tag": "S",
+          "values": [
+            {
+              "tag": "rate",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "- By default G29 will engage the Z probe, test the bed, then disengage.\n- Include \"E\" to engage/disengage the Z probe for each sample.\n- There's no extra effect if you have a fixed Z probe. (without `PROBE_MANUALLY`)\n",
+          "label": "[E<bool>]",
+          "optional": true,
+          "tag": "E",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Dry-Run mode. Just probe the grid but don't update the bed leveling data",
+          "label": "[D<bool>]",
+          "optional": true,
+          "tag": "D",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Generate a Bed Topology Report",
+          "label": "[T<bool>]",
+          "optional": true,
+          "tag": "T",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Set the square width and height of the area to probe.",
+          "label": "[H<linear>]",
+          "optional": true,
+          "tag": "H",
+          "values": [
+            {
+              "tag": "linear",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set the front limit of the probing grid.",
+          "label": "[F<linear>]",
+          "optional": true,
+          "tag": "F",
+          "values": [
+            {
+              "tag": "linear",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set the back limit of the probing grid.",
+          "label": "[B<linear>]",
+          "optional": true,
+          "tag": "B",
+          "values": [
+            {
+              "tag": "linear",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set the left limit of the probing grid.",
+          "label": "[L<linear>]",
+          "optional": true,
+          "tag": "L",
+          "values": [
+            {
+              "tag": "linear",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set the right limit of the probing grid.",
+          "label": "[R<linear>]",
+          "optional": true,
+          "tag": "R",
+          "values": [
+            {
+              "tag": "linear",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Jettison the leveling data stored in SRAM and turn off leveling compensation. Data in EEPROM is not affected.",
+          "label": "[J<bool>]",
+          "optional": true,
+          "tag": "J",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Set the verbose level. Level 2 and up act like 'T'.",
+          "label": "[V<0-4>]",
+          "optional": true,
+          "tag": "V",
+          "values": [
+            {
+              "tag": "0-4",
+              "type": "int"
+            }
+          ]
+        }
+      ],
+      "related": [
+        "M420"
+      ],
+      "source": "Marlin",
+      "title": "Bed Leveling (Linear)",
+      "url": "https://marlinfw.org/docs/gcode/G029-abl-linear"
     },
     {
       "brief": "This command uses a probe to measure the bed height at 3 or more points to determine its tilt and overall flatness. It then enables compensation so that the nozzle will remain parallel to the bed. The printer must be homed with G28 before using this command.\nEach firmware behaves differently and depends on the type of bed leveling that's been configured. For example, Marlin 1.0.2 provides 3 different types of automatic bed leveling (probe required) and a manual bed leveling option. See your firmware's documentation for the specific options available.",
@@ -14151,7 +14151,7 @@ window.AllGcodes = {
           ]
         },
         {
-          "description": "Autotune the active extruder.",
+          "description": "Autotune the selected extruder.",
           "label": "[T]",
           "optional": true,
           "tag": "T"
@@ -17459,6 +17459,35 @@ window.AllGcodes = {
       "url": "https://reprap.org/wiki/G-code#M471:_Rename_File.2FDirectory_on_SD-Card"
     }
   ],
+  "M472": [
+    {
+      "brief": "",
+      "codes": [
+        "M472"
+      ],
+      "id": "RepRap.M472[0]",
+      "parameters": [
+        {
+          "description": " Name of file/directory to delete",
+          "label": "P\"name\"",
+          "optional": true,
+          "tag": "P",
+          "values": []
+        },
+        {
+          "description": " (optional) R1 = recursive delete",
+          "label": "Rn",
+          "optional": true,
+          "tag": "R",
+          "values": []
+        }
+      ],
+      "related": [],
+      "source": "RepRap",
+      "title": "M472: Delete File/Directory on SD-Card",
+      "url": "https://reprap.org/wiki/G-code#M472:_Delete_File.2FDirectory_on_SD-Card"
+    }
+  ],
   "M48": [
     {
       "brief": "Measure Z Probe repeatability.",
@@ -17735,6 +17764,20 @@ window.AllGcodes = {
       "source": "RepRap",
       "title": "M49: Set G26 debug flag",
       "url": "https://reprap.org/wiki/G-code#M49:_Set_G26_debug_flag"
+    }
+  ],
+  "M493": [
+    {
+      "brief": "Use M493 to enable/disable and set parameters for Fixed-Time Motion Control (by Ulendo). Requires the FT_MOTION feature to be enabled. Fixed-Time Motion Control supersedes normal motion control when enabled, and can only be applied to regular Cartesian motion systems. This is likely to change in future versions. This motion system implements its own Linear (Pressure) Advance and Input Shaping, but does not include proprietary Fast B-Spline (FBS) acceleration. Due to its overhead and memory requirements, it requires a fast board with plenty of free RAM.",
+      "codes": [
+        "M493"
+      ],
+      "id": "RepRap.M493[0]",
+      "parameters": [],
+      "related": [],
+      "source": "RepRap",
+      "title": "M493: Fixed-Time Motion Control",
+      "url": "https://reprap.org/wiki/G-code#M493:_Fixed-Time_Motion_Control"
     }
   ],
   "M5": [
@@ -20551,6 +20594,30 @@ window.AllGcodes = {
               "unit": "temp"
             }
           ]
+        },
+        {
+          "description": "Bit-mask of nozzles to include in the duplication set. 0 disables duplication. Bit 1 is E0, Bit 2 is E1 ... Bit n is E(n-1). (Requires `MULTI_NOZZLE_DUPLICATION`)",
+          "label": "[P<int>]",
+          "optional": true,
+          "tag": "P",
+          "values": [
+            {
+              "type": "int",
+              "unit": "mask"
+            }
+          ]
+        },
+        {
+          "description": "Last nozzle index to include in the duplication set. 0 disables duplication. (Requires `MULTI_NOZZLE_DUPLICATION`)",
+          "label": "[E<int>]",
+          "optional": true,
+          "tag": "E",
+          "values": [
+            {
+              "type": "int",
+              "unit": "index"
+            }
+          ]
         }
       ],
       "related": [],
@@ -20938,60 +21005,11 @@ window.AllGcodes = {
   ],
   "M666": [
     {
-      "brief": "Set dual endstop offsets",
-      "codes": [
-        "M666"
-      ],
-      "id": "Marlin.M666[0]",
-      "parameters": [
-        {
-          "description": "Offset for the X axis endstops",
-          "label": "[X<adj>]",
-          "optional": true,
-          "tag": "X",
-          "values": [
-            {
-              "tag": "adj",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Offset for the Y axis endstops",
-          "label": "[Y<adj>]",
-          "optional": true,
-          "tag": "Y",
-          "values": [
-            {
-              "tag": "adj",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Offset for the Z axis endstops",
-          "label": "[Z<adj>]",
-          "optional": true,
-          "tag": "Z",
-          "values": [
-            {
-              "tag": "adj",
-              "type": "float"
-            }
-          ]
-        }
-      ],
-      "related": [],
-      "source": "Marlin",
-      "title": "Set dual endstop offsets",
-      "url": "https://marlinfw.org/docs/gcode/M666-dual"
-    },
-    {
       "brief": "Set Delta endstop adjustments",
       "codes": [
         "M666"
       ],
-      "id": "Marlin.M666[1]",
+      "id": "Marlin.M666[0]",
       "parameters": [
         {
           "description": "Adjustment for the X actuator endstop",
@@ -21034,6 +21052,55 @@ window.AllGcodes = {
       "source": "Marlin",
       "title": "Set Delta endstop adjustments",
       "url": "https://marlinfw.org/docs/gcode/M666"
+    },
+    {
+      "brief": "Set dual endstop offsets",
+      "codes": [
+        "M666"
+      ],
+      "id": "Marlin.M666[1]",
+      "parameters": [
+        {
+          "description": "Offset for the X axis endstops",
+          "label": "[X<adj>]",
+          "optional": true,
+          "tag": "X",
+          "values": [
+            {
+              "tag": "adj",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Offset for the Y axis endstops",
+          "label": "[Y<adj>]",
+          "optional": true,
+          "tag": "Y",
+          "values": [
+            {
+              "tag": "adj",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Offset for the Z axis endstops",
+          "label": "[Z<adj>]",
+          "optional": true,
+          "tag": "Z",
+          "values": [
+            {
+              "tag": "adj",
+              "type": "float"
+            }
+          ]
+        }
+      ],
+      "related": [],
+      "source": "Marlin",
+      "title": "Set dual endstop offsets",
+      "url": "https://marlinfw.org/docs/gcode/M666-dual"
     },
     {
       "brief": "",
