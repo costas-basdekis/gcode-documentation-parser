@@ -668,7 +668,7 @@ window.AllGcodes = {
           "tag": "P",
           "values": [
             {
-              "description": "Stroke straight back and forth",
+              "description": "Linear move back and forth",
               "tag": 0
             },
             {
@@ -1655,21 +1655,21 @@ window.AllGcodes = {
           "label": "[X]",
           "optional": true,
           "tag": "X",
-          "type": "bool"
+          "type": "flag"
         },
         {
           "description": "Flag to home the Y axis",
           "label": "[Y]",
           "optional": true,
           "tag": "Y",
-          "type": "bool"
+          "type": "flag"
         },
         {
           "description": "Flag to home the Z axis",
           "label": "[Z]",
           "optional": true,
           "tag": "Z",
-          "type": "bool"
+          "type": "flag"
         }
       ],
       "related": [],
@@ -1728,123 +1728,11 @@ window.AllGcodes = {
   ],
   "G29": [
     {
-      "brief": "Probe the bed and enable leveling compensation",
+      "brief": "Probe the bed and enable leveling compensation.",
       "codes": [
         "G29"
       ],
       "id": "Marlin.G29[0]",
-      "parameters": [],
-      "related": [],
-      "source": "Marlin",
-      "title": "Bed Leveling",
-      "url": "https://marlinfw.org/docs/gcode/G029"
-    },
-    {
-      "brief": "Probe the bed and enable leveling compensation.",
-      "codes": [
-        "G29"
-      ],
-      "id": "Marlin.G29[1]",
-      "parameters": [
-        {
-          "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
-          "label": "[A<bool>]",
-          "optional": true,
-          "tag": "A",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Create fake points for testing. (`DEBUG_LEVELING_FEATURE`)",
-          "label": "[C<bool>]",
-          "optional": true,
-          "tag": "C",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Optional. If leveling is already enabled then exit without leveling. (1.1.9)",
-          "label": "[O]",
-          "optional": true,
-          "tag": "O",
-          "type": "bool"
-        },
-        {
-          "description": "Query the current leveling state (`PROBE_MANUALLY`, `DEBUG_LEVELING_FEATURE`)",
-          "label": "[Q<bool>]",
-          "optional": true,
-          "tag": "Q",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "- By default G29 will engage the Z probe, test the bed, then disengage.\n- Include \"E\" to engage/disengage the Z probe for each sample.\n- There's no extra effect if you have a fixed Z probe. (without `PROBE_MANUALLY`)\n",
-          "label": "[E<bool>]",
-          "optional": true,
-          "tag": "E",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Dry-Run mode. Just probe the grid but don't update the bed leveling data",
-          "label": "[D<bool>]",
-          "optional": true,
-          "tag": "D",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Jettison the leveling data stored in SRAM and turn off leveling compensation. Data in EEPROM is not affected.",
-          "label": "[J<bool>]",
-          "optional": true,
-          "tag": "J",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Set the verbose level",
-          "label": "[V<0-4>]",
-          "optional": true,
-          "tag": "V",
-          "values": [
-            {
-              "tag": "0-4",
-              "type": "int"
-            }
-          ]
-        }
-      ],
-      "related": [
-        "M420"
-      ],
-      "source": "Marlin",
-      "title": "Bed Leveling (3-Point)",
-      "url": "https://marlinfw.org/docs/gcode/G029-abl-3point"
-    },
-    {
-      "brief": "Probe the bed and enable leveling compensation.",
-      "codes": [
-        "G29"
-      ],
-      "id": "Marlin.G29[2]",
       "parameters": [
         {
           "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
@@ -2055,6 +1943,118 @@ window.AllGcodes = {
       "source": "Marlin",
       "title": "Bed Leveling (Bilinear)",
       "url": "https://marlinfw.org/docs/gcode/G029-abl-bilinear"
+    },
+    {
+      "brief": "Probe the bed and enable leveling compensation",
+      "codes": [
+        "G29"
+      ],
+      "id": "Marlin.G29[1]",
+      "parameters": [],
+      "related": [],
+      "source": "Marlin",
+      "title": "Bed Leveling",
+      "url": "https://marlinfw.org/docs/gcode/G029"
+    },
+    {
+      "brief": "Probe the bed and enable leveling compensation.",
+      "codes": [
+        "G29"
+      ],
+      "id": "Marlin.G29[2]",
+      "parameters": [
+        {
+          "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
+          "label": "[A<bool>]",
+          "optional": true,
+          "tag": "A",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Create fake points for testing. (`DEBUG_LEVELING_FEATURE`)",
+          "label": "[C<bool>]",
+          "optional": true,
+          "tag": "C",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Optional. If leveling is already enabled then exit without leveling. (1.1.9)",
+          "label": "[O]",
+          "optional": true,
+          "tag": "O",
+          "type": "bool"
+        },
+        {
+          "description": "Query the current leveling state (`PROBE_MANUALLY`, `DEBUG_LEVELING_FEATURE`)",
+          "label": "[Q<bool>]",
+          "optional": true,
+          "tag": "Q",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "- By default G29 will engage the Z probe, test the bed, then disengage.\n- Include \"E\" to engage/disengage the Z probe for each sample.\n- There's no extra effect if you have a fixed Z probe. (without `PROBE_MANUALLY`)\n",
+          "label": "[E<bool>]",
+          "optional": true,
+          "tag": "E",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Dry-Run mode. Just probe the grid but don't update the bed leveling data",
+          "label": "[D<bool>]",
+          "optional": true,
+          "tag": "D",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Jettison the leveling data stored in SRAM and turn off leveling compensation. Data in EEPROM is not affected.",
+          "label": "[J<bool>]",
+          "optional": true,
+          "tag": "J",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Set the verbose level",
+          "label": "[V<0-4>]",
+          "optional": true,
+          "tag": "V",
+          "values": [
+            {
+              "tag": "0-4",
+              "type": "int"
+            }
+          ]
+        }
+      ],
+      "related": [
+        "M420"
+      ],
+      "source": "Marlin",
+      "title": "Bed Leveling (3-Point)",
+      "url": "https://marlinfw.org/docs/gcode/G029-abl-3point"
     },
     {
       "brief": "Probe the bed and enable leveling compensation.",
@@ -17768,7 +17768,155 @@ window.AllGcodes = {
   ],
   "M493": [
     {
-      "brief": "Use M493 to enable/disable and set parameters for Fixed-Time Motion Control (by Ulendo). Requires the FT_MOTION feature to be enabled. Fixed-Time Motion Control supersedes normal motion control when enabled, and can only be applied to regular Cartesian motion systems. This is likely to change in future versions. This motion system implements its own Linear (Pressure) Advance and Input Shaping, but does not include proprietary Fast B-Spline (FBS) acceleration. Due to its overhead and memory requirements, it requires a fast board with plenty of free RAM.",
+      "brief": "Enable/disable and configure Fixed-Time Motion, Linear Advance, and Input Shaping",
+      "codes": [
+        "M493"
+      ],
+      "id": "Marlin.M493[0]",
+      "parameters": [
+        {
+          "description": "Set the current motion mode and/or Input Shaper.",
+          "label": "[S<0|1|10|11|12|13|14|15>]",
+          "optional": true,
+          "tag": "S",
+          "values": [
+            {
+              "description": "Standard Motion",
+              "tag": 0
+            },
+            {
+              "description": "Fixed-Time Motion",
+              "tag": 1
+            },
+            {
+              "description": "ZV Input Shaping",
+              "tag": 10
+            },
+            {
+              "description": "ZVD Input Shaping",
+              "tag": 11
+            },
+            {
+              "description": "EI Input Shaping",
+              "tag": 12
+            },
+            {
+              "description": "2HEI Input Shaping",
+              "tag": 13
+            },
+            {
+              "description": "3HEI Input Shaping",
+              "tag": 14
+            },
+            {
+              "description": "MZV Input Shaping",
+              "tag": 15
+            }
+          ]
+        },
+        {
+          "description": "Enable / disable Linear Advance.",
+          "label": "[P<state>]",
+          "optional": true,
+          "tag": "P",
+          "values": [
+            {
+              "tag": "state",
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Set the gain for Linear Advance.",
+          "label": "[K<gain>]",
+          "optional": true,
+          "tag": "K",
+          "values": [
+            {
+              "tag": "gain",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set the Dynamic Frequency mode.",
+          "label": "[D<0|1|2>]",
+          "optional": true,
+          "tag": "D",
+          "values": [
+            {
+              "description": "Disabled",
+              "tag": 0
+            },
+            {
+              "description": "Z-based",
+              "tag": 1
+            },
+            {
+              "description": "Mass-based",
+              "tag": 2
+            }
+          ]
+        },
+        {
+          "description": "Set the Base Frequency for Input Shaping on the X axis.",
+          "label": "[A<Hz>]",
+          "optional": true,
+          "tag": "A",
+          "values": [
+            {
+              "tag": "Hz",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set the Base Frequency for Input Shaping on the Y axis.",
+          "label": "[B<Hz>]",
+          "optional": true,
+          "tag": "B",
+          "values": [
+            {
+              "tag": "Hz",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set the Frequency Scaling factor for Input Shaping on the X axis.",
+          "label": "[F<scale>]",
+          "optional": true,
+          "tag": "F",
+          "values": [
+            {
+              "tag": "scale",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set the Frequency Scaling factor for Input Shaping on the Y axis.",
+          "label": "[H<scale>]",
+          "optional": true,
+          "tag": "H",
+          "values": [
+            {
+              "tag": "scale",
+              "type": "float"
+            }
+          ]
+        }
+      ],
+      "related": [
+        "M593",
+        "M900"
+      ],
+      "source": "Marlin",
+      "title": "Fixed-Time Motion",
+      "url": "https://marlinfw.org/docs/gcode/M493"
+    },
+    {
+      "brief": "Use M493 to enable/disable and set parameters for Fixed-Time Motion Control (by Ulendo). Requires the FT_MOTION feature to be enabled. Fixed-Time Motion Control supersedes normal motion control when enabled, and can only be applied to Cartesian and Core motion systems. This is likely to change in future versions. This motion system implements its own Linear (Pressure) Advance and Input Shaping, but does not include proprietary Fast B-Spline (FBS) acceleration. Due to its overhead and memory requirements (around 11 kilobytes), it requires a fast board with plenty of RAM.",
       "codes": [
         "M493"
       ],
@@ -17996,6 +18144,18 @@ window.AllGcodes = {
       "source": "RepRap",
       "title": "M505: Set configuration file folder",
       "url": "https://reprap.org/wiki/G-code#M505:_Set_configuration_file_folder"
+    },
+    {
+      "brief": "Use M505 varname value to directly set and store a named variable and value to EEPROM. The variable name can be up to 31 characters in length and the value can be up to 63 characters. Be careful with this G-code because a larger name or value can cause some versions of Buddy firmware to crash.",
+      "codes": [
+        "M505"
+      ],
+      "id": "RepRap.M505[2]",
+      "parameters": [],
+      "related": [],
+      "source": "RepRap",
+      "title": "M505: Set a named EEPROM value",
+      "url": "https://reprap.org/wiki/G-code#M505:_Set_a_named_EEPROM_value"
     }
   ],
   "M509": [
@@ -18029,7 +18189,7 @@ window.AllGcodes = {
       "url": "https://marlinfw.org/docs/gcode/M510"
     },
     {
-      "brief": "Lock the machine. When the machine is locked a passcode is required to unlock it. Use M511 P with your passcode to unlock the machine. In Marlin this feature is enabled with the PASSWORD_FEATURE option.",
+      "brief": "Lock the machine. When the machine is locked a passcode is required to unlock it. Use M511 P with your passcode to unlock the machine. In Marlin this feature is enabled with the PASSWORD_FEATURE option.\nIn Druid, this feature is always enabled.",
       "codes": [
         "M510"
       ],
@@ -18135,6 +18295,20 @@ window.AllGcodes = {
       "source": "RepRap",
       "title": "M512: Set Passcode",
       "url": "https://reprap.org/wiki/G-code#M512:_Set_Passcode"
+    }
+  ],
+  "M513": [
+    {
+      "brief": "",
+      "codes": [
+        "M513"
+      ],
+      "id": "RepRap.M513[0]",
+      "parameters": [],
+      "related": [],
+      "source": "RepRap",
+      "title": "M513: Remove Password",
+      "url": "https://reprap.org/wiki/G-code#M513:_Remove_Password"
     }
   ],
   "M524": [
@@ -18272,6 +18446,20 @@ window.AllGcodes = {
       "source": "RepRap",
       "title": "M540 in Marlin: Enable/Disable \"Stop SD Print on Endstop Hit\"",
       "url": "https://reprap.org/wiki/G-code#M540_in_Marlin:_Enable.2FDisable_.22Stop_SD_Print_on_Endstop_Hit.22"
+    }
+  ],
+  "M544": [
+    {
+      "brief": "",
+      "codes": [
+        "M544"
+      ],
+      "id": "RepRap.M544[0]",
+      "parameters": [],
+      "related": [],
+      "source": "RepRap",
+      "title": "M544: Gcode Parser Options",
+      "url": "https://reprap.org/wiki/G-code#M544:_Gcode_Parser_Options"
     }
   ],
   "M550": [
@@ -20101,7 +20289,9 @@ window.AllGcodes = {
           ]
         }
       ],
-      "related": [],
+      "related": [
+        "M493"
+      ],
       "source": "Marlin",
       "title": "Input Shaping",
       "url": "https://marlinfw.org/docs/gcode/M593"
@@ -20690,108 +20880,11 @@ window.AllGcodes = {
   ],
   "M665": [
     {
-      "brief": "Set SCARA geometry values",
-      "codes": [
-        "M665"
-      ],
-      "id": "Marlin.M665[0]",
-      "parameters": [
-        {
-          "description": "Segments per second",
-          "label": "[S<segments-per-second>]",
-          "optional": true,
-          "tag": "S",
-          "values": [
-            {
-              "tag": "segments-per-second",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Theta-Psi offset, added to the shoulder (A/X) angle",
-          "label": "[P<theta-pi-offset>]",
-          "optional": true,
-          "tag": "P",
-          "values": [
-            {
-              "tag": "theta-pi-offset",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Theta offset, added to the elbow (B/Y) angle",
-          "label": "[T<theta-offset>]",
-          "optional": true,
-          "tag": "T",
-          "values": [
-            {
-              "tag": "theta-offset",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Theta-Psi offset, alias for `P`",
-          "label": "[A<theta-pi-offset>]",
-          "optional": true,
-          "tag": "A",
-          "values": [
-            {
-              "tag": "theta-pi-offset",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Theta-Psi offset, alias for `P`",
-          "label": "[X<theta-pi-offset>]",
-          "optional": true,
-          "tag": "X",
-          "values": [
-            {
-              "tag": "theta-pi-offset",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Theta offset, alias for `T`",
-          "label": "[B<theta-offset>]",
-          "optional": true,
-          "tag": "B",
-          "values": [
-            {
-              "tag": "theta-offset",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Theta offset, alias for `T`",
-          "label": "[Y<theta-offset>]",
-          "optional": true,
-          "tag": "Y",
-          "values": [
-            {
-              "tag": "theta-offset",
-              "type": "float"
-            }
-          ]
-        }
-      ],
-      "related": [],
-      "source": "Marlin",
-      "title": "SCARA Configuration",
-      "url": "https://marlinfw.org/docs/gcode/M665-scara"
-    },
-    {
       "brief": "Set delta geometry values",
       "codes": [
         "M665"
       ],
-      "id": "Marlin.M665[1]",
+      "id": "Marlin.M665[0]",
       "parameters": [
         {
           "description": "Delta height",
@@ -20911,6 +21004,103 @@ window.AllGcodes = {
       "source": "Marlin",
       "title": "Delta Configuration",
       "url": "https://marlinfw.org/docs/gcode/M665"
+    },
+    {
+      "brief": "Set SCARA geometry values",
+      "codes": [
+        "M665"
+      ],
+      "id": "Marlin.M665[1]",
+      "parameters": [
+        {
+          "description": "Segments per second",
+          "label": "[S<segments-per-second>]",
+          "optional": true,
+          "tag": "S",
+          "values": [
+            {
+              "tag": "segments-per-second",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Theta-Psi offset, added to the shoulder (A/X) angle",
+          "label": "[P<theta-pi-offset>]",
+          "optional": true,
+          "tag": "P",
+          "values": [
+            {
+              "tag": "theta-pi-offset",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Theta offset, added to the elbow (B/Y) angle",
+          "label": "[T<theta-offset>]",
+          "optional": true,
+          "tag": "T",
+          "values": [
+            {
+              "tag": "theta-offset",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Theta-Psi offset, alias for `P`",
+          "label": "[A<theta-pi-offset>]",
+          "optional": true,
+          "tag": "A",
+          "values": [
+            {
+              "tag": "theta-pi-offset",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Theta-Psi offset, alias for `P`",
+          "label": "[X<theta-pi-offset>]",
+          "optional": true,
+          "tag": "X",
+          "values": [
+            {
+              "tag": "theta-pi-offset",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Theta offset, alias for `T`",
+          "label": "[B<theta-offset>]",
+          "optional": true,
+          "tag": "B",
+          "values": [
+            {
+              "tag": "theta-offset",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Theta offset, alias for `T`",
+          "label": "[Y<theta-offset>]",
+          "optional": true,
+          "tag": "Y",
+          "values": [
+            {
+              "tag": "theta-offset",
+              "type": "float"
+            }
+          ]
+        }
+      ],
+      "related": [],
+      "source": "Marlin",
+      "title": "SCARA Configuration",
+      "url": "https://marlinfw.org/docs/gcode/M665-scara"
     },
     {
       "brief": "",
