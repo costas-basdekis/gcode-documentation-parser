@@ -1728,11 +1728,347 @@
   ],
   "G29": [
     {
-      "brief": "Probe the bed and enable leveling compensation.",
+      "brief": "Probe the bed and enable leveling compensation",
       "codes": [
         "G29"
       ],
       "id": "Marlin.G29[0]",
+      "parameters": [],
+      "related": [],
+      "source": "Marlin",
+      "title": "Bed Leveling",
+      "url": "https://marlinfw.org/docs/gcode/G029"
+    },
+    {
+      "brief": "Probe the bed and enable leveling compensation.",
+      "codes": [
+        "G29"
+      ],
+      "id": "Marlin.G29[1]",
+      "parameters": [
+        {
+          "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
+          "label": "[A<bool>]",
+          "optional": true,
+          "tag": "A",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Create a fake grid for testing. (`DEBUG_LEVELING_FEATURE`)",
+          "label": "[C<bool>]",
+          "optional": true,
+          "tag": "C",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Optional. If leveling is already enabled then exit without leveling. (1.1.9)",
+          "label": "[O]",
+          "optional": true,
+          "tag": "O",
+          "type": "bool"
+        },
+        {
+          "description": "Query the current leveling state (`PROBE_MANUALLY`, `DEBUG_LEVELING_FEATURE`)",
+          "label": "[Q<bool>]",
+          "optional": true,
+          "tag": "Q",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Set the number of columns (in X) that will be probed.",
+          "label": "[X<int>]",
+          "optional": true,
+          "tag": "X",
+          "values": [
+            {
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Set the number of rows (in Y) that will be probed.",
+          "label": "[Y<int>]",
+          "optional": true,
+          "tag": "Y",
+          "values": [
+            {
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Set the size of the square grid that will be probed - P x P points",
+          "label": "[P<int>]",
+          "optional": true,
+          "tag": "P",
+          "values": [
+            {
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Set the XY travel speed between probe points.",
+          "label": "[S<rate>]",
+          "optional": true,
+          "tag": "S",
+          "values": [
+            {
+              "tag": "rate",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "- By default G29 will engage the Z probe, test the bed, then disengage.\n- Include \"E\" to engage/disengage the Z probe for each sample.\n- There's no extra effect if you have a fixed Z probe. (without `PROBE_MANUALLY`)\n",
+          "label": "[E<bool>]",
+          "optional": true,
+          "tag": "E",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Dry-Run mode. Just probe the grid but don't update the bed leveling data",
+          "label": "[D<bool>]",
+          "optional": true,
+          "tag": "D",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Generate a Bed Topology Report",
+          "label": "[T<bool>]",
+          "optional": true,
+          "tag": "T",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Set the square width and height of the area to probe.",
+          "label": "[H<linear>]",
+          "optional": true,
+          "tag": "H",
+          "values": [
+            {
+              "tag": "linear",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set the front limit of the probing grid.",
+          "label": "[F<linear>]",
+          "optional": true,
+          "tag": "F",
+          "values": [
+            {
+              "tag": "linear",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set the back limit of the probing grid.",
+          "label": "[B<linear>]",
+          "optional": true,
+          "tag": "B",
+          "values": [
+            {
+              "tag": "linear",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set the left limit of the probing grid.",
+          "label": "[L<linear>]",
+          "optional": true,
+          "tag": "L",
+          "values": [
+            {
+              "tag": "linear",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set the right limit of the probing grid.",
+          "label": "[R<linear>]",
+          "optional": true,
+          "tag": "R",
+          "values": [
+            {
+              "tag": "linear",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Jettison the leveling data stored in SRAM and turn off leveling compensation. Data in EEPROM is not affected.",
+          "label": "[J<bool>]",
+          "optional": true,
+          "tag": "J",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Set the verbose level. Level 2 and up act like 'T'.",
+          "label": "[V<0-4>]",
+          "optional": true,
+          "tag": "V",
+          "values": [
+            {
+              "tag": "0-4",
+              "type": "int"
+            }
+          ]
+        }
+      ],
+      "related": [
+        "M420"
+      ],
+      "source": "Marlin",
+      "title": "Bed Leveling (Linear)",
+      "url": "https://marlinfw.org/docs/gcode/G029-abl-linear"
+    },
+    {
+      "brief": "Measure Z heights in a grid, enable leveling compensation",
+      "codes": [
+        "G29"
+      ],
+      "id": "Marlin.G29[2]",
+      "parameters": [
+        {
+          "description": "",
+          "label": "S<0|1|2|3|4|5>",
+          "optional": false,
+          "tag": "S",
+          "values": [
+            {
+              "description": "Produce a mesh report (see examples below).",
+              "tag": 0
+            },
+            {
+              "description": "Start probing mesh points.",
+              "tag": 1
+            },
+            {
+              "description": "Probe the next mesh point.",
+              "tag": 2
+            },
+            {
+              "description": "Manually modify a single point with `X` `Y` `Z` parameters. (See also [`M421`](/docs/gcode/M421.html).)",
+              "tag": 3
+            },
+            {
+              "description": "Set a global Z offset. Positive values are away from the bed; negative values are closer.",
+              "tag": 4
+            },
+            {
+              "description": "Reset and disable mesh.",
+              "tag": 5
+            }
+          ]
+        },
+        {
+          "description": "**(Marlin 2.x)** With `S3`, the (0...n-1) X index of the mesh value to modify.",
+          "label": "[I<index>]",
+          "optional": true,
+          "tag": "I",
+          "values": [
+            {
+              "tag": "index",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "**(Marlin 2.x)** With `S3`, the (0...n-1) Y index of the mesh value to modify.",
+          "label": "[J<index>]",
+          "optional": true,
+          "tag": "J",
+          "values": [
+            {
+              "tag": "index",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "**(Marlin 1.x)** With `S3`, the (1...n) X count of the mesh value to modify.",
+          "label": "[X<count>]",
+          "optional": true,
+          "tag": "X",
+          "values": [
+            {
+              "tag": "count",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "**(Marlin 1.x)** With `S3`, the (1...n) Y count of the mesh value to modify.",
+          "label": "[Y<count>]",
+          "optional": true,
+          "tag": "Y",
+          "values": [
+            {
+              "tag": "count",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "With `S3`, the new mesh Z value.",
+          "label": "[Z<linear>]",
+          "optional": true,
+          "tag": "Z",
+          "values": [
+            {
+              "tag": "linear",
+              "type": "float"
+            }
+          ]
+        }
+      ],
+      "related": [
+        "M420",
+        "M421"
+      ],
+      "source": "Marlin",
+      "title": "Bed Leveling (Manual)",
+      "url": "https://marlinfw.org/docs/gcode/G029-mbl"
+    },
+    {
+      "brief": "Probe the bed and enable leveling compensation.",
+      "codes": [
+        "G29"
+      ],
+      "id": "Marlin.G29[3]",
       "parameters": [
         {
           "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
@@ -1945,123 +2281,11 @@
       "url": "https://marlinfw.org/docs/gcode/G029-abl-bilinear"
     },
     {
-      "brief": "Probe the bed and enable leveling compensation",
-      "codes": [
-        "G29"
-      ],
-      "id": "Marlin.G29[1]",
-      "parameters": [],
-      "related": [],
-      "source": "Marlin",
-      "title": "Bed Leveling",
-      "url": "https://marlinfw.org/docs/gcode/G029"
-    },
-    {
       "brief": "Probe the bed and enable leveling compensation.",
       "codes": [
         "G29"
       ],
-      "id": "Marlin.G29[2]",
-      "parameters": [
-        {
-          "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
-          "label": "[A<bool>]",
-          "optional": true,
-          "tag": "A",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Create fake points for testing. (`DEBUG_LEVELING_FEATURE`)",
-          "label": "[C<bool>]",
-          "optional": true,
-          "tag": "C",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Optional. If leveling is already enabled then exit without leveling. (1.1.9)",
-          "label": "[O]",
-          "optional": true,
-          "tag": "O",
-          "type": "bool"
-        },
-        {
-          "description": "Query the current leveling state (`PROBE_MANUALLY`, `DEBUG_LEVELING_FEATURE`)",
-          "label": "[Q<bool>]",
-          "optional": true,
-          "tag": "Q",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "- By default G29 will engage the Z probe, test the bed, then disengage.\n- Include \"E\" to engage/disengage the Z probe for each sample.\n- There's no extra effect if you have a fixed Z probe. (without `PROBE_MANUALLY`)\n",
-          "label": "[E<bool>]",
-          "optional": true,
-          "tag": "E",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Dry-Run mode. Just probe the grid but don't update the bed leveling data",
-          "label": "[D<bool>]",
-          "optional": true,
-          "tag": "D",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Jettison the leveling data stored in SRAM and turn off leveling compensation. Data in EEPROM is not affected.",
-          "label": "[J<bool>]",
-          "optional": true,
-          "tag": "J",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Set the verbose level",
-          "label": "[V<0-4>]",
-          "optional": true,
-          "tag": "V",
-          "values": [
-            {
-              "tag": "0-4",
-              "type": "int"
-            }
-          ]
-        }
-      ],
-      "related": [
-        "M420"
-      ],
-      "source": "Marlin",
-      "title": "Bed Leveling (3-Point)",
-      "url": "https://marlinfw.org/docs/gcode/G029-abl-3point"
-    },
-    {
-      "brief": "Probe the bed and enable leveling compensation.",
-      "codes": [
-        "G29"
-      ],
-      "id": "Marlin.G29[3]",
+      "id": "Marlin.G29[4]",
       "parameters": [
         {
           "description": "**Activate** Unified Bed Leveling (i.e., `M420 S1`)",
@@ -2356,114 +2580,6 @@
       "url": "https://marlinfw.org/docs/gcode/G029-ubl"
     },
     {
-      "brief": "Measure Z heights in a grid, enable leveling compensation",
-      "codes": [
-        "G29"
-      ],
-      "id": "Marlin.G29[4]",
-      "parameters": [
-        {
-          "description": "",
-          "label": "S<0|1|2|3|4|5>",
-          "optional": false,
-          "tag": "S",
-          "values": [
-            {
-              "description": "Produce a mesh report (see examples below).",
-              "tag": 0
-            },
-            {
-              "description": "Start probing mesh points.",
-              "tag": 1
-            },
-            {
-              "description": "Probe the next mesh point.",
-              "tag": 2
-            },
-            {
-              "description": "Manually modify a single point with `X` `Y` `Z` parameters. (See also [`M421`](/docs/gcode/M421.html).)",
-              "tag": 3
-            },
-            {
-              "description": "Set a global Z offset. Positive values are away from the bed; negative values are closer.",
-              "tag": 4
-            },
-            {
-              "description": "Reset and disable mesh.",
-              "tag": 5
-            }
-          ]
-        },
-        {
-          "description": "**(Marlin 2.x)** With `S3`, the (0...n-1) X index of the mesh value to modify.",
-          "label": "[I<index>]",
-          "optional": true,
-          "tag": "I",
-          "values": [
-            {
-              "tag": "index",
-              "type": "int"
-            }
-          ]
-        },
-        {
-          "description": "**(Marlin 2.x)** With `S3`, the (0...n-1) Y index of the mesh value to modify.",
-          "label": "[J<index>]",
-          "optional": true,
-          "tag": "J",
-          "values": [
-            {
-              "tag": "index",
-              "type": "int"
-            }
-          ]
-        },
-        {
-          "description": "**(Marlin 1.x)** With `S3`, the (1...n) X count of the mesh value to modify.",
-          "label": "[X<count>]",
-          "optional": true,
-          "tag": "X",
-          "values": [
-            {
-              "tag": "count",
-              "type": "int"
-            }
-          ]
-        },
-        {
-          "description": "**(Marlin 1.x)** With `S3`, the (1...n) Y count of the mesh value to modify.",
-          "label": "[Y<count>]",
-          "optional": true,
-          "tag": "Y",
-          "values": [
-            {
-              "tag": "count",
-              "type": "int"
-            }
-          ]
-        },
-        {
-          "description": "With `S3`, the new mesh Z value.",
-          "label": "[Z<linear>]",
-          "optional": true,
-          "tag": "Z",
-          "values": [
-            {
-              "tag": "linear",
-              "type": "float"
-            }
-          ]
-        }
-      ],
-      "related": [
-        "M420",
-        "M421"
-      ],
-      "source": "Marlin",
-      "title": "Bed Leveling (Manual)",
-      "url": "https://marlinfw.org/docs/gcode/G029-mbl"
-    },
-    {
       "brief": "Probe the bed and enable leveling compensation.",
       "codes": [
         "G29"
@@ -2482,7 +2598,7 @@
           ]
         },
         {
-          "description": "Create a fake grid for testing. (`DEBUG_LEVELING_FEATURE`)",
+          "description": "Create fake points for testing. (`DEBUG_LEVELING_FEATURE`)",
           "label": "[C<bool>]",
           "optional": true,
           "tag": "C",
@@ -2511,51 +2627,6 @@
           ]
         },
         {
-          "description": "Set the number of columns (in X) that will be probed.",
-          "label": "[X<int>]",
-          "optional": true,
-          "tag": "X",
-          "values": [
-            {
-              "type": "int"
-            }
-          ]
-        },
-        {
-          "description": "Set the number of rows (in Y) that will be probed.",
-          "label": "[Y<int>]",
-          "optional": true,
-          "tag": "Y",
-          "values": [
-            {
-              "type": "int"
-            }
-          ]
-        },
-        {
-          "description": "Set the size of the square grid that will be probed - P x P points",
-          "label": "[P<int>]",
-          "optional": true,
-          "tag": "P",
-          "values": [
-            {
-              "type": "int"
-            }
-          ]
-        },
-        {
-          "description": "Set the XY travel speed between probe points.",
-          "label": "[S<rate>]",
-          "optional": true,
-          "tag": "S",
-          "values": [
-            {
-              "tag": "rate",
-              "type": "float"
-            }
-          ]
-        },
-        {
           "description": "- By default G29 will engage the Z probe, test the bed, then disengage.\n- Include \"E\" to engage/disengage the Z probe for each sample.\n- There's no extra effect if you have a fixed Z probe. (without `PROBE_MANUALLY`)\n",
           "label": "[E<bool>]",
           "optional": true,
@@ -2578,77 +2649,6 @@
           ]
         },
         {
-          "description": "Generate a Bed Topology Report",
-          "label": "[T<bool>]",
-          "optional": true,
-          "tag": "T",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Set the square width and height of the area to probe.",
-          "label": "[H<linear>]",
-          "optional": true,
-          "tag": "H",
-          "values": [
-            {
-              "tag": "linear",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Set the front limit of the probing grid.",
-          "label": "[F<linear>]",
-          "optional": true,
-          "tag": "F",
-          "values": [
-            {
-              "tag": "linear",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Set the back limit of the probing grid.",
-          "label": "[B<linear>]",
-          "optional": true,
-          "tag": "B",
-          "values": [
-            {
-              "tag": "linear",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Set the left limit of the probing grid.",
-          "label": "[L<linear>]",
-          "optional": true,
-          "tag": "L",
-          "values": [
-            {
-              "tag": "linear",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Set the right limit of the probing grid.",
-          "label": "[R<linear>]",
-          "optional": true,
-          "tag": "R",
-          "values": [
-            {
-              "tag": "linear",
-              "type": "float"
-            }
-          ]
-        },
-        {
           "description": "Jettison the leveling data stored in SRAM and turn off leveling compensation. Data in EEPROM is not affected.",
           "label": "[J<bool>]",
           "optional": true,
@@ -2660,7 +2660,7 @@
           ]
         },
         {
-          "description": "Set the verbose level. Level 2 and up act like 'T'.",
+          "description": "Set the verbose level",
           "label": "[V<0-4>]",
           "optional": true,
           "tag": "V",
@@ -2676,8 +2676,8 @@
         "M420"
       ],
       "source": "Marlin",
-      "title": "Bed Leveling (Linear)",
-      "url": "https://marlinfw.org/docs/gcode/G029-abl-linear"
+      "title": "Bed Leveling (3-Point)",
+      "url": "https://marlinfw.org/docs/gcode/G029-abl-3point"
     },
     {
       "brief": "This command uses a probe to measure the bed height at 3 or more points to determine its tilt and overall flatness. It then enables compensation so that the nozzle will remain parallel to the bed. The printer must be homed with G28 before using this command.\nEach firmware behaves differently and depends on the type of bed leveling that's been configured. For example, Marlin 1.0.2 provides 3 different types of automatic bed leveling (probe required) and a manual bed leveling option. See your firmware's documentation for the specific options available.",
@@ -3555,11 +3555,52 @@
   ],
   "G34": [
     {
-      "brief": "Modern replacement for Pr\u016f\u0161a's TMC_Z_CALIBRATION",
+      "brief": "Align multiple Z steppers using a bed probe",
       "codes": [
         "G34"
       ],
       "id": "Marlin.G34[0]",
+      "parameters": [
+        {
+          "description": "Iterations - must be between 1 - 30",
+          "label": "[I]",
+          "optional": true,
+          "tag": "I"
+        },
+        {
+          "description": "Target accuracy - must be between 0.01 - 1.0",
+          "label": "[T]",
+          "optional": true,
+          "tag": "T"
+        },
+        {
+          "description": "Amplification - must be between 0.5 - 2.0",
+          "label": "[A]",
+          "optional": true,
+          "tag": "A"
+        },
+        {
+          "description": "Stow probe after probing each point.",
+          "label": "[E]",
+          "optional": true,
+          "tag": "E"
+        }
+      ],
+      "related": [
+        "M422",
+        "M906",
+        "M907"
+      ],
+      "source": "Marlin",
+      "title": "Z Steppers Auto-Alignment",
+      "url": "https://marlinfw.org/docs/gcode/G034-zsaa"
+    },
+    {
+      "brief": "Modern replacement for Pr\u016f\u0161a's TMC_Z_CALIBRATION",
+      "codes": [
+        "G34"
+      ],
+      "id": "Marlin.G34[1]",
       "parameters": [
         {
           "description": "Current value to use for the raise move. (Default: `GANTRY_CALIBRATION_CURRENT`)",
@@ -3595,47 +3636,6 @@
       "source": "Marlin",
       "title": "Mechanical Gantry Calibration",
       "url": "https://marlinfw.org/docs/gcode/G034-mgc"
-    },
-    {
-      "brief": "Align multiple Z steppers using a bed probe",
-      "codes": [
-        "G34"
-      ],
-      "id": "Marlin.G34[1]",
-      "parameters": [
-        {
-          "description": "Iterations - must be between 1 - 30",
-          "label": "[I]",
-          "optional": true,
-          "tag": "I"
-        },
-        {
-          "description": "Target accuracy - must be between 0.01 - 1.0",
-          "label": "[T]",
-          "optional": true,
-          "tag": "T"
-        },
-        {
-          "description": "Amplification - must be between 0.5 - 2.0",
-          "label": "[A]",
-          "optional": true,
-          "tag": "A"
-        },
-        {
-          "description": "Stow probe after probing each point.",
-          "label": "[E]",
-          "optional": true,
-          "tag": "E"
-        }
-      ],
-      "related": [
-        "M422",
-        "M906",
-        "M907"
-      ],
-      "source": "Marlin",
-      "title": "Z Steppers Auto-Alignment",
-      "url": "https://marlinfw.org/docs/gcode/G034-zsaa"
     },
     {
       "brief": "Use multiple Z steppers and a probe to align Z axis connection points. See M422 for other options.",
@@ -7002,7 +7002,7 @@
       "parameters": [],
       "related": [],
       "source": "Marlin",
-      "title": "Emergency Stop",
+      "title": "Full Shutdown",
       "url": "https://marlinfw.org/docs/gcode/M112"
     },
     {
@@ -7583,7 +7583,7 @@
           "tag": "E"
         },
         {
-          "description": "Report raw register data. Refer to the datasheet to decypher.",
+          "description": "Report raw register data. Refer to the datasheet to decipher the report.",
           "label": "[V]",
           "optional": true,
           "requires": "TMC_DEBUG",
@@ -10758,7 +10758,10 @@
           ]
         }
       ],
-      "related": [],
+      "related": [
+        "M428",
+        "M92"
+      ],
       "source": "Marlin",
       "title": "Set Home Offsets",
       "url": "https://marlinfw.org/docs/gcode/M206"
@@ -13291,6 +13294,34 @@
       "url": "https://reprap.org/wiki/G-code#M292:_Acknowledge_message"
     }
   ],
+  "M293": [
+    {
+      "brief": "Babystep Z upward by one increment according to settings. Requires EP_BABYSTEPPING. With `EMERGENCY_PARSER` babystepping is asynchronous and doesn't rely on the queue.",
+      "codes": [
+        "M293"
+      ],
+      "id": "RepRap.M293[0]",
+      "parameters": [],
+      "related": [],
+      "source": "RepRap",
+      "title": "M293: Babystep Z+",
+      "url": "https://reprap.org/wiki/G-code#M293:_Babystep_Z.2B"
+    }
+  ],
+  "M294": [
+    {
+      "brief": "Babystep Z downward by one increment according to settings. Requires EP_BABYSTEPPING. With `EMERGENCY_PARSER` babystepping is asynchronous and doesn't rely on the queue.",
+      "codes": [
+        "M294"
+      ],
+      "id": "RepRap.M294[0]",
+      "parameters": [],
+      "related": [],
+      "source": "RepRap",
+      "title": "M294: Babystep Z-",
+      "url": "https://reprap.org/wiki/G-code#M294:_Babystep_Z-"
+    }
+  ],
   "M3": [
     {
       "brief": "Set the spindle CW speed or laser power",
@@ -13705,9 +13736,21 @@
       "id": "Marlin.M303[0]",
       "parameters": [
         {
+          "description": "Hotend index (-1 for heated bed). Default 0.",
+          "label": "[E<index>]",
+          "optional": true,
+          "tag": "E",
+          "values": [
+            {
+              "tag": "index",
+              "type": "int"
+            }
+          ]
+        },
+        {
           "description": "Cycles. At least 3 cycles are required. Default 5.",
-          "label": "C<count>",
-          "optional": false,
+          "label": "[C<count>]",
+          "optional": true,
           "tag": "C",
           "values": [
             {
@@ -13718,8 +13761,8 @@
         },
         {
           "description": "Target temperature",
-          "label": "S<temp>",
-          "optional": false,
+          "label": "[S<temp>]",
+          "optional": true,
           "tag": "S",
           "values": [
             {
@@ -13730,48 +13773,23 @@
         },
         {
           "description": "Use PID result. (Otherwise just print it out.)",
-          "label": "U<flag>",
-          "optional": false,
+          "label": "[U<bool>]",
+          "optional": true,
           "tag": "U",
           "values": [
             {
-              "tag": "flag",
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Toggle activation of `PID_DEBUG` output.",
-          "label": "D<flag>",
-          "optional": false,
-          "tag": "D",
-          "values": [
-            {
-              "tag": "flag",
               "type": "bool"
             }
           ]
         },
         {
           "description": "Toggle PID debug output on / off (and take no further action). (Requires `PID_DEBUG`)",
-          "label": "D<action>",
-          "optional": false,
+          "label": "[D<flag>]",
+          "optional": true,
           "tag": "D",
           "values": [
             {
-              "tag": "action"
-            }
-          ]
-        },
-        {
-          "description": "Hotend index (-1 for heated bed). Default 0.",
-          "label": "[E<index>]",
-          "optional": true,
-          "tag": "E",
-          "values": [
-            {
-              "tag": "index",
-              "type": "int"
+              "type": "flag"
             }
           ]
         }
@@ -15911,7 +15929,7 @@
       "id": "RepRap.M404[0]",
       "parameters": [
         {
-          "description": " Filament width (in mm)",
+          "description": " Filament diameter (in mm)",
           "label": "Nnnn",
           "optional": true,
           "tag": "N",
@@ -15927,8 +15945,8 @@
       ],
       "related": [],
       "source": "RepRap",
-      "title": "M404: Filament width and nozzle diameter",
-      "url": "https://reprap.org/wiki/G-code#M404:_Filament_width_and_nozzle_diameter"
+      "title": "M404: Filament diameter",
+      "url": "https://reprap.org/wiki/G-code#M404:_Filament_diameter"
     }
   ],
   "M405": [
@@ -19576,10 +19594,31 @@
           "values": []
         },
         {
+          "description": " Extruder number (not supported yet) ",
+          "label": "Tnnn",
+          "optional": true,
+          "tag": "T",
+          "values": []
+        },
+        {
           "description": " Pressure advance amount (in seconds)",
           "label": "Snnn",
           "optional": true,
           "tag": "S",
+          "values": []
+        },
+        {
+          "description": " Set the pressure advance value. Range is 0. to 1.0 seconds. If zero the pressure advance is disabled.",
+          "label": "Snnn",
+          "optional": true,
+          "tag": "S",
+          "values": []
+        },
+        {
+          "description": " Set a time range in seconds used for calculating the average extruder velocity for pressure advance. Range between 0. and 0.2 Default value is 0.04.",
+          "label": "Wnnn",
+          "optional": true,
+          "tag": "W",
           "values": []
         }
       ],
@@ -22250,6 +22289,28 @@
       "url": "https://reprap.org/wiki/G-code#M73:_Set.2FGet_build_percentage"
     }
   ],
+  "M74": [
+    {
+      "brief": "",
+      "codes": [
+        "M74"
+      ],
+      "id": "RepRap.M74[0]",
+      "parameters": [
+        {
+          "description": " Set the total mass in grams of everything that is currently on the bed.",
+          "label": "W",
+          "optional": true,
+          "tag": "W",
+          "values": []
+        }
+      ],
+      "related": [],
+      "source": "RepRap",
+      "title": "M74: Set weight on print bed",
+      "url": "https://reprap.org/wiki/G-code#M74:_Set_weight_on_print_bed"
+    }
+  ],
   "M75": [
     {
       "brief": "Start the print job timer.",
@@ -23319,6 +23380,69 @@
   ],
   "M86": [
     {
+      "brief": "Set the hotend idle timeout.",
+      "codes": [
+        "M86"
+      ],
+      "id": "Marlin.M86[0]",
+      "parameters": [
+        {
+          "description": "Timeout period. Temperatures are reduced if the machine is idle for this period.",
+          "label": "[S<seconds>]",
+          "optional": true,
+          "tag": "S",
+          "values": [
+            {
+              "tag": "seconds",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Temperature trigger. Timeout only applies above this temperature.",
+          "label": "[T<temp>]",
+          "optional": true,
+          "tag": "T",
+          "values": [
+            {
+              "tag": "temp",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Extruder idle temperature. The hotend is set to this temperature on timeout.",
+          "label": "[E<temp>]",
+          "optional": true,
+          "tag": "E",
+          "values": [
+            {
+              "tag": "temp",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Bed idle temperature. The bed is set to this temperature on timeout. (Requires a heated bed.)",
+          "label": "[B<temp>]",
+          "optional": true,
+          "tag": "B",
+          "values": [
+            {
+              "tag": "temp",
+              "type": "int"
+            }
+          ]
+        }
+      ],
+      "related": [
+        "M87"
+      ],
+      "source": "Marlin",
+      "title": "Hotend Idle Timeout",
+      "url": "https://marlinfw.org/docs/gcode/M086"
+    },
+    {
       "brief": "",
       "codes": [
         "M86"
@@ -23331,12 +23455,33 @@
           "optional": true,
           "tag": "S",
           "values": []
+        },
+        {
+          "description": " Trigger Temperature (Marlin)",
+          "label": "T",
+          "optional": true,
+          "tag": "T",
+          "values": []
+        },
+        {
+          "description": " Extruder Idle Temperature (Marlin)",
+          "label": "E",
+          "optional": true,
+          "tag": "E",
+          "values": []
+        },
+        {
+          "description": " Bed Idle Temperature (Marlin)",
+          "label": "B",
+          "optional": true,
+          "tag": "B",
+          "values": []
         }
       ],
       "related": [],
       "source": "RepRap",
-      "title": "M86: Set Safety Timer expiration time",
-      "url": "https://reprap.org/wiki/G-code#M86:_Set_Safety_Timer_expiration_time"
+      "title": "M86: Set Safety Timeout",
+      "url": "https://reprap.org/wiki/G-code#M86:_Set_Safety_Timeout"
     }
   ],
   "M860": [
@@ -24055,6 +24200,35 @@
       "source": "RepRap",
       "title": "M862.5: Gcode level",
       "url": "https://reprap.org/wiki/G-code#M862.5:_Gcode_level"
+    }
+  ],
+  "M862.6": [
+    {
+      "brief": "",
+      "codes": [
+        "M862.6"
+      ],
+      "id": "RepRap.M862.6[0]",
+      "parameters": [
+        {
+          "description": " cccc = Firmware Features",
+          "label": "P\"cccc\"",
+          "optional": true,
+          "tag": "P",
+          "values": []
+        },
+        {
+          "description": " Current Firmware Features",
+          "label": "Q",
+          "optional": true,
+          "tag": "Q",
+          "values": []
+        }
+      ],
+      "related": [],
+      "source": "RepRap",
+      "title": "M862.6: Firmware features",
+      "url": "https://reprap.org/wiki/G-code#M862.6:_Firmware_features"
     }
   ],
   "M863": [
@@ -25192,6 +25366,20 @@
     }
   ],
   "M87": [
+    {
+      "brief": "Disable the hotend idle timeout.",
+      "codes": [
+        "M87"
+      ],
+      "id": "Marlin.M87[0]",
+      "parameters": [],
+      "related": [
+        "M86"
+      ],
+      "source": "Marlin",
+      "title": "Disable Hotend Idle Timeout",
+      "url": "https://marlinfw.org/docs/gcode/M087"
+    },
     {
       "brief": "",
       "codes": [
