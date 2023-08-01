@@ -1956,112 +1956,104 @@
       "url": "https://marlinfw.org/docs/gcode/G029-abl-linear"
     },
     {
-      "brief": "Measure Z heights in a grid, enable leveling compensation",
+      "brief": "Probe the bed and enable leveling compensation.",
       "codes": [
         "G29"
       ],
       "id": "Marlin.G29[2]",
       "parameters": [
         {
-          "description": "",
-          "label": "S<0|1|2|3|4|5>",
-          "optional": false,
-          "tag": "S",
-          "values": [
-            {
-              "description": "Produce a mesh report (see examples below).",
-              "tag": 0
-            },
-            {
-              "description": "Start probing mesh points.",
-              "tag": 1
-            },
-            {
-              "description": "Probe the next mesh point.",
-              "tag": 2
-            },
-            {
-              "description": "Manually modify a single point with `X` `Y` `Z` parameters. (See also [`M421`](/docs/gcode/M421.html).)",
-              "tag": 3
-            },
-            {
-              "description": "Set a global Z offset. Positive values are away from the bed; negative values are closer.",
-              "tag": 4
-            },
-            {
-              "description": "Reset and disable mesh.",
-              "tag": 5
-            }
-          ]
-        },
-        {
-          "description": "**(Marlin 2.x)** With `S3`, the (0...n-1) X index of the mesh value to modify.",
-          "label": "[I<index>]",
+          "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
+          "label": "[A<bool>]",
           "optional": true,
-          "tag": "I",
+          "tag": "A",
           "values": [
             {
-              "tag": "index",
-              "type": "int"
+              "type": "bool"
             }
           ]
         },
         {
-          "description": "**(Marlin 2.x)** With `S3`, the (0...n-1) Y index of the mesh value to modify.",
-          "label": "[J<index>]",
+          "description": "Create fake points for testing. (`DEBUG_LEVELING_FEATURE`)",
+          "label": "[C<bool>]",
+          "optional": true,
+          "tag": "C",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Optional. If leveling is already enabled then exit without leveling. (1.1.9)",
+          "label": "[O]",
+          "optional": true,
+          "tag": "O",
+          "type": "bool"
+        },
+        {
+          "description": "Query the current leveling state (`PROBE_MANUALLY`, `DEBUG_LEVELING_FEATURE`)",
+          "label": "[Q<bool>]",
+          "optional": true,
+          "tag": "Q",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "- By default G29 will engage the Z probe, test the bed, then disengage.\n- Include \"E\" to engage/disengage the Z probe for each sample.\n- There's no extra effect if you have a fixed Z probe. (without `PROBE_MANUALLY`)\n",
+          "label": "[E<bool>]",
+          "optional": true,
+          "tag": "E",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Dry-Run mode. Just probe the grid but don't update the bed leveling data",
+          "label": "[D<bool>]",
+          "optional": true,
+          "tag": "D",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Jettison the leveling data stored in SRAM and turn off leveling compensation. Data in EEPROM is not affected.",
+          "label": "[J<bool>]",
           "optional": true,
           "tag": "J",
           "values": [
             {
-              "tag": "index",
-              "type": "int"
+              "type": "bool"
             }
           ]
         },
         {
-          "description": "**(Marlin 1.x)** With `S3`, the (1...n) X count of the mesh value to modify.",
-          "label": "[X<count>]",
+          "description": "Set the verbose level",
+          "label": "[V<0-4>]",
           "optional": true,
-          "tag": "X",
+          "tag": "V",
           "values": [
             {
-              "tag": "count",
+              "tag": "0-4",
               "type": "int"
-            }
-          ]
-        },
-        {
-          "description": "**(Marlin 1.x)** With `S3`, the (1...n) Y count of the mesh value to modify.",
-          "label": "[Y<count>]",
-          "optional": true,
-          "tag": "Y",
-          "values": [
-            {
-              "tag": "count",
-              "type": "int"
-            }
-          ]
-        },
-        {
-          "description": "With `S3`, the new mesh Z value.",
-          "label": "[Z<linear>]",
-          "optional": true,
-          "tag": "Z",
-          "values": [
-            {
-              "tag": "linear",
-              "type": "float"
             }
           ]
         }
       ],
       "related": [
-        "M420",
-        "M421"
+        "M420"
       ],
       "source": "Marlin",
-      "title": "Bed Leveling (Manual)",
-      "url": "https://marlinfw.org/docs/gcode/G029-mbl"
+      "title": "Bed Leveling (3-Point)",
+      "url": "https://marlinfw.org/docs/gcode/G029-abl-3point"
     },
     {
       "brief": "Probe the bed and enable leveling compensation.",
@@ -2580,104 +2572,112 @@
       "url": "https://marlinfw.org/docs/gcode/G029-ubl"
     },
     {
-      "brief": "Probe the bed and enable leveling compensation.",
+      "brief": "Measure Z heights in a grid, enable leveling compensation",
       "codes": [
         "G29"
       ],
       "id": "Marlin.G29[5]",
       "parameters": [
         {
-          "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
-          "label": "[A<bool>]",
-          "optional": true,
-          "tag": "A",
+          "description": "",
+          "label": "S<0|1|2|3|4|5>",
+          "optional": false,
+          "tag": "S",
           "values": [
             {
-              "type": "bool"
+              "description": "Produce a mesh report (see examples below).",
+              "tag": 0
+            },
+            {
+              "description": "Start probing mesh points.",
+              "tag": 1
+            },
+            {
+              "description": "Probe the next mesh point.",
+              "tag": 2
+            },
+            {
+              "description": "Manually modify a single point with `X` `Y` `Z` parameters. (See also [`M421`](/docs/gcode/M421.html).)",
+              "tag": 3
+            },
+            {
+              "description": "Set a global Z offset. Positive values are away from the bed; negative values are closer.",
+              "tag": 4
+            },
+            {
+              "description": "Reset and disable mesh.",
+              "tag": 5
             }
           ]
         },
         {
-          "description": "Create fake points for testing. (`DEBUG_LEVELING_FEATURE`)",
-          "label": "[C<bool>]",
+          "description": "**(Marlin 2.x)** With `S3`, the (0...n-1) X index of the mesh value to modify.",
+          "label": "[I<index>]",
           "optional": true,
-          "tag": "C",
+          "tag": "I",
           "values": [
             {
-              "type": "bool"
+              "tag": "index",
+              "type": "int"
             }
           ]
         },
         {
-          "description": "Optional. If leveling is already enabled then exit without leveling. (1.1.9)",
-          "label": "[O]",
-          "optional": true,
-          "tag": "O",
-          "type": "bool"
-        },
-        {
-          "description": "Query the current leveling state (`PROBE_MANUALLY`, `DEBUG_LEVELING_FEATURE`)",
-          "label": "[Q<bool>]",
-          "optional": true,
-          "tag": "Q",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "- By default G29 will engage the Z probe, test the bed, then disengage.\n- Include \"E\" to engage/disengage the Z probe for each sample.\n- There's no extra effect if you have a fixed Z probe. (without `PROBE_MANUALLY`)\n",
-          "label": "[E<bool>]",
-          "optional": true,
-          "tag": "E",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Dry-Run mode. Just probe the grid but don't update the bed leveling data",
-          "label": "[D<bool>]",
-          "optional": true,
-          "tag": "D",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Jettison the leveling data stored in SRAM and turn off leveling compensation. Data in EEPROM is not affected.",
-          "label": "[J<bool>]",
+          "description": "**(Marlin 2.x)** With `S3`, the (0...n-1) Y index of the mesh value to modify.",
+          "label": "[J<index>]",
           "optional": true,
           "tag": "J",
           "values": [
             {
-              "type": "bool"
+              "tag": "index",
+              "type": "int"
             }
           ]
         },
         {
-          "description": "Set the verbose level",
-          "label": "[V<0-4>]",
+          "description": "**(Marlin 1.x)** With `S3`, the (1...n) X count of the mesh value to modify.",
+          "label": "[X<count>]",
           "optional": true,
-          "tag": "V",
+          "tag": "X",
           "values": [
             {
-              "tag": "0-4",
+              "tag": "count",
               "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "**(Marlin 1.x)** With `S3`, the (1...n) Y count of the mesh value to modify.",
+          "label": "[Y<count>]",
+          "optional": true,
+          "tag": "Y",
+          "values": [
+            {
+              "tag": "count",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "With `S3`, the new mesh Z value.",
+          "label": "[Z<linear>]",
+          "optional": true,
+          "tag": "Z",
+          "values": [
+            {
+              "tag": "linear",
+              "type": "float"
             }
           ]
         }
       ],
       "related": [
-        "M420"
+        "M420",
+        "M421"
       ],
       "source": "Marlin",
-      "title": "Bed Leveling (3-Point)",
-      "url": "https://marlinfw.org/docs/gcode/G029-abl-3point"
+      "title": "Bed Leveling (Manual)",
+      "url": "https://marlinfw.org/docs/gcode/G029-mbl"
     },
     {
       "brief": "This command uses a probe to measure the bed height at 3 or more points to determine its tilt and overall flatness. It then enables compensation so that the nozzle will remain parallel to the bed. The printer must be homed with G28 before using this command.\nEach firmware behaves differently and depends on the type of bed leveling that's been configured. For example, Marlin 1.0.2 provides 3 different types of automatic bed leveling (probe required) and a manual bed leveling option. See your firmware's documentation for the specific options available.",
@@ -10111,7 +10111,7 @@
   ],
   "M201": [
     {
-      "brief": "Set acceleration and frequency limits for print moves.",
+      "brief": "Set acceleration / frequency limits for print and travel moves.",
       "codes": [
         "M201"
       ],
@@ -10178,7 +10178,7 @@
           ]
         },
         {
-          "description": "Planner frequency limit (Requires `XY_FREQUENCY_LIMIT`)",
+          "description": "Planner frequency limit (Requires `XY_FREQUENCY_LIMIT`). This value determines the maximum frequency of direction changes for the X and Y axes.",
           "label": "[F<Hz>]",
           "optional": true,
           "tag": "F",
@@ -10190,7 +10190,7 @@
           ]
         },
         {
-          "description": "Planner XY frequency minimum speed percentage (Requires `XY_FREQUENCY_LIMIT`)",
+          "description": "Planner XY frequency minimum speed percentage (Requires `XY_FREQUENCY_LIMIT`). This value determines the minimum speed reduction that will be applied in response to exceeding the frequency limit.",
           "label": "[S<percent>]",
           "optional": true,
           "tag": "S",
@@ -10202,9 +10202,11 @@
           ]
         }
       ],
-      "related": [],
+      "related": [
+        "M204"
+      ],
       "source": "Marlin",
-      "title": "Print Move Limits",
+      "title": "Print / Travel Move Limits",
       "url": "https://marlinfw.org/docs/gcode/M201"
     },
     {
@@ -10484,7 +10486,7 @@
           ]
         },
         {
-          "description": "Retract acceleration. Used for extruder retraction moves.",
+          "description": "Retract acceleration. Used for extruder retract / recover moves.",
           "label": "[R<accel>]",
           "optional": true,
           "tag": "R",
@@ -10520,7 +10522,9 @@
           ]
         }
       ],
-      "related": [],
+      "related": [
+        "M201"
+      ],
       "source": "Marlin",
       "title": "Set Starting Acceleration",
       "url": "https://marlinfw.org/docs/gcode/M204"
@@ -20919,11 +20923,108 @@
   ],
   "M665": [
     {
-      "brief": "Set delta geometry values",
+      "brief": "Set SCARA geometry values",
       "codes": [
         "M665"
       ],
       "id": "Marlin.M665[0]",
+      "parameters": [
+        {
+          "description": "Segments per second",
+          "label": "[S<segments-per-second>]",
+          "optional": true,
+          "tag": "S",
+          "values": [
+            {
+              "tag": "segments-per-second",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Theta-Psi offset, added to the shoulder (A/X) angle",
+          "label": "[P<theta-pi-offset>]",
+          "optional": true,
+          "tag": "P",
+          "values": [
+            {
+              "tag": "theta-pi-offset",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Theta offset, added to the elbow (B/Y) angle",
+          "label": "[T<theta-offset>]",
+          "optional": true,
+          "tag": "T",
+          "values": [
+            {
+              "tag": "theta-offset",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Theta-Psi offset, alias for `P`",
+          "label": "[A<theta-pi-offset>]",
+          "optional": true,
+          "tag": "A",
+          "values": [
+            {
+              "tag": "theta-pi-offset",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Theta-Psi offset, alias for `P`",
+          "label": "[X<theta-pi-offset>]",
+          "optional": true,
+          "tag": "X",
+          "values": [
+            {
+              "tag": "theta-pi-offset",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Theta offset, alias for `T`",
+          "label": "[B<theta-offset>]",
+          "optional": true,
+          "tag": "B",
+          "values": [
+            {
+              "tag": "theta-offset",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Theta offset, alias for `T`",
+          "label": "[Y<theta-offset>]",
+          "optional": true,
+          "tag": "Y",
+          "values": [
+            {
+              "tag": "theta-offset",
+              "type": "float"
+            }
+          ]
+        }
+      ],
+      "related": [],
+      "source": "Marlin",
+      "title": "SCARA Configuration",
+      "url": "https://marlinfw.org/docs/gcode/M665-scara"
+    },
+    {
+      "brief": "Set delta geometry values",
+      "codes": [
+        "M665"
+      ],
+      "id": "Marlin.M665[1]",
       "parameters": [
         {
           "description": "Delta height",
@@ -21043,103 +21144,6 @@
       "source": "Marlin",
       "title": "Delta Configuration",
       "url": "https://marlinfw.org/docs/gcode/M665"
-    },
-    {
-      "brief": "Set SCARA geometry values",
-      "codes": [
-        "M665"
-      ],
-      "id": "Marlin.M665[1]",
-      "parameters": [
-        {
-          "description": "Segments per second",
-          "label": "[S<segments-per-second>]",
-          "optional": true,
-          "tag": "S",
-          "values": [
-            {
-              "tag": "segments-per-second",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Theta-Psi offset, added to the shoulder (A/X) angle",
-          "label": "[P<theta-pi-offset>]",
-          "optional": true,
-          "tag": "P",
-          "values": [
-            {
-              "tag": "theta-pi-offset",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Theta offset, added to the elbow (B/Y) angle",
-          "label": "[T<theta-offset>]",
-          "optional": true,
-          "tag": "T",
-          "values": [
-            {
-              "tag": "theta-offset",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Theta-Psi offset, alias for `P`",
-          "label": "[A<theta-pi-offset>]",
-          "optional": true,
-          "tag": "A",
-          "values": [
-            {
-              "tag": "theta-pi-offset",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Theta-Psi offset, alias for `P`",
-          "label": "[X<theta-pi-offset>]",
-          "optional": true,
-          "tag": "X",
-          "values": [
-            {
-              "tag": "theta-pi-offset",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Theta offset, alias for `T`",
-          "label": "[B<theta-offset>]",
-          "optional": true,
-          "tag": "B",
-          "values": [
-            {
-              "tag": "theta-offset",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Theta offset, alias for `T`",
-          "label": "[Y<theta-offset>]",
-          "optional": true,
-          "tag": "Y",
-          "values": [
-            {
-              "tag": "theta-offset",
-              "type": "float"
-            }
-          ]
-        }
-      ],
-      "related": [],
-      "source": "Marlin",
-      "title": "SCARA Configuration",
-      "url": "https://marlinfw.org/docs/gcode/M665-scara"
     },
     {
       "brief": "",
@@ -21827,86 +21831,141 @@
   ],
   "M704": [
     {
-      "brief": "This gcode is in development by Prusa Research related to Filament and MMU settings/operations and will be updated as soon as possible.",
+      "brief": "Preload filament to MMU can be used to manually load the filament into the MMU.\nThe MMU will engage the slot and turn the MMU idler pulley until the filament is pushed to the FINDA.\nA second unload/load check ensures that the filament is preloaded correctly to the MMU.",
       "codes": [
         "M704"
       ],
       "id": "RepRap.M704[0]",
-      "parameters": [],
+      "parameters": [
+        {
+          "description": " Index of slot (zero based from 0 to 4)",
+          "label": "Pnn",
+          "optional": true,
+          "tag": "P",
+          "values": []
+        }
+      ],
       "related": [],
       "source": "RepRap",
-      "title": "M704: Filament/MMU related gcode in development (reserve)",
-      "url": "https://reprap.org/wiki/G-code#M704:_Filament.2FMMU_related_gcode_in_development_.28reserve.29"
+      "title": "M704: Preload_to_MMU",
+      "url": "https://reprap.org/wiki/G-code#M704:_Preload_to_MMU"
     }
   ],
   "M705": [
     {
-      "brief": "This gcode is in development by Prusa Research related to Filament and MMU settings/operations and will be updated as soon as possible.",
+      "brief": "Eject filament on MMU moves the selector away from the selected slot and pushes some mm of filament towards the front. This is useful to inspect the filament for indents and other issues.\nAttention: User interaction is needed to confirm on LCD or MMU button that the inspection, maintenance, ... is done! Printer WILL NOT accept any other gcode. ",
       "codes": [
         "M705"
       ],
       "id": "RepRap.M705[0]",
-      "parameters": [],
+      "parameters": [
+        {
+          "description": " Index of slot (zero based from 0 to 4)",
+          "label": "Pnn",
+          "optional": true,
+          "tag": "P",
+          "values": []
+        }
+      ],
       "related": [],
       "source": "RepRap",
-      "title": "M705: Filament/MMU related gcode in development (reserve)",
-      "url": "https://reprap.org/wiki/G-code#M705:_Filament.2FMMU_related_gcode_in_development_.28reserve.29"
+      "title": "M705: Eject filament",
+      "url": "https://reprap.org/wiki/G-code#M705:_Eject_filament"
     }
   ],
   "M706": [
     {
-      "brief": "This gcode is in development by Prusa Research related to Filament and MMU settings/operations and will be updated as soon as possible.",
+      "brief": "Preload filament to MMU can be used to manually load the filament into the MMU.\nThe MMU will engage the slot and turn the MMU Idler pulley until the filament is pushed to the FINDA.\nA second unload/load check ensures that the filament is preloaded correctly to the MMU.",
       "codes": [
         "M706"
       ],
       "id": "RepRap.M706[0]",
-      "parameters": [],
+      "parameters": [
+        {
+          "description": " Index of slot (zero based from 0 to 4)",
+          "label": "Pnn",
+          "optional": true,
+          "tag": "P",
+          "values": []
+        }
+      ],
       "related": [],
       "source": "RepRap",
-      "title": "M706: Filament/MMU related gcode in development (reserve)",
-      "url": "https://reprap.org/wiki/G-code#M706:_Filament.2FMMU_related_gcode_in_development_.28reserve.29"
+      "title": "M706: Cut filament",
+      "url": "https://reprap.org/wiki/G-code#M706:_Cut_filament"
     }
   ],
   "M707": [
     {
-      "brief": "This gcode is in development by Prusa Research related to Filament and MMU settings/operations and will be updated as soon as possible.",
+      "brief": "Reads the MMU register.",
       "codes": [
         "M707"
       ],
       "id": "RepRap.M707[0]",
-      "parameters": [],
+      "parameters": [
+        {
+          "description": " Address of register in hexadecimal.",
+          "label": "A0xnn",
+          "optional": true,
+          "tag": "A",
+          "values": []
+        }
+      ],
       "related": [],
       "source": "RepRap",
-      "title": "M707: Filament/MMU related gcode in development (reserve)",
-      "url": "https://reprap.org/wiki/G-code#M707:_Filament.2FMMU_related_gcode_in_development_.28reserve.29"
+      "title": "M707: Read from MMU register",
+      "url": "https://reprap.org/wiki/G-code#M707:_Read_from_MMU_register"
     }
   ],
   "M708": [
     {
-      "brief": "This gcode is in development by Prusa Research related to Filament and MMU settings/operations and will be updated as soon as possible.",
+      "brief": "Write to the MMU register.",
       "codes": [
         "M708"
       ],
       "id": "RepRap.M708[0]",
-      "parameters": [],
+      "parameters": [
+        {
+          "description": " Address of register in hexadecimal.",
+          "label": "A0xnn",
+          "optional": true,
+          "tag": "A",
+          "values": []
+        },
+        {
+          "description": " Data to write (16-bit integer). Default value 0.",
+          "label": "Xnnnn",
+          "optional": true,
+          "tag": "X",
+          "values": []
+        }
+      ],
       "related": [],
       "source": "RepRap",
-      "title": "M708: Filament/MMU related gcode in development (reserve)",
-      "url": "https://reprap.org/wiki/G-code#M708:_Filament.2FMMU_related_gcode_in_development_.28reserve.29"
+      "title": "M708: Write to MMU register",
+      "url": "https://reprap.org/wiki/G-code#M708:_Write_to_MMU_register"
     }
   ],
   "M709": [
     {
-      "brief": "This gcode is in development by Prusa Research related to Filament and MMU settings/operations and will be updated as soon as possible.",
+      "brief": "The MK3S cannot not power off the MMU, for that reason the there is only a reset possible.",
       "codes": [
         "M709"
       ],
       "id": "RepRap.M709[0]",
-      "parameters": [],
+      "parameters": [
+        {
+          "description": " Reset MMU (0:soft reset | 1:hardware reset)",
+          "label": "Xnnnn",
+          "optional": true,
+          "tag": "X",
+          "values": []
+        }
+      ],
       "related": [],
       "source": "RepRap",
-      "title": "M709: Filament/MMU related gcode in development (reserve)",
-      "url": "https://reprap.org/wiki/G-code#M709:_Filament.2FMMU_related_gcode_in_development_.28reserve.29"
+      "title": "M709: MMU reset",
+      "url": "https://reprap.org/wiki/G-code#M709:_MMU_reset"
     }
   ],
   "M710": [
