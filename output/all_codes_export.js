@@ -1,4 +1,4 @@
-export AllGcodesDate = new Date(2025, 3, 2, 8, 54, 27);
+export AllGcodesDate = new Date(2025, 3, 2, 9, 5, 54);
 export default const AllGcodes = {
   "ABORT": [
     {
@@ -14080,10 +14080,10 @@ export default const AllGcodes = {
           "values": []
         },
         {
-          "description": "Xnnn,Ynnn,Znn (Optional, RepRapFirmware only) If the command at the specified file position is a G2 or G3 command and the P parameter is nonzero then two of these (e.g. X and Y if the XY plane is selected) are used to provide the coordinates of the centre of the arc.",
-          "label": "",
+          "description": " (Optional, RepRapFirmware only) If the command at the specified file position is a G2 or G3 command and the P parameter is nonzero then two of these (e.g. X and Y if the XY plane is selected) are used to provide the coordinates of the centre of the arc.",
+          "label": "Xnnn,Ynnn,Znnn",
           "optional": true,
-          "tag": "",
+          "tag": "X",
           "values": []
         }
       ],

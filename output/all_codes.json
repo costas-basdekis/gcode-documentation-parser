@@ -1,6 +1,6 @@
 {
   "!": {
-    "date": "2025-04-02T08:54:27.494217",
+    "date": "2025-04-02T09:05:54.105648",
     "type": "meta"
   },
   "ABORT": [
@@ -14083,10 +14083,10 @@
           "values": []
         },
         {
-          "description": "Xnnn,Ynnn,Znn (Optional, RepRapFirmware only) If the command at the specified file position is a G2 or G3 command and the P parameter is nonzero then two of these (e.g. X and Y if the XY plane is selected) are used to provide the coordinates of the centre of the arc.",
-          "label": "",
+          "description": " (Optional, RepRapFirmware only) If the command at the specified file position is a G2 or G3 command and the P parameter is nonzero then two of these (e.g. X and Y if the XY plane is selected) are used to provide the coordinates of the centre of the arc.",
+          "label": "Xnnn,Ynnn,Znnn",
           "optional": true,
-          "tag": "",
+          "tag": "X",
           "values": []
         }
       ],
