@@ -1,3 +1,4 @@
+import datetime
 import json
 from pathlib import Path
 
@@ -7,9 +8,9 @@ from gcode_documentation_parser.parser.parser_registry import ParserRegistry
 class DocumentationUpdater:
     """Manage updating the documentation from all parsers"""
     OUTPUT_PREFIXES = {
-        "_window.js": "window.AllGcodes = ",
-        "_const.js": "const AllGcodes = ",
-        "_export.js": "export default const AllGcodes = ",
+        "_window.js": "window.AllGcodesDate = {};\nwindow.AllGcodes = ",
+        "_const.js": "const AllGcodesDate = {};\nconst AllGcodes = ",
+        "_export.js": "export AllGcodesDate = {};\nexport default const AllGcodes = ",
         ".json": "",
     }
 
@@ -117,8 +118,19 @@ class DocumentationUpdater:
 
     def save_codes_to_js(self, all_codes, output_directory):
         """Save the output"""
+        now = datetime.datetime.now()
+        js_date_str = f"new Date({now.year}, {now.month - 1}, {now.day}, {now.hour}, {now.minute}, {now.second})"
         output_directory.mkdir(parents=True, exist_ok=True)
         for name_suffix, content_prefix in self.OUTPUT_PREFIXES.items():
             with open(output_directory / f"all_codes{name_suffix}", "w") as f:
-                f.write(content_prefix)
-                json.dump(all_codes, f, indent=2, sort_keys=True)
+                f.write(content_prefix.format(js_date_str))
+                # Dirty hack to output some metadata!
+                if name_suffix == ".json":
+                    codes = dict(all_codes)
+                    codes["!"] = {
+                        "type": "meta",
+                        "date": now.isoformat(),
+                    }
+                else:
+                    codes = all_codes
+                json.dump(codes, f, indent=2, sort_keys=True)
