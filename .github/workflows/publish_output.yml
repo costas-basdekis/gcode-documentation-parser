@@ -47,6 +47,8 @@ jobs:
     - name: Install dependencies
       run: |
         pip install 'poetry<1.2'
+        pip install --upgrade setuptools~=70.0.0 packaging~=24.1
+        poetry run pip install --upgrade setuptools==70.0.0 packaging~=24.1
         poetry install
     - name: Setup git access
       run: |
