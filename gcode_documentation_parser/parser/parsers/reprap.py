@@ -141,7 +141,7 @@ class ReprapGcodeDocumentationParser(BaseDocumentationParser):
                 and wtp.parse(line).get_tags('code')
             ]
             parameters = [
-                self.parse_parameter(line)
+                self.parse_parameter(line, title)
                 for line in parameter_lines
             ]
         else:
@@ -212,16 +212,19 @@ class ReprapGcodeDocumentationParser(BaseDocumentationParser):
                    in zip(section_indexes, section_indexes[1:] + [len(lines)])
                ]
 
-    def parse_parameter(self, line):
+    def parse_parameter(self, line, title):
         """Parse a parameter details"""
         parsed = wtp.parse(line)
         parameter_code = parsed.get_tags('code')[0]
-        line = str(line[1:]).replace(str(parameter_code), '')
+        if not parameter_code or not parameter_code.contents:
+            print(f"Could not parse parameter '{line}' for '{title}'")
+        else:
+            line = str(line[1:]).replace(str(parameter_code), '')
         for tag in parsed.get_tags('sup'):
             line = line.replace(str(tag), '')
         line = wtp.parse(line).plain_text()
         return {
-            "tag": parameter_code.contents[0],
+            "tag": parameter_code.contents[0] if parameter_code.contents else "",
             "optional": True,
             "description": line,
             "values": [],
