@@ -119,7 +119,14 @@ class DocumentationUpdater:
     def save_codes_to_js(self, all_codes, output_directory):
         """Save the output"""
         now = datetime.datetime.now()
-        js_date_str = f"new Date({now.year}, {now.month - 1}, {now.day}, {now.hour}, {now.minute}, {now.second})"
+        js_date_str = (
+            f"new Date({now.year}, "
+            f"{now.month - 1}, "
+            f"{now.day}, "
+            f"{now.hour}, "
+            f"{now.minute}, "
+            f"{now.second})"
+        )
         output_directory.mkdir(parents=True, exist_ok=True)
         for name_suffix, content_prefix in self.OUTPUT_PREFIXES.items():
             with open(output_directory / f"all_codes{name_suffix}", "w") as f:
