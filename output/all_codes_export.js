@@ -1,4 +1,4 @@
-export AllGcodesDate = new Date(2025, 5, 1, 15, 22, 20);
+export AllGcodesDate = new Date(2025, 6, 1, 15, 26, 20);
 export default const AllGcodes = {
   "ABORT": [
     {
@@ -2198,104 +2198,116 @@ export default const AllGcodes = {
   ],
   "G29": [
     {
-      "brief": "Probe the bed and enable leveling compensation.",
+      "brief": "Measure Z heights in a grid, enable leveling compensation",
       "codes": [
         "G29"
       ],
       "id": "Marlin.G29[0]",
       "parameters": [
         {
-          "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
-          "label": "[A<bool>]",
-          "optional": true,
-          "tag": "A",
+          "description": "",
+          "label": "S<0|1|2|3|4|5>",
+          "optional": false,
+          "tag": "S",
           "values": [
             {
-              "type": "bool"
+              "description": "Produce a mesh report (see examples below).",
+              "tag": 0
+            },
+            {
+              "description": "Start probing mesh points.",
+              "tag": 1
+            },
+            {
+              "description": "Probe the next mesh point.",
+              "tag": 2
+            },
+            {
+              "description": "Manually modify a single point with `X` `Y` `Z` parameters. (See also [`M421`](/docs/gcode/M421.html).)",
+              "tag": 3
+            },
+            {
+              "description": "Set a global Z offset. Positive values are away from the bed; negative values are closer.",
+              "tag": 4
+            },
+            {
+              "description": "Reset and disable mesh.",
+              "tag": 5
             }
           ]
         },
         {
-          "description": "Create fake points for testing. (`DEBUG_LEVELING_FEATURE`)",
-          "label": "[C<bool>]",
+          "description": "With `S3`, the (0...n-1) X index of the mesh value to modify.",
+          "label": "[I<index>]",
           "optional": true,
-          "tag": "C",
+          "since": "2.0.0",
+          "tag": "I",
           "values": [
             {
-              "type": "bool"
+              "tag": "index",
+              "type": "int"
             }
           ]
         },
         {
-          "description": "Optional. If leveling is already enabled then exit without leveling. (1.1.9)",
-          "label": "[O]",
+          "description": "With `S3`, the (0...n-1) Y index of the mesh value to modify.",
+          "label": "[J<index>]",
           "optional": true,
-          "tag": "O",
-          "type": "bool"
-        },
-        {
-          "description": "Query the current leveling state (`PROBE_MANUALLY`, `DEBUG_LEVELING_FEATURE`)",
-          "label": "[Q<bool>]",
-          "optional": true,
-          "tag": "Q",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "- By default G29 will engage the Z probe, test the bed, then disengage.\n- Include \"E\" to engage/disengage the Z probe for each sample.\n- There's no extra effect if you have a fixed Z probe. (without `PROBE_MANUALLY`)\n",
-          "label": "[E<bool>]",
-          "optional": true,
-          "tag": "E",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Dry-Run mode. Just probe the grid but don't update the bed leveling data",
-          "label": "[D<bool>]",
-          "optional": true,
-          "tag": "D",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Jettison the leveling data stored in SRAM and turn off leveling compensation. Data in EEPROM is not affected.",
-          "label": "[J<bool>]",
-          "optional": true,
+          "since": "2.0.0",
           "tag": "J",
           "values": [
             {
-              "type": "bool"
+              "tag": "index",
+              "type": "int"
             }
           ]
         },
         {
-          "description": "Set the verbose level",
-          "label": "[V<0-4>]",
+          "description": "With `S3`, the (1...n) X count of the mesh value to modify.",
+          "label": "[X<count>]",
           "optional": true,
-          "tag": "V",
+          "tag": "X",
+          "until": "2.0.0",
           "values": [
             {
-              "tag": "0-4",
+              "tag": "count",
               "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "With `S3`, the (1...n) Y count of the mesh value to modify.",
+          "label": "[Y<count>]",
+          "optional": true,
+          "tag": "Y",
+          "until": "2.0.0",
+          "values": [
+            {
+              "tag": "count",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "With `S3`, the new mesh Z value.",
+          "label": "[Z<linear>]",
+          "optional": true,
+          "tag": "Z",
+          "values": [
+            {
+              "tag": "linear",
+              "type": "float"
             }
           ]
         }
       ],
       "related": [
-        "M420"
+        "M420",
+        "M421"
       ],
       "source": "Marlin",
-      "title": "Bed Leveling (3-Point)",
-      "url": "https://marlinfw.org/docs/gcode/G029-abl-3point"
+      "title": "Bed Leveling (Manual)",
+      "url": "https://marlinfw.org/docs/gcode/G029-mbl"
     },
     {
       "brief": "Probe the bed and enable leveling compensation.",
@@ -2514,23 +2526,11 @@ export default const AllGcodes = {
       "url": "https://marlinfw.org/docs/gcode/G029-abl-linear"
     },
     {
-      "brief": "Probe the bed and enable leveling compensation",
-      "codes": [
-        "G29"
-      ],
-      "id": "Marlin.G29[2]",
-      "parameters": [],
-      "related": [],
-      "source": "Marlin",
-      "title": "Bed Leveling",
-      "url": "https://marlinfw.org/docs/gcode/G029"
-    },
-    {
       "brief": "Probe the bed and enable leveling compensation.",
       "codes": [
         "G29"
       ],
-      "id": "Marlin.G29[3]",
+      "id": "Marlin.G29[2]",
       "parameters": [
         {
           "description": "**Activate** Unified Bed Leveling (i.e., `M420 S1`)",
@@ -2825,6 +2825,18 @@ export default const AllGcodes = {
       "url": "https://marlinfw.org/docs/gcode/G029-ubl"
     },
     {
+      "brief": "Probe the bed and enable leveling compensation",
+      "codes": [
+        "G29"
+      ],
+      "id": "Marlin.G29[3]",
+      "parameters": [],
+      "related": [],
+      "source": "Marlin",
+      "title": "Bed Leveling",
+      "url": "https://marlinfw.org/docs/gcode/G029"
+    },
+    {
       "brief": "Probe the bed and enable leveling compensation.",
       "codes": [
         "G29"
@@ -3042,116 +3054,104 @@ export default const AllGcodes = {
       "url": "https://marlinfw.org/docs/gcode/G029-abl-bilinear"
     },
     {
-      "brief": "Measure Z heights in a grid, enable leveling compensation",
+      "brief": "Probe the bed and enable leveling compensation.",
       "codes": [
         "G29"
       ],
       "id": "Marlin.G29[5]",
       "parameters": [
         {
-          "description": "",
-          "label": "S<0|1|2|3|4|5>",
-          "optional": false,
-          "tag": "S",
+          "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
+          "label": "[A<bool>]",
+          "optional": true,
+          "tag": "A",
           "values": [
             {
-              "description": "Produce a mesh report (see examples below).",
-              "tag": 0
-            },
-            {
-              "description": "Start probing mesh points.",
-              "tag": 1
-            },
-            {
-              "description": "Probe the next mesh point.",
-              "tag": 2
-            },
-            {
-              "description": "Manually modify a single point with `X` `Y` `Z` parameters. (See also [`M421`](/docs/gcode/M421.html).)",
-              "tag": 3
-            },
-            {
-              "description": "Set a global Z offset. Positive values are away from the bed; negative values are closer.",
-              "tag": 4
-            },
-            {
-              "description": "Reset and disable mesh.",
-              "tag": 5
+              "type": "bool"
             }
           ]
         },
         {
-          "description": "With `S3`, the (0...n-1) X index of the mesh value to modify.",
-          "label": "[I<index>]",
+          "description": "Create fake points for testing. (`DEBUG_LEVELING_FEATURE`)",
+          "label": "[C<bool>]",
           "optional": true,
-          "since": "2.0.0",
-          "tag": "I",
+          "tag": "C",
           "values": [
             {
-              "tag": "index",
-              "type": "int"
+              "type": "bool"
             }
           ]
         },
         {
-          "description": "With `S3`, the (0...n-1) Y index of the mesh value to modify.",
-          "label": "[J<index>]",
+          "description": "Optional. If leveling is already enabled then exit without leveling. (1.1.9)",
+          "label": "[O]",
           "optional": true,
-          "since": "2.0.0",
+          "tag": "O",
+          "type": "bool"
+        },
+        {
+          "description": "Query the current leveling state (`PROBE_MANUALLY`, `DEBUG_LEVELING_FEATURE`)",
+          "label": "[Q<bool>]",
+          "optional": true,
+          "tag": "Q",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "- By default G29 will engage the Z probe, test the bed, then disengage.\n- Include \"E\" to engage/disengage the Z probe for each sample.\n- There's no extra effect if you have a fixed Z probe. (without `PROBE_MANUALLY`)\n",
+          "label": "[E<bool>]",
+          "optional": true,
+          "tag": "E",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Dry-Run mode. Just probe the grid but don't update the bed leveling data",
+          "label": "[D<bool>]",
+          "optional": true,
+          "tag": "D",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Jettison the leveling data stored in SRAM and turn off leveling compensation. Data in EEPROM is not affected.",
+          "label": "[J<bool>]",
+          "optional": true,
           "tag": "J",
           "values": [
             {
-              "tag": "index",
-              "type": "int"
+              "type": "bool"
             }
           ]
         },
         {
-          "description": "With `S3`, the (1...n) X count of the mesh value to modify.",
-          "label": "[X<count>]",
+          "description": "Set the verbose level",
+          "label": "[V<0-4>]",
           "optional": true,
-          "tag": "X",
-          "until": "2.0.0",
+          "tag": "V",
           "values": [
             {
-              "tag": "count",
+              "tag": "0-4",
               "type": "int"
-            }
-          ]
-        },
-        {
-          "description": "With `S3`, the (1...n) Y count of the mesh value to modify.",
-          "label": "[Y<count>]",
-          "optional": true,
-          "tag": "Y",
-          "until": "2.0.0",
-          "values": [
-            {
-              "tag": "count",
-              "type": "int"
-            }
-          ]
-        },
-        {
-          "description": "With `S3`, the new mesh Z value.",
-          "label": "[Z<linear>]",
-          "optional": true,
-          "tag": "Z",
-          "values": [
-            {
-              "tag": "linear",
-              "type": "float"
             }
           ]
         }
       ],
       "related": [
-        "M420",
-        "M421"
+        "M420"
       ],
       "source": "Marlin",
-      "title": "Bed Leveling (Manual)",
-      "url": "https://marlinfw.org/docs/gcode/G029-mbl"
+      "title": "Bed Leveling (3-Point)",
+      "url": "https://marlinfw.org/docs/gcode/G029-abl-3point"
     },
     {
       "brief": "This command uses a probe to measure the bed height at 3 or more points to determine its tilt and overall flatness. It then enables compensation so that the nozzle will remain parallel to the bed. The printer must be homed with G28 before using this command.\nEach firmware behaves differently and depends on the type of bed leveling that's been configured. For example, Marlin 1.0.2 provides 3 different types of automatic bed leveling (probe required) and a manual bed leveling option. See your firmware's documentation for the specific options available.",
@@ -4141,53 +4141,11 @@ export default const AllGcodes = {
   ],
   "G34": [
     {
-      "brief": "Align multiple Z steppers using a bed probe",
-      "codes": [
-        "G34"
-      ],
-      "id": "Marlin.G34[0]",
-      "parameters": [
-        {
-          "description": "Iterations - must be between 1 - 30",
-          "label": "[I]",
-          "optional": true,
-          "tag": "I"
-        },
-        {
-          "description": "Target accuracy - must be between 0.01 - 1.0",
-          "label": "[T]",
-          "optional": true,
-          "tag": "T"
-        },
-        {
-          "description": "Amplification - must be between 0.5 - 2.0",
-          "label": "[A]",
-          "optional": true,
-          "tag": "A"
-        },
-        {
-          "description": "Stow probe after probing each point.",
-          "label": "[E]",
-          "optional": true,
-          "tag": "E"
-        }
-      ],
-      "related": [
-        "G28",
-        "M422",
-        "M906",
-        "M907"
-      ],
-      "source": "Marlin",
-      "title": "Z Steppers Auto-Alignment",
-      "url": "https://marlinfw.org/docs/gcode/G034-zsaa"
-    },
-    {
       "brief": "Modern replacement for Pr\u016f\u0161a's TMC_Z_CALIBRATION",
       "codes": [
         "G34"
       ],
-      "id": "Marlin.G34[1]",
+      "id": "Marlin.G34[0]",
       "parameters": [
         {
           "description": "Current value to use for the raise move. (Default: `GANTRY_CALIBRATION_CURRENT`)",
@@ -4223,6 +4181,48 @@ export default const AllGcodes = {
       "source": "Marlin",
       "title": "Mechanical Gantry Calibration",
       "url": "https://marlinfw.org/docs/gcode/G034-mgc"
+    },
+    {
+      "brief": "Align multiple Z steppers using a bed probe",
+      "codes": [
+        "G34"
+      ],
+      "id": "Marlin.G34[1]",
+      "parameters": [
+        {
+          "description": "Iterations - must be between 1 - 30",
+          "label": "[I]",
+          "optional": true,
+          "tag": "I"
+        },
+        {
+          "description": "Target accuracy - must be between 0.01 - 1.0",
+          "label": "[T]",
+          "optional": true,
+          "tag": "T"
+        },
+        {
+          "description": "Amplification - must be between 0.5 - 2.0",
+          "label": "[A]",
+          "optional": true,
+          "tag": "A"
+        },
+        {
+          "description": "Stow probe after probing each point.",
+          "label": "[E]",
+          "optional": true,
+          "tag": "E"
+        }
+      ],
+      "related": [
+        "G28",
+        "M422",
+        "M906",
+        "M907"
+      ],
+      "source": "Marlin",
+      "title": "Z Steppers Auto-Alignment",
+      "url": "https://marlinfw.org/docs/gcode/G034-zsaa"
     },
     {
       "brief": "Use multiple Z steppers and a probe to align Z axis connection points. See M422 for other options.",
@@ -23097,108 +23097,11 @@ export default const AllGcodes = {
   ],
   "M665": [
     {
-      "brief": "Set SCARA geometry values",
-      "codes": [
-        "M665"
-      ],
-      "id": "Marlin.M665[0]",
-      "parameters": [
-        {
-          "description": "Segments per second",
-          "label": "[S<segments-per-second>]",
-          "optional": true,
-          "tag": "S",
-          "values": [
-            {
-              "tag": "segments-per-second",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Theta-Psi offset, added to the shoulder (A/X) angle",
-          "label": "[P<theta-pi-offset>]",
-          "optional": true,
-          "tag": "P",
-          "values": [
-            {
-              "tag": "theta-pi-offset",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Theta offset, added to the elbow (B/Y) angle",
-          "label": "[T<theta-offset>]",
-          "optional": true,
-          "tag": "T",
-          "values": [
-            {
-              "tag": "theta-offset",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Theta-Psi offset, alias for `P`",
-          "label": "[A<theta-pi-offset>]",
-          "optional": true,
-          "tag": "A",
-          "values": [
-            {
-              "tag": "theta-pi-offset",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Theta-Psi offset, alias for `P`",
-          "label": "[X<theta-pi-offset>]",
-          "optional": true,
-          "tag": "X",
-          "values": [
-            {
-              "tag": "theta-pi-offset",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Theta offset, alias for `T`",
-          "label": "[B<theta-offset>]",
-          "optional": true,
-          "tag": "B",
-          "values": [
-            {
-              "tag": "theta-offset",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Theta offset, alias for `T`",
-          "label": "[Y<theta-offset>]",
-          "optional": true,
-          "tag": "Y",
-          "values": [
-            {
-              "tag": "theta-offset",
-              "type": "float"
-            }
-          ]
-        }
-      ],
-      "related": [],
-      "source": "Marlin",
-      "title": "SCARA Configuration",
-      "url": "https://marlinfw.org/docs/gcode/M665-scara"
-    },
-    {
       "brief": "Set delta geometry values",
       "codes": [
         "M665"
       ],
-      "id": "Marlin.M665[1]",
+      "id": "Marlin.M665[0]",
       "parameters": [
         {
           "description": "Delta height",
@@ -23318,6 +23221,103 @@ export default const AllGcodes = {
       "source": "Marlin",
       "title": "Delta Configuration",
       "url": "https://marlinfw.org/docs/gcode/M665"
+    },
+    {
+      "brief": "Set SCARA geometry values",
+      "codes": [
+        "M665"
+      ],
+      "id": "Marlin.M665[1]",
+      "parameters": [
+        {
+          "description": "Segments per second",
+          "label": "[S<segments-per-second>]",
+          "optional": true,
+          "tag": "S",
+          "values": [
+            {
+              "tag": "segments-per-second",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Theta-Psi offset, added to the shoulder (A/X) angle",
+          "label": "[P<theta-pi-offset>]",
+          "optional": true,
+          "tag": "P",
+          "values": [
+            {
+              "tag": "theta-pi-offset",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Theta offset, added to the elbow (B/Y) angle",
+          "label": "[T<theta-offset>]",
+          "optional": true,
+          "tag": "T",
+          "values": [
+            {
+              "tag": "theta-offset",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Theta-Psi offset, alias for `P`",
+          "label": "[A<theta-pi-offset>]",
+          "optional": true,
+          "tag": "A",
+          "values": [
+            {
+              "tag": "theta-pi-offset",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Theta-Psi offset, alias for `P`",
+          "label": "[X<theta-pi-offset>]",
+          "optional": true,
+          "tag": "X",
+          "values": [
+            {
+              "tag": "theta-pi-offset",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Theta offset, alias for `T`",
+          "label": "[B<theta-offset>]",
+          "optional": true,
+          "tag": "B",
+          "values": [
+            {
+              "tag": "theta-offset",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Theta offset, alias for `T`",
+          "label": "[Y<theta-offset>]",
+          "optional": true,
+          "tag": "Y",
+          "values": [
+            {
+              "tag": "theta-offset",
+              "type": "float"
+            }
+          ]
+        }
+      ],
+      "related": [],
+      "source": "Marlin",
+      "title": "SCARA Configuration",
+      "url": "https://marlinfw.org/docs/gcode/M665-scara"
     },
     {
       "brief": "",
@@ -30479,6 +30479,145 @@ export default const AllGcodes = {
     }
   ],
   "M920": [
+    {
+      "brief": "Set or report the stepper current for homing moves",
+      "codes": [
+        "M920"
+      ],
+      "id": "Marlin.M920[0]",
+      "parameters": [
+        {
+          "description": "Index for multiple steppers. (i.e., `I1` for X2, Y2, Z2; `I2` for Z3; `I3` for Z4). If omitted, all steppers for the selected axes.",
+          "label": "[I<mA>]",
+          "optional": true,
+          "tag": "I",
+          "values": [
+            {
+              "tag": "mA",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Set the Homing Current (in milliamps) for the X axis stepper driver(s).",
+          "label": "[X<mA>]",
+          "optional": true,
+          "tag": "X",
+          "values": [
+            {
+              "tag": "mA",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Set the Homing Current (in milliamps) for the Y axis stepper driver(s).",
+          "label": "[Y<mA>]",
+          "optional": true,
+          "tag": "Y",
+          "values": [
+            {
+              "tag": "mA",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Set the Homing Current (in milliamps) for the Z axis stepper driver(s).",
+          "label": "[Z<mA>]",
+          "optional": true,
+          "tag": "Z",
+          "values": [
+            {
+              "tag": "mA",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Set the Homing Current (in milliamps) for the A axis stepper driver(s).",
+          "label": "[A<mA>]",
+          "optional": true,
+          "requires": "I_DRIVER_TYPE, AXIS4_NAME 'A'",
+          "tag": "A",
+          "values": [
+            {
+              "tag": "mA",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Set the Homing Current (in milliamps) for the B axis stepper driver(s).",
+          "label": "[B<mA>]",
+          "optional": true,
+          "requires": "J_DRIVER_TYPE, AXIS5_NAME 'B'",
+          "tag": "B",
+          "values": [
+            {
+              "tag": "mA",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Set the Homing Current (in milliamps) for the C axis stepper driver(s).",
+          "label": "[C<mA>]",
+          "optional": true,
+          "requires": "K_DRIVER_TYPE, AXIS6_NAME 'C'",
+          "tag": "C",
+          "values": [
+            {
+              "tag": "mA",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Set the Homing Current (in milliamps) for the U axis stepper driver(s).",
+          "label": "[U<mA>]",
+          "optional": true,
+          "requires": "U_DRIVER_TYPE, AXIS7_NAME 'U'",
+          "tag": "U",
+          "values": [
+            {
+              "tag": "mA",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Set the Homing Current (in milliamps) for the V axis stepper driver(s).",
+          "label": "[V<mA>]",
+          "optional": true,
+          "requires": "V_DRIVER_TYPE, AXIS8_NAME 'V'",
+          "tag": "V",
+          "values": [
+            {
+              "tag": "mA",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Set the Homing Current (in milliamps) for the W axis stepper driver(s).",
+          "label": "[W<mA>]",
+          "optional": true,
+          "requires": "W_DRIVER_TYPE, AXIS9_NAME 'W'",
+          "tag": "W",
+          "values": [
+            {
+              "tag": "mA",
+              "type": "int"
+            }
+          ]
+        }
+      ],
+      "related": [],
+      "source": "Marlin",
+      "title": "TMC Homing Current",
+      "url": "https://marlinfw.org/docs/gcode/M920"
+    },
     {
       "brief": "(Does not apply to STANDALONE stepper drivers.)\nSet or report the firmware Homing Current settings for all Trinamic stepper drivers. All values are in milliamps (mA). Homing Current should be adjusted in conjunction with StallGuard Threshold and Homing Speed to achieve reliable sensorless homing. Refer to Marlin example configurations to find suitable starting values for your hardware.\nSend M920 with no parameters report the Homing Current for all axes.",
       "codes": [
