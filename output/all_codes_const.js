@@ -1,4 +1,4 @@
-const AllGcodesDate = new Date(2025, 7, 1, 15, 28, 8);
+const AllGcodesDate = new Date(2025, 8, 1, 15, 22, 41);
 const AllGcodes = {
   "ABORT": [
     {
@@ -2198,23 +2198,11 @@ const AllGcodes = {
   ],
   "G29": [
     {
-      "brief": "Probe the bed and enable leveling compensation",
-      "codes": [
-        "G29"
-      ],
-      "id": "Marlin.G29[0]",
-      "parameters": [],
-      "related": [],
-      "source": "Marlin",
-      "title": "Bed Leveling",
-      "url": "https://marlinfw.org/docs/gcode/G029"
-    },
-    {
       "brief": "Measure Z heights in a grid, enable leveling compensation",
       "codes": [
         "G29"
       ],
-      "id": "Marlin.G29[1]",
+      "id": "Marlin.G29[0]",
       "parameters": [
         {
           "description": "",
@@ -2326,7 +2314,7 @@ const AllGcodes = {
       "codes": [
         "G29"
       ],
-      "id": "Marlin.G29[2]",
+      "id": "Marlin.G29[1]",
       "parameters": [
         {
           "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
@@ -2369,46 +2357,35 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Specify X when setting a mesh value (`PROBE_MANUALLY`).",
-          "label": "[X<float>]",
+          "description": "Set the number of columns (in X) that will be probed.",
+          "label": "[X<int>]",
           "optional": true,
           "tag": "X",
           "values": [
             {
-              "type": "float"
+              "type": "int"
             }
           ]
         },
         {
-          "description": "Specify Y when setting a mesh value.",
-          "label": "[Y<float>]",
+          "description": "Set the number of rows (in Y) that will be probed.",
+          "label": "[Y<int>]",
           "optional": true,
           "tag": "Y",
           "values": [
             {
-              "type": "float"
+              "type": "int"
             }
           ]
         },
         {
-          "description": "Specify the Z offset when setting a mesh value.",
-          "label": "[Z<float>]",
+          "description": "Set the size of the square grid that will be probed - P x P points",
+          "label": "[P<int>]",
           "optional": true,
-          "tag": "Z",
+          "tag": "P",
           "values": [
             {
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Write a mesh Z offset.\n- Use `X`,`Y` or `I`,`J` to specify the point.\n- Use `Z` to specify the new value to set.\n",
-          "label": "[W<bool>]",
-          "optional": true,
-          "tag": "W",
-          "values": [
-            {
-              "type": "bool"
+              "type": "int"
             }
           ]
         },
@@ -2425,7 +2402,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "- By default G29 will engage the Z probe, test the bed, then disengage.\n- Include \"E\" to engage/disengage the Z probe for each sample.\n- There's no extra effect if you have a fixed Z probe.\n",
+          "description": "- By default G29 will engage the Z probe, test the bed, then disengage.\n- Include \"E\" to engage/disengage the Z probe for each sample.\n- There's no extra effect if you have a fixed Z probe. (without `PROBE_MANUALLY`)\n",
           "label": "[E<bool>]",
           "optional": true,
           "tag": "E",
@@ -2440,6 +2417,17 @@ const AllGcodes = {
           "label": "[D<bool>]",
           "optional": true,
           "tag": "D",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Generate a Bed Topology Report",
+          "label": "[T<bool>]",
+          "optional": true,
+          "tag": "T",
           "values": [
             {
               "type": "bool"
@@ -2507,7 +2495,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "(Without `W`) Jettison the leveling data stored in SRAM and turn off leveling compensation. Data in EEPROM is not affected.",
+          "description": "Jettison the leveling data stored in SRAM and turn off leveling compensation. Data in EEPROM is not affected.",
           "label": "[J<bool>]",
           "optional": true,
           "tag": "J",
@@ -2518,7 +2506,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Set the verbose level",
+          "description": "Set the verbose level. Level 2 and up act like 'T'.",
           "label": "[V<0-4>]",
           "optional": true,
           "tag": "V",
@@ -2531,19 +2519,18 @@ const AllGcodes = {
         }
       ],
       "related": [
-        "M420",
-        "M421"
+        "M420"
       ],
       "source": "Marlin",
-      "title": "Bed Leveling (Bilinear)",
-      "url": "https://marlinfw.org/docs/gcode/G029-abl-bilinear"
+      "title": "Bed Leveling (Linear)",
+      "url": "https://marlinfw.org/docs/gcode/G029-abl-linear"
     },
     {
       "brief": "Probe the bed and enable leveling compensation.",
       "codes": [
         "G29"
       ],
-      "id": "Marlin.G29[3]",
+      "id": "Marlin.G29[2]",
       "parameters": [
         {
           "description": "**Activate** Unified Bed Leveling (i.e., `M420 S1`)",
@@ -2842,7 +2829,7 @@ const AllGcodes = {
       "codes": [
         "G29"
       ],
-      "id": "Marlin.G29[4]",
+      "id": "Marlin.G29[3]",
       "parameters": [
         {
           "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
@@ -2942,7 +2929,7 @@ const AllGcodes = {
       "codes": [
         "G29"
       ],
-      "id": "Marlin.G29[5]",
+      "id": "Marlin.G29[4]",
       "parameters": [
         {
           "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
@@ -2985,35 +2972,46 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Set the number of columns (in X) that will be probed.",
-          "label": "[X<int>]",
+          "description": "Specify X when setting a mesh value (`PROBE_MANUALLY`).",
+          "label": "[X<float>]",
           "optional": true,
           "tag": "X",
           "values": [
             {
-              "type": "int"
+              "type": "float"
             }
           ]
         },
         {
-          "description": "Set the number of rows (in Y) that will be probed.",
-          "label": "[Y<int>]",
+          "description": "Specify Y when setting a mesh value.",
+          "label": "[Y<float>]",
           "optional": true,
           "tag": "Y",
           "values": [
             {
-              "type": "int"
+              "type": "float"
             }
           ]
         },
         {
-          "description": "Set the size of the square grid that will be probed - P x P points",
-          "label": "[P<int>]",
+          "description": "Specify the Z offset when setting a mesh value.",
+          "label": "[Z<float>]",
           "optional": true,
-          "tag": "P",
+          "tag": "Z",
           "values": [
             {
-              "type": "int"
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Write a mesh Z offset.\n- Use `X`,`Y` or `I`,`J` to specify the point.\n- Use `Z` to specify the new value to set.\n",
+          "label": "[W<bool>]",
+          "optional": true,
+          "tag": "W",
+          "values": [
+            {
+              "type": "bool"
             }
           ]
         },
@@ -3030,7 +3028,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "- By default G29 will engage the Z probe, test the bed, then disengage.\n- Include \"E\" to engage/disengage the Z probe for each sample.\n- There's no extra effect if you have a fixed Z probe. (without `PROBE_MANUALLY`)\n",
+          "description": "- By default G29 will engage the Z probe, test the bed, then disengage.\n- Include \"E\" to engage/disengage the Z probe for each sample.\n- There's no extra effect if you have a fixed Z probe.\n",
           "label": "[E<bool>]",
           "optional": true,
           "tag": "E",
@@ -3045,17 +3043,6 @@ const AllGcodes = {
           "label": "[D<bool>]",
           "optional": true,
           "tag": "D",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Generate a Bed Topology Report",
-          "label": "[T<bool>]",
-          "optional": true,
-          "tag": "T",
           "values": [
             {
               "type": "bool"
@@ -3123,7 +3110,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Jettison the leveling data stored in SRAM and turn off leveling compensation. Data in EEPROM is not affected.",
+          "description": "(Without `W`) Jettison the leveling data stored in SRAM and turn off leveling compensation. Data in EEPROM is not affected.",
           "label": "[J<bool>]",
           "optional": true,
           "tag": "J",
@@ -3134,7 +3121,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Set the verbose level. Level 2 and up act like 'T'.",
+          "description": "Set the verbose level",
           "label": "[V<0-4>]",
           "optional": true,
           "tag": "V",
@@ -3147,11 +3134,24 @@ const AllGcodes = {
         }
       ],
       "related": [
-        "M420"
+        "M420",
+        "M421"
       ],
       "source": "Marlin",
-      "title": "Bed Leveling (Linear)",
-      "url": "https://marlinfw.org/docs/gcode/G029-abl-linear"
+      "title": "Bed Leveling (Bilinear)",
+      "url": "https://marlinfw.org/docs/gcode/G029-abl-bilinear"
+    },
+    {
+      "brief": "Probe the bed and enable leveling compensation",
+      "codes": [
+        "G29"
+      ],
+      "id": "Marlin.G29[5]",
+      "parameters": [],
+      "related": [],
+      "source": "Marlin",
+      "title": "Bed Leveling",
+      "url": "https://marlinfw.org/docs/gcode/G029"
     },
     {
       "brief": "This command uses a probe to measure the bed height at 3 or more points to determine its tilt and overall flatness. It then enables compensation so that the nozzle will remain parallel to the bed. The printer must be homed with G28 before using this command.\nEach firmware behaves differently and depends on the type of bed leveling that's been configured. For example, Marlin 1.0.2 provides 3 different types of automatic bed leveling (probe required) and a manual bed leveling option. See your firmware's documentation for the specific options available.",
@@ -4141,53 +4141,11 @@ const AllGcodes = {
   ],
   "G34": [
     {
-      "brief": "Align multiple Z steppers using a bed probe",
-      "codes": [
-        "G34"
-      ],
-      "id": "Marlin.G34[0]",
-      "parameters": [
-        {
-          "description": "Iterations - must be between 1 - 30",
-          "label": "[I]",
-          "optional": true,
-          "tag": "I"
-        },
-        {
-          "description": "Target accuracy - must be between 0.01 - 1.0",
-          "label": "[T]",
-          "optional": true,
-          "tag": "T"
-        },
-        {
-          "description": "Amplification - must be between 0.5 - 2.0",
-          "label": "[A]",
-          "optional": true,
-          "tag": "A"
-        },
-        {
-          "description": "Stow probe after probing each point.",
-          "label": "[E]",
-          "optional": true,
-          "tag": "E"
-        }
-      ],
-      "related": [
-        "G28",
-        "M422",
-        "M906",
-        "M907"
-      ],
-      "source": "Marlin",
-      "title": "Z Steppers Auto-Alignment",
-      "url": "https://marlinfw.org/docs/gcode/G034-zsaa"
-    },
-    {
       "brief": "Modern replacement for Pr\u016f\u0161a's TMC_Z_CALIBRATION",
       "codes": [
         "G34"
       ],
-      "id": "Marlin.G34[1]",
+      "id": "Marlin.G34[0]",
       "parameters": [
         {
           "description": "Current value to use for the raise move. (Default: `GANTRY_CALIBRATION_CURRENT`)",
@@ -4223,6 +4181,48 @@ const AllGcodes = {
       "source": "Marlin",
       "title": "Mechanical Gantry Calibration",
       "url": "https://marlinfw.org/docs/gcode/G034-mgc"
+    },
+    {
+      "brief": "Align multiple Z steppers using a bed probe",
+      "codes": [
+        "G34"
+      ],
+      "id": "Marlin.G34[1]",
+      "parameters": [
+        {
+          "description": "Iterations - must be between 1 - 30",
+          "label": "[I]",
+          "optional": true,
+          "tag": "I"
+        },
+        {
+          "description": "Target accuracy - must be between 0.01 - 1.0",
+          "label": "[T]",
+          "optional": true,
+          "tag": "T"
+        },
+        {
+          "description": "Amplification - must be between 0.5 - 2.0",
+          "label": "[A]",
+          "optional": true,
+          "tag": "A"
+        },
+        {
+          "description": "Stow probe after probing each point.",
+          "label": "[E]",
+          "optional": true,
+          "tag": "E"
+        }
+      ],
+      "related": [
+        "G28",
+        "M422",
+        "M906",
+        "M907"
+      ],
+      "source": "Marlin",
+      "title": "Z Steppers Auto-Alignment",
+      "url": "https://marlinfw.org/docs/gcode/G034-zsaa"
     },
     {
       "brief": "Use multiple Z steppers and a probe to align Z axis connection points. See M422 for other options.",
@@ -23412,60 +23412,11 @@ const AllGcodes = {
   ],
   "M666": [
     {
-      "brief": "Set Delta endstop adjustments",
-      "codes": [
-        "M666"
-      ],
-      "id": "Marlin.M666[0]",
-      "parameters": [
-        {
-          "description": "Adjustment for the X actuator endstop",
-          "label": "[X<adj>]",
-          "optional": true,
-          "tag": "X",
-          "values": [
-            {
-              "tag": "adj",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Adjustment for the Y actuator endstop",
-          "label": "[Y<adj>]",
-          "optional": true,
-          "tag": "Y",
-          "values": [
-            {
-              "tag": "adj",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Adjustment for the Z actuator endstop",
-          "label": "[Z<adj>]",
-          "optional": true,
-          "tag": "Z",
-          "values": [
-            {
-              "tag": "adj",
-              "type": "float"
-            }
-          ]
-        }
-      ],
-      "related": [],
-      "source": "Marlin",
-      "title": "Set Delta endstop adjustments",
-      "url": "https://marlinfw.org/docs/gcode/M666"
-    },
-    {
       "brief": "Set dual endstop offsets",
       "codes": [
         "M666"
       ],
-      "id": "Marlin.M666[1]",
+      "id": "Marlin.M666[0]",
       "parameters": [
         {
           "description": "Offset for the X axis endstops",
@@ -23508,6 +23459,55 @@ const AllGcodes = {
       "source": "Marlin",
       "title": "Set dual endstop offsets",
       "url": "https://marlinfw.org/docs/gcode/M666-dual"
+    },
+    {
+      "brief": "Set Delta endstop adjustments",
+      "codes": [
+        "M666"
+      ],
+      "id": "Marlin.M666[1]",
+      "parameters": [
+        {
+          "description": "Adjustment for the X actuator endstop",
+          "label": "[X<adj>]",
+          "optional": true,
+          "tag": "X",
+          "values": [
+            {
+              "tag": "adj",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Adjustment for the Y actuator endstop",
+          "label": "[Y<adj>]",
+          "optional": true,
+          "tag": "Y",
+          "values": [
+            {
+              "tag": "adj",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Adjustment for the Z actuator endstop",
+          "label": "[Z<adj>]",
+          "optional": true,
+          "tag": "Z",
+          "values": [
+            {
+              "tag": "adj",
+              "type": "float"
+            }
+          ]
+        }
+      ],
+      "related": [],
+      "source": "Marlin",
+      "title": "Set Delta endstop adjustments",
+      "url": "https://marlinfw.org/docs/gcode/M666"
     },
     {
       "brief": "",
