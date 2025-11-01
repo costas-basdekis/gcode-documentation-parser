@@ -1,4 +1,4 @@
-const AllGcodesDate = new Date(2025, 9, 1, 15, 23, 5);
+const AllGcodesDate = new Date(2025, 10, 1, 15, 19, 58);
 const AllGcodes = {
   "ABORT": [
     {
@@ -220,7 +220,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Set the requested movement rate for this move and any following moves. As with other `rate` parameters this value is specified in current units per minute.\n\nBy default this feedrate is interpreted according to the specification for LinuxCNC default state (trivial kinematics, `CANON_XYZ` feed reference mode, Units-Per-Minute mode). For details, refer to the LinuxCNC documentation (https://linuxcnc.org/docs/html/gcode/machining-center.html#sub:feed-rate).\n",
+          "description": "Set the requested movement rate for this move and any following moves. As with other `rate` parameters this value is specified in current units per minute.\n\nBy default this feedrate is interpreted according to the specification for LinuxCNC default state (trivial kinematics, `CANON_XYZ` feed reference mode, Units-Per-Minute mode). For details, refer to the [LinuxCNC documentation](//linuxcnc.org/docs/html/gcode/machining-center.html#sub:feed-rate).\n",
           "label": "[F<rate>]",
           "optional": true,
           "tag": "F",
@@ -519,7 +519,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Set the requested movement rate for this move and any following moves. As with other `rate` parameters this value is specified in current units per minute.\n\nBy default this feedrate is interpreted according to the specification for LinuxCNC default state (trivial kinematics, `CANON_XYZ` feed reference mode, Units-Per-Minute mode). For details, refer to the LinuxCNC documentation (https://linuxcnc.org/docs/html/gcode/machining-center.html#sub:feed-rate).\n",
+          "description": "Set the requested movement rate for this move and any following moves. As with other `rate` parameters this value is specified in current units per minute.\n\nBy default this feedrate is interpreted according to the specification for LinuxCNC default state (trivial kinematics, `CANON_XYZ` feed reference mode, Units-Per-Minute mode). For details, refer to the [LinuxCNC documentation](//linuxcnc.org/docs/html/gcode/machining-center.html#sub:feed-rate).\n",
           "label": "[F<rate>]",
           "optional": true,
           "tag": "F",
@@ -649,9 +649,10 @@ const AllGcodes = {
       "id": "Marlin.G10[0]",
       "parameters": [
         {
-          "description": "Use `G10 S1` to do a swap retraction, before changing extruders. The subsequent [`G11`](/docs/gcode/G011.html) (after tool change) will do a swap recover. (Requires `EXTRUDERS` > 1)",
+          "description": "Use `G10 S1` to do a swap retraction, before changing extruders. The subsequent [`G11`](/docs/gcode/G011.html) (after tool change) will do a swap recover.",
           "label": "[S<bool>]",
           "optional": true,
+          "requires": "EXTRUDERS > 1",
           "tag": "S",
           "values": [
             {
@@ -920,36 +921,24 @@ const AllGcodes = {
         },
         {
           "description": "Include X motion when cleaning with limited axes. (Leave out `X`, `Y`, and `Z` for non-limited cleaning.)",
-          "label": "[X<flag>]",
+          "label": "[X]",
           "optional": true,
           "tag": "X",
-          "values": [
-            {
-              "type": "flag"
-            }
-          ]
+          "type": "flag"
         },
         {
           "description": "Include Y motion when cleaning with limited axes. (Leave out `X`, `Y`, and `Z` for non-limited cleaning.)",
-          "label": "[Y<flag>]",
+          "label": "[Y]",
           "optional": true,
           "tag": "Y",
-          "values": [
-            {
-              "type": "flag"
-            }
-          ]
+          "type": "flag"
         },
         {
           "description": "Include Z motion when cleaning with limited axes. (Leave out `X`, `Y`, and `Z` for non-limited cleaning.)",
-          "label": "[Z<flag>]",
+          "label": "[Z]",
           "optional": true,
           "tag": "Z",
-          "values": [
-            {
-              "type": "flag"
-            }
-          ]
+          "type": "flag"
         }
       ],
       "related": [],
@@ -1438,9 +1427,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Specify complete circles. (Requires `ARC_P_CIRCLES`)",
+          "description": "Specify complete circles.",
           "label": "[P<count>]",
           "optional": true,
+          "requires": "ARC_P_CIRCLES",
           "tag": "P",
           "values": [
             {
@@ -1663,14 +1653,10 @@ const AllGcodes = {
         },
         {
           "description": "Disable leveling compensation (otherwise, enable)",
-          "label": "[D<flag>]",
+          "label": "[D]",
           "optional": true,
           "tag": "D",
-          "values": [
-            {
-              "type": "flag"
-            }
-          ]
+          "type": "flag"
         },
         {
           "description": "Filament diameter (otherwise 1.75mm)",
@@ -1995,11 +1981,23 @@ const AllGcodes = {
       "id": "Marlin.G28[0]",
       "parameters": [
         {
-          "description": "Flag to restore bed leveling state after homing. (default `true`)",
-          "label": "[L]",
+          "description": "Flag to hold the current X/Y position. Otherwise move to the defined safe X/Y position before homing Z. This can be used to avoid a model.",
+          "label": "[H]",
+          "optional": true,
+          "requires": "Z_SAFE_HOMING",
+          "tag": "H",
+          "type": "flag"
+        },
+        {
+          "description": "Flag to restore bed leveling state after homing. (Default `true`)",
+          "label": "[L<bool>]",
           "optional": true,
           "tag": "L",
-          "type": "flag"
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
         },
         {
           "description": "Flag to skip homing if the position is already trusted",
@@ -2011,11 +2009,16 @@ const AllGcodes = {
         },
         {
           "description": "The distance to raise the nozzle before homing",
-          "label": "[R]",
+          "label": "[R<linear>]",
           "optional": true,
           "since": "1.1.9",
           "tag": "R",
-          "type": "float"
+          "values": [
+            {
+              "tag": "linear",
+              "type": "float"
+            }
+          ]
         },
         {
           "description": "Flag to home the X axis",
@@ -2045,7 +2048,7 @@ const AllGcodes = {
           "requires": "I_DRIVER_TYPE, AXIS4_NAME 'A'",
           "since": "2.0.9",
           "tag": "A",
-          "type": "bool"
+          "type": "flag"
         },
         {
           "description": "Flag to home the B axis",
@@ -2054,7 +2057,7 @@ const AllGcodes = {
           "requires": "J_DRIVER_TYPE, AXIS5_NAME 'B'",
           "since": "2.0.9",
           "tag": "B",
-          "type": "bool"
+          "type": "flag"
         },
         {
           "description": "Flag to home the C axis",
@@ -2063,7 +2066,7 @@ const AllGcodes = {
           "requires": "K_DRIVER_TYPE, AXIS6_NAME 'C'",
           "since": "2.0.9",
           "tag": "C",
-          "type": "bool"
+          "type": "flag"
         },
         {
           "description": "Flag to home the U axis",
@@ -2072,7 +2075,7 @@ const AllGcodes = {
           "requires": "U_DRIVER_TYPE, AXIS7_NAME 'U'",
           "since": 2.1,
           "tag": "U",
-          "type": "bool"
+          "type": "flag"
         },
         {
           "description": "Flag to home the V axis",
@@ -2081,7 +2084,7 @@ const AllGcodes = {
           "requires": "V_DRIVER_TYPE, AXIS8_NAME 'V'",
           "since": 2.1,
           "tag": "V",
-          "type": "bool"
+          "type": "flag"
         },
         {
           "description": "Flag to home the W axis",
@@ -2090,7 +2093,7 @@ const AllGcodes = {
           "requires": "W_DRIVER_TYPE, AXIS9_NAME 'W'",
           "since": 2.1,
           "tag": "W",
-          "type": "bool"
+          "type": "flag"
         }
       ],
       "related": [],
@@ -2841,7 +2844,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "**Kompare**: Subtract (diff) the stored mesh with this index from the current mesh. This destructively operates on the active mesh, and the result should not be used for printing. (Requires `UBL_DEVEL_DEBUGGING`)",
+          "description": "**Kompare**: Subtract (diff) the stored mesh with this index from the current mesh. This destructively operates on the active mesh, and the result should not be used for printing.",
           "label": "[K<int>]",
           "optional": true,
           "requires": "UBL_DEVEL_DEBUGGING",
@@ -2937,15 +2940,17 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "**Topology**: Include a Topology Map in the output.\n- This parameter can be used alone (`G29 T`) or in combination with most of the other commands.\n- This option works with all Phase commands (_e.g.,_ `G29 P4 R 5 T X 50 Y100 C-0.1 O`)\n- A map type can also be specified:\n  - `T0`: Human-readable (the default)\n  - `T1`: Delimited. Suitable to paste into a spreadsheet to obtain a 3D graph of the mesh.\n",
+          "description": "**Topology**: Include a Topology Map in the output in one of two styles.\n- This parameter can be used alone (`G29 T`) or in combination with most of the other commands.\n- This option works with all Phase commands (_e.g.,_ `G29 P4 R 5 T X 50 Y100 C-0.1 O`)\n",
           "label": "[T<0|1>]",
           "optional": true,
           "tag": "T",
           "values": [
             {
+              "description": "Human-readable (the default)",
               "tag": 0
             },
             {
+              "description": "Delimited. Suitable to paste into a spreadsheet to obtain a 3D graph of the mesh.",
               "tag": 1
             }
           ]
@@ -2985,7 +2990,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "**_What?_**: Display valuable UBL data. (Requires `UBL_DEVEL_DEBUGGING`)",
+          "description": "**_What?_**: Display valuable UBL data.",
           "label": "[W<flag>]",
           "optional": true,
           "requires": "UBL_DEVEL_DEBUGGING",
@@ -3528,9 +3533,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Specify complete circles. (Requires `ARC_P_CIRCLES`)",
+          "description": "Specify complete circles.",
           "label": "[P<count>]",
           "optional": true,
+          "requires": "ARC_P_CIRCLES",
           "tag": "P",
           "values": [
             {
@@ -3900,7 +3906,7 @@ const AllGcodes = {
       "id": "Marlin.G33[0]",
       "parameters": [
         {
-          "description": "If omitted iterations stop at best achievable precision. If set iterations will stop at the set precision.",
+          "description": "Calibration precision. When set, iterations will stop at the given precision. Otherwise iterations will stop at the best achievable precision.",
           "label": "[C<float>]",
           "optional": true,
           "tag": "C",
@@ -3923,12 +3929,13 @@ const AllGcodes = {
         },
         {
           "description": "Run (\"force\") this number of iterations and take the best result.",
-          "label": "[F<1-30>]",
+          "label": "[F<0-30>]",
           "optional": true,
           "tag": "F",
           "values": [
             {
-              "tag": "1-30",
+              "default": 0,
+              "tag": "0-30",
               "type": "int"
             }
           ]
@@ -4028,6 +4035,34 @@ const AllGcodes = {
               "type": "float"
             }
           ]
+        },
+        {
+          "description": "Save `offset_sensorless_adj`.",
+          "label": "[S]",
+          "optional": true,
+          "requires": "HAS_DELTA_SENSORLESS_PROBING",
+          "tag": "S"
+        },
+        {
+          "description": "Don't activate stallguard on X.",
+          "label": "[X]",
+          "optional": true,
+          "requires": "HAS_DELTA_SENSORLESS_PROBING",
+          "tag": "X"
+        },
+        {
+          "description": "Don't activate stallguard on Y.",
+          "label": "[Y]",
+          "optional": true,
+          "requires": "HAS_DELTA_SENSORLESS_PROBING",
+          "tag": "Y"
+        },
+        {
+          "description": "Don't activate stallguard on Z.",
+          "label": "[Z]",
+          "optional": true,
+          "requires": "HAS_DELTA_SENSORLESS_PROBING",
+          "tag": "Z"
         }
       ],
       "related": [],
@@ -4148,7 +4183,7 @@ const AllGcodes = {
       "id": "Marlin.G34[0]",
       "parameters": [
         {
-          "description": "Current value to use for the raise move. (Default: `GANTRY_CALIBRATION_CURRENT`)",
+          "description": "Current value to use for the raise move.<br/>(Default: `GANTRY_CALIBRATION_CURRENT`)",
           "label": "[S<int>]",
           "optional": true,
           "tag": "S",
@@ -4160,7 +4195,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Extra distance past `Z_MAX_POS` to move the Z axis. (Default: `GANTRY_CALIBRATION_EXTRA_HEIGHT`)",
+          "description": "Extra distance past `Z_MAX_POS` to move the Z axis.<br/>(Default: `GANTRY_CALIBRATION_EXTRA_HEIGHT`)",
           "label": "[Z<float>]",
           "optional": true,
           "tag": "Z",
@@ -4190,32 +4225,89 @@ const AllGcodes = {
       "id": "Marlin.G34[1]",
       "parameters": [
         {
-          "description": "Iterations - must be between 1 - 30",
-          "label": "[I]",
+          "description": "Unlock all Z stepper motors.",
+          "label": "[L]",
           "optional": true,
-          "tag": "I"
+          "tag": "L"
+        },
+        {
+          "description": "Target specific Z stepper to lock/unlock (1-4).",
+          "label": "[Z<1-4>]",
+          "optional": true,
+          "tag": "Z",
+          "values": [
+            {
+              "tag": "1-4",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "description": "Lock state; 0=UNLOCKED 1=LOCKED. If omitted, assume LOCKED.",
+          "label": "[S<bool>]",
+          "optional": true,
+          "tag": "S",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Iterations - must be between 1 - 30",
+          "label": "[I<1-30>]",
+          "optional": true,
+          "tag": "I",
+          "values": [
+            {
+              "tag": "1-30",
+              "type": "linear"
+            }
+          ]
         },
         {
           "description": "Target accuracy - must be between 0.01 - 1.0",
-          "label": "[T]",
+          "label": "[T<0.01-1.0>]",
           "optional": true,
-          "tag": "T"
+          "tag": "T",
+          "values": [
+            {
+              "tag": "0.01-1.0",
+              "type": "float"
+            }
+          ]
         },
         {
           "description": "Amplification - must be between 0.5 - 2.0",
-          "label": "[A]",
+          "label": "[A<0.5-2.0>]",
           "optional": true,
-          "tag": "A"
+          "tag": "A",
+          "values": [
+            {
+              "tag": "0.5-2.0",
+              "type": "float"
+            }
+          ]
         },
         {
           "description": "Stow probe after probing each point.",
-          "label": "[E]",
+          "label": "[E<bool>]",
           "optional": true,
-          "tag": "E"
+          "tag": "E",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Recalculate points based on current probe offsets.",
+          "label": "[R]",
+          "optional": true,
+          "tag": "R"
         }
       ],
       "related": [
-        "G28",
         "M422",
         "M906",
         "M907"
@@ -4872,9 +4964,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Probe cube and print position, error, backlash and hotend offset. (Requires `CALIBRATION_REPORTING`)",
+          "description": "Probe cube and print position, error, backlash and hotend offset.",
           "label": "[V]",
           "optional": true,
+          "requires": "CALIBRATION_REPORTING",
           "tag": "V"
         },
         {
@@ -5071,7 +5164,18 @@ const AllGcodes = {
       ],
       "id": "Marlin.G53[0]",
       "parameters": [],
-      "related": [],
+      "related": [
+        "G54",
+        "G55",
+        "G56",
+        "G57",
+        "G58",
+        "G59",
+        "G59.1",
+        "G59.2",
+        "G59.3",
+        "G92"
+      ],
       "source": "Marlin",
       "title": "Move in Machine Coordinates",
       "url": "https://marlinfw.org/docs/gcode/G053"
@@ -5112,10 +5216,11 @@ const AllGcodes = {
       "id": "Marlin.G54[0]",
       "parameters": [],
       "related": [
+        "G53",
         "G92"
       ],
       "source": "Marlin",
-      "title": "Workspace Coordinate System",
+      "title": "Select Workspace",
       "url": "https://marlinfw.org/docs/gcode/G054-G059"
     },
     {
@@ -5154,10 +5259,11 @@ const AllGcodes = {
       "id": "Marlin.G55[0]",
       "parameters": [],
       "related": [
+        "G53",
         "G92"
       ],
       "source": "Marlin",
-      "title": "Workspace Coordinate System",
+      "title": "Select Workspace",
       "url": "https://marlinfw.org/docs/gcode/G054-G059"
     },
     {
@@ -5196,10 +5302,11 @@ const AllGcodes = {
       "id": "Marlin.G56[0]",
       "parameters": [],
       "related": [
+        "G53",
         "G92"
       ],
       "source": "Marlin",
-      "title": "Workspace Coordinate System",
+      "title": "Select Workspace",
       "url": "https://marlinfw.org/docs/gcode/G054-G059"
     },
     {
@@ -5238,10 +5345,11 @@ const AllGcodes = {
       "id": "Marlin.G57[0]",
       "parameters": [],
       "related": [
+        "G53",
         "G92"
       ],
       "source": "Marlin",
-      "title": "Workspace Coordinate System",
+      "title": "Select Workspace",
       "url": "https://marlinfw.org/docs/gcode/G054-G059"
     },
     {
@@ -5280,10 +5388,11 @@ const AllGcodes = {
       "id": "Marlin.G58[0]",
       "parameters": [],
       "related": [
+        "G53",
         "G92"
       ],
       "source": "Marlin",
-      "title": "Workspace Coordinate System",
+      "title": "Select Workspace",
       "url": "https://marlinfw.org/docs/gcode/G054-G059"
     },
     {
@@ -5322,10 +5431,11 @@ const AllGcodes = {
       "id": "Marlin.G59[0]",
       "parameters": [],
       "related": [
+        "G53",
         "G92"
       ],
       "source": "Marlin",
-      "title": "Workspace Coordinate System",
+      "title": "Select Workspace",
       "url": "https://marlinfw.org/docs/gcode/G054-G059"
     },
     {
@@ -5364,10 +5474,11 @@ const AllGcodes = {
       "id": "Marlin.G59.1[0]",
       "parameters": [],
       "related": [
+        "G53",
         "G92"
       ],
       "source": "Marlin",
-      "title": "Workspace Coordinate System",
+      "title": "Select Workspace",
       "url": "https://marlinfw.org/docs/gcode/G054-G059"
     }
   ],
@@ -5388,10 +5499,11 @@ const AllGcodes = {
       "id": "Marlin.G59.2[0]",
       "parameters": [],
       "related": [
+        "G53",
         "G92"
       ],
       "source": "Marlin",
-      "title": "Workspace Coordinate System",
+      "title": "Select Workspace",
       "url": "https://marlinfw.org/docs/gcode/G054-G059"
     }
   ],
@@ -5412,10 +5524,11 @@ const AllGcodes = {
       "id": "Marlin.G59.3[0]",
       "parameters": [],
       "related": [
+        "G53",
         "G92"
       ],
       "source": "Marlin",
-      "title": "Workspace Coordinate System",
+      "title": "Select Workspace",
       "url": "https://marlinfw.org/docs/gcode/G054-G059"
     }
   ],
@@ -7124,7 +7237,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Target temperature.<br/>`AUTOTEMP`: the min auto-temperature.",
+          "description": "Target temperature.<br/>With `AUTOTEMP` this also sets the min auto-temperature.",
           "label": "[S<temp>]",
           "optional": true,
           "tag": "S",
@@ -7136,21 +7249,23 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "`AUTOTEMP`: Autotemp flag. Omit to disable autotemp.",
-          "label": "[F<flag>]",
+          "description": "Autotemp factor. If omitted, uses `AUTOTEMP_FACTOR_P`.<br/>With `AUTOTEMP_PROPORTIONAL` enabled `F0` disables autotemp.",
+          "label": "[F<factor>]",
           "optional": true,
+          "requires": "AUTOTEMP",
           "tag": "F",
           "values": [
             {
-              "tag": "flag",
-              "type": "bool"
+              "tag": "factor",
+              "type": "float"
             }
           ]
         },
         {
-          "description": "`AUTOTEMP`: The max auto-temperature.",
+          "description": "Maximum auto-temperature",
           "label": "[B<temp>]",
           "optional": true,
+          "requires": "AUTOTEMP",
           "tag": "B",
           "values": [
             {
@@ -7370,7 +7485,7 @@ const AllGcodes = {
           "values": [
             {
               "tag": "speed",
-              "type": "byte"
+              "type": "int"
             }
           ]
         },
@@ -7387,14 +7502,25 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Secondary speed. Added in Marlin 1.1.7. (Requires `EXTRA_FAN_SPEED`)\n- `M106 P<fan> T3-255` sets a secondary speed for `<fan>`.\n- `M106 P<fan> T2` uses the set secondary speed.\n- `M106 P<fan> T1` restores the previous fan speed.\n",
-          "label": "[T<secondary>]",
+          "description": "Secondary speed for the given fan.",
+          "label": "[T<1|2|3-255>]",
           "optional": true,
+          "requires": "EXTRA_FAN_SPEED",
+          "since": "1.1.7",
           "tag": "T",
+          "type": "int",
           "values": [
             {
-              "tag": "secondary",
-              "type": "int"
+              "description": "Use the Secondary Speed set for the given fan.",
+              "tag": 1
+            },
+            {
+              "description": "After `T1` Restore the speed for the given fan.",
+              "tag": 2
+            },
+            {
+              "description": "Set a Secondary Speed for the given fan.",
+              "tag": "3-255"
             }
           ]
         }
@@ -7598,7 +7724,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Target temperature (wait only when heating). Also `AUTOTEMP`: The min auto-temperature.",
+          "description": "Target temperature (wait only when heating).<br/>With `AUTOTEMP` this also sets the min auto-temperature.",
           "label": "[S<temp>]",
           "optional": true,
           "tag": "S",
@@ -7622,21 +7748,23 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Autotemp flag. Omit to disable autotemp.",
-          "label": "[F<flag>]",
+          "description": "Autotemp factor. If omitted, uses `AUTOTEMP_FACTOR_P`.<br/>With `AUTOTEMP_PROPORTIONAL` enabled `F0` disables autotemp.",
+          "label": "[F<factor>]",
           "optional": true,
+          "requires": "AUTOTEMP",
           "tag": "F",
           "values": [
             {
-              "tag": "flag",
-              "type": "bool"
+              "tag": "factor",
+              "type": "float"
             }
           ]
         },
         {
-          "description": "With `AUTOTEMP`, the max auto-temperature.",
+          "description": "Maximum auto-temperature",
           "label": "[B<temp>]",
           "optional": true,
+          "requires": "AUTOTEMP",
           "tag": "B",
           "values": [
             {
@@ -7859,14 +7987,14 @@ const AllGcodes = {
       "id": "Marlin.M111[0]",
       "parameters": [
         {
-          "description": "Debug flag bits",
+          "description": "Debug flag bits. Add up the bits from the table.",
           "label": "[S<flags>]",
           "optional": true,
           "tag": "S",
           "values": [
             {
               "tag": "flags",
-              "type": "byte"
+              "type": "int"
             }
           ]
         }
@@ -8046,9 +8174,10 @@ const AllGcodes = {
       "id": "Marlin.M114[0]",
       "parameters": [
         {
-          "description": "Detailed information (requires `M114_DETAIL`)",
+          "description": "Report detailed information",
           "label": "[D<flag>]",
           "optional": true,
+          "requires": "M114_DETAIL",
           "tag": "D",
           "values": [
             {
@@ -8057,9 +8186,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Report E stepper position (requires `M114_DETAIL`)",
+          "description": "Report E stepper position",
           "label": "[E<flag>]",
           "optional": true,
+          "requires": "M114_DETAIL",
           "tag": "E",
           "values": [
             {
@@ -8068,9 +8198,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Real position information (requires `M114_REALTIME`)",
+          "description": "Report real position information",
           "label": "[R<flag>]",
           "optional": true,
+          "requires": "M114_REALTIME",
           "tag": "R",
           "values": [
             {
@@ -8514,46 +8645,56 @@ const AllGcodes = {
           "label": "[I]",
           "optional": true,
           "since": "2.0.6",
-          "tag": "I"
+          "tag": "I",
+          "type": "flag"
         },
         {
           "description": "Target X driver(s) only.",
           "label": "[X]",
           "optional": true,
-          "tag": "X"
+          "tag": "X",
+          "type": "flag"
         },
         {
           "description": "Target Y driver(s) only.",
           "label": "[Y]",
           "optional": true,
-          "tag": "Y"
+          "tag": "Y",
+          "type": "flag"
         },
         {
           "description": "Target Z driver(s) only.",
           "label": "[Z]",
           "optional": true,
-          "tag": "Z"
+          "tag": "Z",
+          "type": "flag"
         },
         {
           "description": "Target E driver(s) only.",
           "label": "[E]",
           "optional": true,
-          "tag": "E"
+          "tag": "E",
+          "type": "flag"
         },
         {
           "description": "Report raw register data. Refer to the datasheet to decipher the report.",
           "label": "[V]",
           "optional": true,
           "requires": "TMC_DEBUG",
-          "tag": "V"
+          "tag": "V",
+          "type": "flag"
         },
         {
           "description": "Flag to enable/disable continuous debug reporting.",
-          "label": "[S]",
+          "label": "[S<bool>]",
           "optional": true,
           "requires": "TMC_DEBUG, MONITOR_DRIVER_STATUS",
           "tag": "S",
-          "type": "bool"
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
         },
         {
           "description": "Interval between continuous debug reports, in milliseconds.",
@@ -8976,7 +9117,7 @@ const AllGcodes = {
           "values": [
             {
               "tag": "pressure",
-              "type": "byte"
+              "type": "int"
             }
           ]
         }
@@ -9073,7 +9214,7 @@ const AllGcodes = {
           "values": [
             {
               "tag": "pressure",
-              "type": "byte"
+              "type": "int"
             }
           ]
         }
@@ -9750,7 +9891,7 @@ const AllGcodes = {
           "values": [
             {
               "tag": "speed",
-              "type": "byte"
+              "type": "int"
             }
           ]
         }
@@ -9840,7 +9981,7 @@ const AllGcodes = {
       ],
       "related": [],
       "source": "Marlin",
-      "title": "Temperature Units",
+      "title": "Set Temperature Units",
       "url": "https://marlinfw.org/docs/gcode/M149"
     },
     {
@@ -9887,7 +10028,7 @@ const AllGcodes = {
           "values": [
             {
               "tag": "intensity",
-              "type": "byte"
+              "type": "int"
             }
           ]
         },
@@ -9899,7 +10040,7 @@ const AllGcodes = {
           "values": [
             {
               "tag": "intensity",
-              "type": "byte"
+              "type": "int"
             }
           ]
         },
@@ -9911,24 +10052,25 @@ const AllGcodes = {
           "values": [
             {
               "tag": "intensity",
-              "type": "byte"
+              "type": "int"
             }
           ]
         },
         {
-          "description": "White component from 0 to 255 (`RGBW_LED` or `NEOPIXEL_LED` only)",
+          "description": "White component from 0 to 255",
           "label": "[W<intensity>]",
           "optional": true,
+          "requires": "RGBW_LED | NEOPIXEL_LED",
           "tag": "W",
           "values": [
             {
               "tag": "intensity",
-              "type": "byte"
+              "type": "int"
             }
           ]
         },
         {
-          "description": "Brightness from 0 to 255 (Requires `NEOPIXEL_LED`)",
+          "description": "Brightness from 0 to 255",
           "label": "[P<intensity>]",
           "optional": true,
           "requires": "NEOPIXEL_LED",
@@ -9936,12 +10078,12 @@ const AllGcodes = {
           "values": [
             {
               "tag": "intensity",
-              "type": "byte"
+              "type": "int"
             }
           ]
         },
         {
-          "description": "NeoPixel pixel index (0 .. pixels-1) (Requires `NEOPIXEL_LED`)",
+          "description": "NeoPixel pixel index (0 .. pixels-1)",
           "label": "[I<pixel>]",
           "optional": true,
           "requires": "NEOPIXEL_LED",
@@ -9955,7 +10097,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "NeoPixel strip index (0 or 1) (Requires `NEOPIXEL2_SEPARATE`)",
+          "description": "NeoPixel strip index (0 or 1)",
           "label": "[S<strip>]",
           "optional": true,
           "requires": "NEOPIXEL2_SEPARATE",
@@ -9969,16 +10111,12 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Keep all unspecified values unchanged (Requires `NEOPIXEL_LED`)",
-          "label": "[K<flag>]",
+          "description": "Keep all unspecified values unchanged",
+          "label": "[K]",
           "optional": true,
           "requires": "NEOPIXEL_LED",
           "tag": "K",
-          "values": [
-            {
-              "type": "flag"
-            }
-          ]
+          "type": "flag"
         }
       ],
       "related": [],
@@ -10516,7 +10654,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Enable / disable the gradient in manual mode. When using the tool index alias, tool-change commands determine whether or not the gradient is enabled.",
+          "description": "Enable/disable the gradient in manual mode. When using the tool index alias, tool-change commands determine whether or not the gradient is enabled.",
           "label": "[S<enable>]",
           "optional": true,
           "tag": "S",
@@ -11167,9 +11305,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Set volumetric extruder limit (in mm<sup>3</sup>/sec). `L0` disables the limit. (Requires `VOLUMETRIC_EXTRUDER_LIMIT`.)",
+          "description": "Set volumetric extruder limit (in mm<sup>3</sup>/sec). Use `L0` for No Limit.",
           "label": "[L<volume>]",
           "optional": true,
+          "requires": "VOLUMETRIC_EXTRUDER_LIMIT",
           "tag": "L",
           "values": [
             {
@@ -11179,14 +11318,19 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "0 to disable volumetric extrusion mode, otherwise volumetric is enabled.",
-          "label": "[S<flag>]",
+          "description": "Volumetric Extrusion On/Off",
+          "label": "[S<0|1>]",
           "optional": true,
           "tag": "S",
+          "type": "bool",
           "values": [
             {
-              "tag": "flag",
-              "type": "bool"
+              "description": "Disable Volumetric Extrusion",
+              "tag": 0
+            },
+            {
+              "description": "Enable Volumetric Extrusion",
+              "tag": 1
             }
           ]
         },
@@ -11278,9 +11422,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Target extruder (Requires `DISTINCT_E_FACTORS`)",
+          "description": "Target extruder",
           "label": "[T<index>]",
           "optional": true,
+          "requires": "DISTINCT_E_FACTORS",
           "tag": "T",
           "values": [
             {
@@ -11290,21 +11435,23 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Planner frequency limit (Requires `XY_FREQUENCY_LIMIT`). This value determines the maximum frequency of direction changes for the X and Y axes.",
+          "description": "Planner frequency limit. The max frequency of direction changes for the XY axes.",
           "label": "[F<Hz>]",
           "optional": true,
+          "requires": "XY_FREQUENCY_LIMIT",
           "tag": "F",
           "values": [
             {
               "tag": "Hz",
-              "type": "byte"
+              "type": "int"
             }
           ]
         },
         {
-          "description": "Planner XY frequency minimum speed percentage (Requires `XY_FREQUENCY_LIMIT`). This value determines the minimum speed reduction that will be applied in response to exceeding the frequency limit.",
+          "description": "Planner XY frequency minimum speed percentage. The min speed reduction to apply when the frequency limit is exceeded.",
           "label": "[S<percent>]",
           "optional": true,
+          "requires": "XY_FREQUENCY_LIMIT",
           "tag": "S",
           "values": [
             {
@@ -11477,9 +11624,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Target extruder (Requires `DISTINCT_E_FACTORS`)",
+          "description": "Target extruder",
           "label": "[T<index>]",
           "optional": true,
+          "requires": "DISTINCT_E_FACTORS",
           "tag": "T",
           "values": [
             {
@@ -11814,9 +11962,10 @@ const AllGcodes = {
       "id": "Marlin.M206[0]",
       "parameters": [
         {
-          "description": "SCARA Psi offset (Requires `MORGAN_SCARA`)",
+          "description": "SCARA Psi offset",
           "label": "[P<offset>]",
           "optional": true,
+          "requires": "MORGAN_SCARA",
           "tag": "P",
           "values": [
             {
@@ -11826,9 +11975,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "SCARA Theta offset (Requires `MORGAN_SCARA`)",
+          "description": "SCARA Theta offset",
           "label": "[T<offset>]",
           "optional": true,
+          "requires": "MORGAN_SCARA",
           "tag": "T",
           "values": [
             {
@@ -12208,7 +12358,7 @@ const AllGcodes = {
   ],
   "M208": [
     {
-      "brief": "Set firmware-retraction recover settings.",
+      "brief": "Set firmware-retraction recover settings",
       "codes": [
         "M208"
       ],
@@ -12346,7 +12496,7 @@ const AllGcodes = {
   ],
   "M209": [
     {
-      "brief": "Enable / disable auto-retraction.",
+      "brief": "Enable/disable auto-retraction.",
       "codes": [
         "M209"
       ],
@@ -12354,12 +12504,11 @@ const AllGcodes = {
       "parameters": [
         {
           "description": "Set Auto-Retract on/off",
-          "label": "S<flag>",
+          "label": "S<bool>",
           "optional": false,
           "tag": "S",
           "values": [
             {
-              "tag": "flag",
               "type": "bool"
             }
           ]
@@ -12581,20 +12730,27 @@ const AllGcodes = {
   ],
   "M211": [
     {
-      "brief": "Set and/or get the software endstops state",
+      "brief": "Set/report the software endstops state",
       "codes": [
         "M211"
       ],
       "id": "Marlin.M211[0]",
       "parameters": [
         {
-          "description": "Software endstops state (S1=enable S0=disable)",
-          "label": "[S<flag>]",
+          "description": "Software endstops state",
+          "label": "[S<0|1>]",
           "optional": true,
           "tag": "S",
+          "type": "bool",
           "values": [
             {
-              "tag": "flag",
+              "description": "Disable software endstops",
+              "tag": 0,
+              "type": "bool"
+            },
+            {
+              "description": "Enable software endstops",
+              "tag": 1,
               "type": "bool"
             }
           ]
@@ -13121,27 +13277,17 @@ const AllGcodes = {
         },
         {
           "description": "Back up current factor",
-          "label": "[B<flag>]",
+          "label": "[B]",
           "optional": true,
           "tag": "B",
-          "values": [
-            {
-              "tag": "flag",
-              "type": "bool"
-            }
-          ]
+          "type": "flag"
         },
         {
           "description": "Restore the last-saved factor",
-          "label": "[R<flag>]",
+          "label": "[R]",
           "optional": true,
           "tag": "R",
-          "values": [
-            {
-              "tag": "flag",
-              "type": "bool"
-            }
-          ]
+          "type": "flag"
         }
       ],
       "related": [],
@@ -13359,7 +13505,7 @@ const AllGcodes = {
           "values": [
             {
               "tag": "pin",
-              "type": "byte"
+              "type": "int"
             }
           ]
         },
@@ -13371,7 +13517,7 @@ const AllGcodes = {
           "values": [
             {
               "tag": "state",
-              "type": "byte"
+              "type": "int"
             }
           ]
         }
@@ -13637,9 +13783,10 @@ const AllGcodes = {
       "id": "Marlin.M240[0]",
       "parameters": [
         {
-          "description": "Offset to the X return position. (Requires `PHOTO_POSITION`)",
+          "description": "Offset to the X return position.",
           "label": "[A<offset>]",
           "optional": true,
+          "requires": "PHOTO_POSITION",
           "tag": "A",
           "values": [
             {
@@ -13649,9 +13796,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Offset to the Y return position. (Requires `PHOTO_POSITION`)",
+          "description": "Offset to the Y return position.",
           "label": "[B<offset>]",
           "optional": true,
+          "requires": "PHOTO_POSITION",
           "tag": "B",
           "values": [
             {
@@ -13661,9 +13809,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Duration to hold down the shutter switch. (Requires `PHOTO_SWITCH_POSITION` and `PHOTO_SWITCH_MS`)",
+          "description": "Duration to hold down the shutter switch.",
           "label": "[D<ms>]",
           "optional": true,
+          "requires": "PHOTO_SWITCH_POSITION, PHOTO_SWITCH_MS",
           "tag": "D",
           "values": [
             {
@@ -13673,9 +13822,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Feedrate for the main photo moves. If omitted, the homing feedrate will be used. (Requires `PHOTO_POSITION`)",
+          "description": "Feedrate for the main photo moves. If omitted, the homing feedrate will be used.",
           "label": "[F<feedrate>]",
           "optional": true,
+          "requires": "PHOTO_POSITION",
           "tag": "F",
           "values": [
             {
@@ -13685,9 +13835,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Shutter switch X position. If omitted, the photo move X position applies. (Requires `PHOTO_SWITCH_POSITION`)",
+          "description": "Shutter switch X position. If omitted, the photo move X position applies.",
           "label": "[I<pos>]",
           "optional": true,
+          "requires": "PHOTO_SWITCH_POSITION",
           "tag": "I",
           "values": [
             {
@@ -13697,9 +13848,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Shutter switch Y position. If omitted, the photo move Y position applies. (Requires `PHOTO_SWITCH_POSITION`)",
+          "description": "Shutter switch Y position. If omitted, the photo move Y position applies.",
           "label": "[J<pos>]",
           "optional": true,
+          "requires": "PHOTO_SWITCH_POSITION",
           "tag": "J",
           "values": [
             {
@@ -13709,9 +13861,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Delay after pressing the shutter switch. (Requires `PHOTO_SWITCH_POSITION` and `PHOTO_SWITCH_MS`)",
+          "description": "Delay after pressing the shutter switch.",
           "label": "[P<ms>]",
           "optional": true,
+          "requires": "PHOTO_SWITCH_POSITION, PHOTO_SWITCH_MS",
           "tag": "P",
           "values": [
             {
@@ -13721,9 +13874,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Retract/recover length. (Requires `PHOTO_POSITION`)",
+          "description": "Retract/recover length.",
           "label": "[R<length>]",
           "optional": true,
+          "requires": "PHOTO_POSITION",
           "tag": "R",
           "values": [
             {
@@ -13733,9 +13887,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Retract/recover feedrate. (Requires `PHOTO_POSITION`)",
+          "description": "Retract/recover feedrate.",
           "label": "[S<feedrate>]",
           "optional": true,
+          "requires": "PHOTO_POSITION",
           "tag": "S",
           "values": [
             {
@@ -13745,9 +13900,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Main photo move X position. (Requires `PHOTO_POSITION`)",
+          "description": "Main photo move X position.",
           "label": "[X<pos>]",
           "optional": true,
+          "requires": "PHOTO_POSITION",
           "tag": "X",
           "values": [
             {
@@ -13757,9 +13913,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Main photo move Y position. (Requires `PHOTO_POSITION`)",
+          "description": "Main photo move Y position.",
           "label": "[Y<pos>]",
           "optional": true,
+          "requires": "PHOTO_POSITION",
           "tag": "Y",
           "values": [
             {
@@ -13769,9 +13926,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Main photo move Z raise. (Requires `PHOTO_POSITION`)",
+          "description": "Main photo move Z raise.",
           "label": "[Z<length>]",
           "optional": true,
+          "requires": "PHOTO_POSITION",
           "tag": "Z",
           "values": [
             {
@@ -13926,7 +14084,7 @@ const AllGcodes = {
   ],
   "M250": [
     {
-      "brief": "Set and/or get the LCD contrast.",
+      "brief": "Set/report the LCD contrast.",
       "codes": [
         "M250"
       ],
@@ -13979,7 +14137,7 @@ const AllGcodes = {
   ],
   "M255": [
     {
-      "brief": "Set and/or get the LCD Sleep Timeout.",
+      "brief": "Set/report the LCD Sleep Timeout.",
       "codes": [
         "M255"
       ],
@@ -14008,7 +14166,7 @@ const AllGcodes = {
   ],
   "M256": [
     {
-      "brief": "Set and/or get the LCD brightness.",
+      "brief": "Set/report the LCD brightness.",
       "codes": [
         "M256"
       ],
@@ -14144,7 +14302,7 @@ const AllGcodes = {
           "values": [
             {
               "tag": "addr",
-              "type": "byte"
+              "type": "int"
             }
           ]
         },
@@ -14156,33 +14314,23 @@ const AllGcodes = {
           "values": [
             {
               "tag": "byte",
-              "type": "byte"
+              "type": "int"
             }
           ]
         },
         {
-          "description": "Reset and rewind the I2C buffer",
-          "label": "[R<flag>]",
+          "description": "Flag to reset and rewind the I2C buffer",
+          "label": "[R]",
           "optional": true,
           "tag": "R",
-          "values": [
-            {
-              "tag": "flag",
-              "type": "bool"
-            }
-          ]
+          "type": "flag"
         },
         {
           "description": "Send flag. Flush the buffer to the bus.",
-          "label": "[S<flag>]",
+          "label": "[S]",
           "optional": true,
           "tag": "S",
-          "values": [
-            {
-              "tag": "flag",
-              "type": "bool"
-            }
-          ]
+          "type": "flag"
         }
       ],
       "related": [
@@ -14235,7 +14383,7 @@ const AllGcodes = {
           "values": [
             {
               "tag": "addr",
-              "type": "byte"
+              "type": "int"
             }
           ]
         },
@@ -14247,7 +14395,7 @@ const AllGcodes = {
           "values": [
             {
               "tag": "count",
-              "type": "byte"
+              "type": "int"
             }
           ]
         },
@@ -14315,6 +14463,35 @@ const AllGcodes = {
       "url": "https://reprap.org/wiki/G-code#M261.1:_Modbus_Read_Input_Registers"
     }
   ],
+  "M265": [
+    {
+      "brief": "Scan external I2C bus for devices",
+      "codes": [
+        "M265"
+      ],
+      "id": "Marlin.M265[0]",
+      "parameters": [],
+      "related": [
+        "M260",
+        "M261"
+      ],
+      "source": "Marlin",
+      "title": "Scan I2C Bus",
+      "url": "https://marlinfw.org/docs/gcode/M265"
+    },
+    {
+      "brief": "Scan the external i2c bus for devices. Requires I2C_SCANNER option in the Marlin build.",
+      "codes": [
+        "M265"
+      ],
+      "id": "RepRap.M265[0]",
+      "parameters": [],
+      "related": [],
+      "source": "RepRap",
+      "title": "M265: Scan i2c Bus",
+      "url": "https://reprap.org/wiki/G-code#M265:_Scan_i2c_Bus"
+    }
+  ],
   "M27": [
     {
       "brief": "",
@@ -14336,9 +14513,10 @@ const AllGcodes = {
       "id": "Marlin.M27[0]",
       "parameters": [
         {
-          "description": "Interval between auto-reports. `S0` to disable  (requires `AUTO_REPORT_SD_STATUS`)",
+          "description": "Interval between auto-reports. `S0` to disable.",
           "label": "[S<seconds>]",
           "optional": true,
+          "requires": "AUTO_REPORT_SD_STATUS",
           "tag": "S",
           "values": [
             {
@@ -14387,9 +14565,10 @@ const AllGcodes = {
           "tag": "filename"
         },
         {
-          "description": "Set an optimized binary file transfer mode. (Requires `BINARY_FILE_TRANSFER`)",
+          "description": "Set an optimized binary file transfer mode.",
           "label": "[B1]",
           "optional": true,
+          "requires": "BINARY_FILE_TRANSFER",
           "tag": "B1"
         }
       ],
@@ -14416,14 +14595,14 @@ const AllGcodes = {
   ],
   "M280": [
     {
-      "brief": "Set or get a servo position.",
+      "brief": "Set/report a servo position.",
       "codes": [
         "M280"
       ],
       "id": "Marlin.M280[0]",
       "parameters": [
         {
-          "description": "Servo index to set or get",
+          "description": "Servo index to set/report",
           "label": "P<index>",
           "optional": false,
           "tag": "P",
@@ -14714,9 +14893,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Use `P0` to leave the Probe Z Offset unaffected. (Requires `BABYSTEP_ZPROBE_OFFSET`)",
+          "description": "Use `P0` to leave the Probe Z Offset unaffected.",
           "label": "[P<bool>]",
           "optional": true,
+          "requires": "BABYSTEP_ZPROBE_OFFSET",
           "tag": "P",
           "values": [
             {
@@ -14851,7 +15031,7 @@ const AllGcodes = {
           "values": [
             {
               "tag": "power",
-              "type": "byte"
+              "type": "int"
             }
           ]
         },
@@ -14863,7 +15043,7 @@ const AllGcodes = {
           "values": [
             {
               "tag": "power",
-              "type": "byte"
+              "type": "int"
             }
           ]
         },
@@ -15196,12 +15376,11 @@ const AllGcodes = {
         },
         {
           "description": "Flag to allow extrusion at any temperature",
-          "label": "[P<flag>]",
+          "label": "[P<bool>]",
           "optional": true,
           "tag": "P",
           "values": [
             {
-              "tag": "flag",
               "type": "bool"
             }
           ]
@@ -15303,9 +15482,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Toggle PID debug output on / off (and take no further action). (Requires `PID_DEBUG`)",
+          "description": "Toggle PID debug output on / off (and take no further action).",
           "label": "[D<flag>]",
           "optional": true,
+          "requires": "PID_DEBUG",
           "tag": "D",
           "values": [
             {
@@ -15898,6 +16078,55 @@ const AllGcodes = {
   ],
   "M309": [
     {
+      "brief": "Set PID values for the chamber",
+      "codes": [
+        "M309"
+      ],
+      "id": "Marlin.M309[0]",
+      "parameters": [
+        {
+          "description": "Proportional value",
+          "label": "[P<value>]",
+          "optional": true,
+          "tag": "P",
+          "values": [
+            {
+              "tag": "value",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Integral value",
+          "label": "[I<value>]",
+          "optional": true,
+          "tag": "I",
+          "values": [
+            {
+              "tag": "value",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Derivative value",
+          "label": "[D<value>]",
+          "optional": true,
+          "tag": "D",
+          "values": [
+            {
+              "tag": "value",
+              "type": "float"
+            }
+          ]
+        }
+      ],
+      "related": [],
+      "source": "Marlin",
+      "title": "Set Chamber PID",
+      "url": "https://marlinfw.org/docs/gcode/M309"
+    },
+    {
       "brief": "",
       "codes": [
         "M309"
@@ -16042,14 +16271,19 @@ const AllGcodes = {
       "id": "Marlin.M32[0]",
       "parameters": [
         {
-          "description": "Sub-Program flag",
-          "label": "[P<flag>]",
+          "description": "Sub-program type.",
+          "label": "[P<0|1>]",
           "optional": true,
           "tag": "P",
+          "type": "int",
           "values": [
             {
-              "tag": "flag",
-              "type": "bool"
+              "description": "(Default) Normal file start. The current file position is not saved or restored.",
+              "tag": 0
+            },
+            {
+              "description": "Sub-program mode. The current file position is saved and restored after the given file completes.",
+              "tag": 1
             }
           ]
         },
@@ -16233,13 +16467,30 @@ const AllGcodes = {
       "id": "Marlin.M34[0]",
       "parameters": [
         {
-          "description": "Sorting on/off",
-          "label": "[S<bool>]",
+          "description": "Sorting Order",
+          "label": "[S<None|-1|0|1|2>]",
           "optional": true,
           "tag": "S",
           "values": [
             {
-              "type": "bool"
+              "description": "Default sorting (i.e., SDSORT_REVERSE)",
+              "tag": null
+            },
+            {
+              "description": "Reverse alpha sorting",
+              "tag": -1
+            },
+            {
+              "description": "FID Order (not always newest)",
+              "tag": 0
+            },
+            {
+              "description": "Forward alpha sorting",
+              "tag": 1
+            },
+            {
+              "description": "Alias for S-1 [deprecated]",
+              "tag": 2
             }
           ]
         },
@@ -16779,12 +17030,12 @@ const AllGcodes = {
       "parameters": [
         {
           "description": "Set the brightness factor from 0 to 255.",
-          "label": "[P<byte>]",
+          "label": "[P<int>]",
           "optional": true,
           "tag": "P",
           "values": [
             {
-              "type": "byte"
+              "type": "int"
             }
           ]
         },
@@ -17221,7 +17472,7 @@ const AllGcodes = {
       "id": "Marlin.M380[0]",
       "parameters": [
         {
-          "description": "Solenoid index (Requires `MANUAL_SOLENOID_CONTROL`)",
+          "description": "Solenoid index",
           "label": "[S<index>]",
           "optional": true,
           "requires": "MANUAL_SOLENOID_CONTROL",
@@ -17264,7 +17515,7 @@ const AllGcodes = {
       "id": "Marlin.M381[0]",
       "parameters": [
         {
-          "description": "Solenoid index (Requires `MANUAL_SOLENOID_CONTROL`)",
+          "description": "Solenoid index",
           "label": "[S<index>]",
           "optional": true,
           "requires": "MANUAL_SOLENOID_CONTROL",
@@ -17328,7 +17579,7 @@ const AllGcodes = {
           "values": [
             {
               "tag": "power",
-              "type": "byte"
+              "type": "int"
             }
           ]
         },
@@ -17340,7 +17591,7 @@ const AllGcodes = {
           "values": [
             {
               "tag": "power",
-              "type": "byte"
+              "type": "int"
             }
           ]
         },
@@ -17903,16 +18154,17 @@ const AllGcodes = {
   ],
   "M412": [
     {
-      "brief": "Get/set filament runout detection parameters",
+      "brief": "Set/report filament runout detection parameters",
       "codes": [
         "M412"
       ],
       "id": "Marlin.M412[0]",
       "parameters": [
         {
-          "description": "Set the filament runout distance.",
+          "description": "For a filament sensor located in front of the extruder gears, set the distance from the runout sensor to the extruder gears. This length of filament will continue to extrude after a runout has been detected.",
           "label": "[D<linear>]",
           "optional": true,
+          "requires": "FILAMENT_RUNOUT_DISTANCE_MM",
           "tag": "D",
           "values": [
             {
@@ -17925,10 +18177,25 @@ const AllGcodes = {
           "description": "Flag to enable or disable host handling of a filament runout.",
           "label": "[H<bool>]",
           "optional": true,
+          "requires": "HOST_ACTION_COMMANDS",
           "tag": "H",
           "values": [
             {
               "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Set the motion sensor runout length. If the sensor accumulates this amount of missing motion it triggers a runout right away and does not continue to extrude `FILAMENT_RUNOUT_DISTANCE_MM`.",
+          "label": "[L<linear>]",
+          "optional": true,
+          "requires": "FILAMENT_SWITCH_AND_MOTION",
+          "since": "2.1.3",
+          "tag": "L",
+          "values": [
+            {
+              "tag": "linear",
+              "type": "float"
             }
           ]
         },
@@ -17975,7 +18242,7 @@ const AllGcodes = {
   ],
   "M413": [
     {
-      "brief": "Enable / disable power-loss recovery",
+      "brief": "Enable/disable power-loss recovery",
       "codes": [
         "M413"
       ],
@@ -18009,6 +18276,33 @@ const AllGcodes = {
       "source": "RepRap",
       "title": "M413: Power-Loss Recovery",
       "url": "https://reprap.org/wiki/G-code#M413:_Power-Loss_Recovery"
+    }
+  ],
+  "M414": [
+    {
+      "brief": "Set/report the LCD language",
+      "codes": [
+        "M414"
+      ],
+      "id": "Marlin.M414[0]",
+      "parameters": [
+        {
+          "description": "Configured languages index",
+          "label": "[S<language-index>]",
+          "optional": true,
+          "tag": "S",
+          "values": [
+            {
+              "tag": "language-index",
+              "type": "int"
+            }
+          ]
+        }
+      ],
+      "related": [],
+      "source": "Marlin",
+      "title": "LCD language",
+      "url": "https://marlinfw.org/docs/gcode/M414"
     }
   ],
   "M415": [
@@ -18146,16 +18440,17 @@ const AllGcodes = {
   ],
   "M420": [
     {
-      "brief": "Get and/or set bed leveling state and parameters",
+      "brief": "Set/report bed leveling state and parameters",
       "codes": [
         "M420"
       ],
       "id": "Marlin.M420[0]",
       "parameters": [
         {
-          "description": "Load mesh from EEPROM index (Requires `AUTO_BED_LEVELING_UBL` and `EEPROM_SETTINGS`)",
+          "description": "Load mesh from EEPROM index",
           "label": "[L<int>]",
           "optional": true,
+          "requires": "AUTO_BED_LEVELING_UBL, EEPROM_SETTINGS",
           "tag": "L",
           "values": [
             {
@@ -18206,9 +18501,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Set Z fade height (Requires `ENABLE_LEVELING_FADE_HEIGHT`)\n- With Fade enabled, bed leveling correction is gradually reduced as the nozzle gets closer to the Fade height. Above the Fade height no bed leveling compensation is applied at all, so movement is machine true.\n- Set to 0 to disable fade, and leveling compensation will be fully applied to all layers of the print.\n",
+          "description": "Set Z fade height\n- With Fade enabled, bed leveling correction is gradually reduced as the nozzle gets closer to the Fade height. Above the Fade height no bed leveling compensation is applied at all, so movement is machine true.\n- Set to 0 to disable fade, and leveling compensation will be fully applied to all layers of the print.\n",
           "label": "[Z<linear>]",
           "optional": true,
+          "requires": "ENABLE_LEVELING_FADE_HEIGHT",
           "tag": "Z",
           "values": [
             {
@@ -18816,7 +19112,7 @@ const AllGcodes = {
   ],
   "M43": [
     {
-      "brief": "Get information about pins ; set/get pins states",
+      "brief": "List and test pins in development",
       "codes": [
         "M43"
       ],
@@ -18887,7 +19183,7 @@ const AllGcodes = {
       ],
       "related": [],
       "source": "Marlin",
-      "title": "Debug Pins",
+      "title": "Pins Debugging",
       "url": "https://marlinfw.org/docs/gcode/M043"
     },
     {
@@ -19501,15 +19797,10 @@ const AllGcodes = {
       "parameters": [
         {
           "description": "Cancel the current object.",
-          "label": "[C<flag>]",
+          "label": "[C]",
           "optional": true,
           "tag": "C",
-          "values": [
-            {
-              "tag": "flag",
-              "type": "bool"
-            }
-          ]
+          "type": "flag"
         },
         {
           "description": "Cancel the object with the given index.",
@@ -19601,24 +19892,69 @@ const AllGcodes = {
       "id": "Marlin.M493[0]",
       "parameters": [
         {
-          "description": "Set Fixed-Time motion mode OFF (0) / ON (1).",
-          "label": "[S<bool>]",
+          "description": "Set Fixed-Time Motion mode enabled / disabled.",
+          "label": "[S<0|1>]",
           "optional": true,
           "tag": "S",
           "values": [
             {
-              "tag": "bool"
+              "description": "Disabled",
+              "tag": 0
+            },
+            {
+              "description": "Enabled",
+              "tag": 1
             }
           ]
         },
         {
-          "description": "Set the vibration compensator [input shaper] mode for X / Y axis. Note. Users and slicers must remember to set the mode for both axes!",
-          "label": "[X|Y<0|1|2|3|4|5|6|7|8>]",
+          "description": "Set the state for Axis Synchronization.",
+          "label": "[T<0|1>]",
           "optional": true,
-          "tag": "X|Y",
+          "tag": "T",
           "values": [
             {
-              "description": "NONE (No input shaper)",
+              "description": "Disabled",
+              "tag": 0
+            },
+            {
+              "description": "Enabled",
+              "tag": 1
+            }
+          ]
+        },
+        {
+          "description": "Enable/disable Linear Advance aka Pressure Advance.",
+          "label": "[P<state>]",
+          "optional": true,
+          "tag": "P",
+          "values": [
+            {
+              "tag": "state",
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Set the gain for Linear Advance aka Pressure Advance.",
+          "label": "[K<gain>]",
+          "optional": true,
+          "tag": "K",
+          "values": [
+            {
+              "tag": "gain",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set the vibration compensator [input shaper] mode for the specified axes.<br/>\nNOTE: Users and slicers must remember to set the mode for both X and Y!\n",
+          "label": "[C<0|1|2|3|4|5|6|7|8>]",
+          "optional": true,
+          "tag": "C",
+          "values": [
+            {
+              "description": "No Input Shaper",
               "tag": 0
             },
             {
@@ -19656,31 +19992,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Enable / disable Linear Advance.",
-          "label": "[P<state>]",
-          "optional": true,
-          "tag": "P",
-          "values": [
-            {
-              "tag": "state",
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Set the gain for Linear Advance.",
-          "label": "[K<gain>]",
-          "optional": true,
-          "tag": "K",
-          "values": [
-            {
-              "tag": "gain",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Set the Dynamic Frequency mode.",
+          "description": "Set the Dynamic Frequency mode. (Available when there is a Z axis and/or Extruder to follow.)",
           "label": "[D<0|1|2>]",
           "optional": true,
           "tag": "D",
@@ -19700,7 +20012,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Set the Base Frequency for Input Shaping on the X axis.",
+          "description": "Set the Base Frequency for Input Shaping on the specified axes.",
           "label": "[A<Hz>]",
           "optional": true,
           "tag": "A",
@@ -19712,19 +20024,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Set the Base Frequency for Input Shaping on the Y axis.",
-          "label": "[B<Hz>]",
-          "optional": true,
-          "tag": "B",
-          "values": [
-            {
-              "tag": "Hz",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Set the Frequency Scaling factor for Input Shaping on the X axis.",
+          "description": "Set the Frequency Scaling factor for Input Shaping on the specified axes.<br/>\n(Available when there is a Z axis and/or Extruder to follow.)\n",
           "label": "[F<scale>]",
           "optional": true,
           "tag": "F",
@@ -19736,19 +20036,84 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Set the Frequency Scaling factor for Input Shaping on the Y axis.",
-          "label": "[H<scale>]",
+          "description": "Set the Zeta for Input Shaping on the specified axes.",
+          "label": "[I<zeta>]",
           "optional": true,
-          "tag": "H",
+          "tag": "I",
           "values": [
             {
-              "tag": "scale",
+              "range": [
+                0.01,
+                1.0
+              ],
+              "tag": "zeta",
               "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set the Vibration Tolerance for Input Shaping on the specified axes.",
+          "label": "[Q<vtol>]",
+          "optional": true,
+          "tag": "Q",
+          "values": [
+            {
+              "range": [
+                0.0,
+                1.0
+              ],
+              "tag": "vtol",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Flag to apply `A`,`C`,`F`,`I`,`Q` to the X axis. (If no axis parameters are given then XY is assumed.)",
+          "label": "[X<flag>]",
+          "optional": true,
+          "tag": "X",
+          "values": [
+            {
+              "type": "flag"
+            }
+          ]
+        },
+        {
+          "description": "Flag to apply `A`,`C`,`F`,`I`,`Q` to the Y axis. (If no axis parameters are given then XY is assumed.)",
+          "label": "[Y<flag>]",
+          "optional": true,
+          "tag": "Y",
+          "values": [
+            {
+              "type": "flag"
+            }
+          ]
+        },
+        {
+          "description": "Flag to apply `A`,`C`,`F`,`I`,`Q` to the Z axis. (If no axis parameters are given then XY is assumed.)",
+          "label": "[Z<flag>]",
+          "optional": true,
+          "tag": "Z",
+          "values": [
+            {
+              "type": "flag"
+            }
+          ]
+        },
+        {
+          "description": "Flag to apply `A`,`C`,`F`,`I`,`Q` to the E axis. (If no axis parameters are given then XY is assumed.)",
+          "label": "[E<flag>]",
+          "optional": true,
+          "tag": "E",
+          "values": [
+            {
+              "type": "flag"
             }
           ]
         }
       ],
       "related": [
+        "M494",
         "M593"
       ],
       "source": "Marlin",
@@ -19766,6 +20131,115 @@ const AllGcodes = {
       "source": "RepRap",
       "title": "M493: Fixed-Time Motion Control",
       "url": "https://reprap.org/wiki/G-code#M493:_Fixed-Time_Motion_Control"
+    }
+  ],
+  "M494": [
+    {
+      "brief": "Set / get the Fixed Time Motion parameters for Trajectory and Smoothing.",
+      "codes": [
+        "M494"
+      ],
+      "id": "Marlin.M494[0]",
+      "parameters": [
+        {
+          "description": "Set trajectory generator type",
+          "label": "[T<0|1|2>]",
+          "optional": true,
+          "tag": "T",
+          "values": [
+            {
+              "description": "TRAPEZOIDAL",
+              "tag": 0
+            },
+            {
+              "description": "POLY5",
+              "tag": 1
+            },
+            {
+              "description": "POLY6",
+              "tag": 2
+            }
+          ]
+        },
+        {
+          "description": "Set acceleration overshoot for POLY6 (only used when `T=2`).\nAllowed range: 1.25 \u2013 1.875. The higher the smoother the derivatives, but the higher the acceleration peaks.\nS_CURVE in the classic motion system uses 1.875\n",
+          "label": "[O<overshoot>]",
+          "optional": true,
+          "tag": "O",
+          "values": [
+            {
+              "tag": "overshoot",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set smoothing time for the X axis",
+          "label": "[X<seconds>]",
+          "optional": true,
+          "tag": "X",
+          "values": [
+            {
+              "tag": "seconds",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set smoothing time for the Y axis",
+          "label": "[Y<seconds>]",
+          "optional": true,
+          "tag": "Y",
+          "values": [
+            {
+              "tag": "seconds",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set smoothing time for the Z axis",
+          "label": "[Z<seconds>]",
+          "optional": true,
+          "tag": "Z",
+          "values": [
+            {
+              "tag": "seconds",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Set smoothing time for the E axis",
+          "label": "[E<seconds>]",
+          "optional": true,
+          "tag": "E",
+          "values": [
+            {
+              "tag": "seconds",
+              "type": "float"
+            }
+          ]
+        }
+      ],
+      "related": [
+        "M493"
+      ],
+      "source": "Marlin",
+      "title": "FT Motion Trajectory Smoothing",
+      "url": "https://marlinfw.org/docs/gcode/M494"
+    },
+    {
+      "brief": "Use M494 to set Trajectory and Axis Smoothing for Fixed-Time Motion Control.",
+      "codes": [
+        "M494"
+      ],
+      "id": "RepRap.M494[0]",
+      "parameters": [],
+      "related": [],
+      "source": "RepRap",
+      "title": "M494: Fixed-Time Motion Trajectory",
+      "url": "https://reprap.org/wiki/G-code#M494:_Fixed-Time_Motion_Trajectory"
     }
   ],
   "M5": [
@@ -20329,7 +20803,7 @@ const AllGcodes = {
   ],
   "M550": [
     {
-      "brief": "Set / report the Machine Name",
+      "brief": "Set/report the Machine Name",
       "codes": [
         "M550"
       ],
@@ -20404,6 +20878,51 @@ const AllGcodes = {
   ],
   "M552": [
     {
+      "brief": "Set Ethernet IP Address, Network Interface state",
+      "codes": [
+        "M552"
+      ],
+      "id": "Marlin.M552[0]",
+      "parameters": [
+        {
+          "description": "Set IP Address. Set 0.0.0.0 to set the IP Address via DHCP.",
+          "label": "[P<ip-address>]",
+          "optional": true,
+          "tag": "P",
+          "values": [
+            {
+              "tag": "ip-address",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "description": "Reset, Disable, or Enable the Network Interface.",
+          "label": "[S<-1|0|1>]",
+          "optional": true,
+          "tag": "S",
+          "values": [
+            {
+              "description": "Reset",
+              "tag": -1
+            },
+            {
+              "description": "Disable",
+              "tag": 0
+            },
+            {
+              "description": "Enable",
+              "tag": 1
+            }
+          ]
+        }
+      ],
+      "related": [],
+      "source": "Marlin",
+      "title": "Ethernet IP Address, Network IF",
+      "url": "https://marlinfw.org/docs/gcode/M552"
+    },
+    {
       "brief": "",
       "codes": [
         "M552"
@@ -20447,6 +20966,31 @@ const AllGcodes = {
   ],
   "M553": [
     {
+      "brief": "Set/report the Ethernet Subnet Mask",
+      "codes": [
+        "M553"
+      ],
+      "id": "Marlin.M553[0]",
+      "parameters": [
+        {
+          "description": "The IP Subnet Mask.",
+          "label": "[P<subnet-mask>]",
+          "optional": true,
+          "tag": "P",
+          "values": [
+            {
+              "tag": "subnet-mask",
+              "type": "string"
+            }
+          ]
+        }
+      ],
+      "related": [],
+      "source": "Marlin",
+      "title": "Ethernet Subnet Mask",
+      "url": "https://marlinfw.org/docs/gcode/M553"
+    },
+    {
       "brief": "",
       "codes": [
         "M553"
@@ -20475,6 +21019,31 @@ const AllGcodes = {
     }
   ],
   "M554": [
+    {
+      "brief": "Set/report the Ethernet Gateway IP Address",
+      "codes": [
+        "M554"
+      ],
+      "id": "Marlin.M554[0]",
+      "parameters": [
+        {
+          "description": "The IP Gateway IP Address.",
+          "label": "[P<gateway>]",
+          "optional": true,
+          "tag": "P",
+          "values": [
+            {
+              "tag": "gateway",
+              "type": "string"
+            }
+          ]
+        }
+      ],
+      "related": [],
+      "source": "Marlin",
+      "title": "Ethernet Gateway IP Address",
+      "url": "https://marlinfw.org/docs/gcode/M554"
+    },
     {
       "brief": "",
       "codes": [
@@ -21093,7 +21662,7 @@ const AllGcodes = {
   ],
   "M569": [
     {
-      "brief": "Toggle stealthChop",
+      "brief": "Toggle StealthChop",
       "codes": [
         "M569"
       ],
@@ -21150,7 +21719,7 @@ const AllGcodes = {
       ],
       "related": [],
       "source": "Marlin",
-      "title": "Set TMC stepping mode",
+      "title": "Set TMC Stepping Mode",
       "url": "https://marlinfw.org/docs/gcode/M569"
     },
     {
@@ -22928,9 +23497,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "X distance between dual X carriages.  (Requires `DUAL_X_CARRIAGE`)",
+          "description": "X distance between dual X carriages.",
           "label": "[X<float>]",
           "optional": true,
+          "requires": "DUAL_X_CARRIAGE",
           "tag": "X",
           "values": [
             {
@@ -22940,9 +23510,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Temperature difference to apply to E1.  (Requires `DUAL_X_CARRIAGE`)",
+          "description": "Temperature difference to apply to E1.",
           "label": "[R<int>]",
           "optional": true,
+          "requires": "DUAL_X_CARRIAGE",
           "tag": "R",
           "values": [
             {
@@ -22952,9 +23523,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Bit-mask of nozzles to include in the duplication set. 0 disables duplication. Bit 1 is E0, Bit 2 is E1 ... Bit n is E(n-1). (Requires `MULTI_NOZZLE_DUPLICATION`)",
+          "description": "Bit-mask of nozzles to include in the duplication set. 0 disables duplication. Bit 1 is E0, Bit 2 is E1 ... Bit n is E(n-1).",
           "label": "[P<int>]",
           "optional": true,
+          "requires": "MULTI_NOZZLE_DUPLICATION",
           "tag": "P",
           "values": [
             {
@@ -22964,9 +23536,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Last nozzle index to include in the duplication set. 0 disables duplication. (Requires `MULTI_NOZZLE_DUPLICATION`)",
+          "description": "Last nozzle index to include in the duplication set. 0 disables duplication.",
           "label": "[E<int>]",
           "optional": true,
+          "requires": "MULTI_NOZZLE_DUPLICATION",
           "tag": "E",
           "values": [
             {
@@ -23489,7 +24062,7 @@ const AllGcodes = {
       "url": "https://marlinfw.org/docs/gcode/M666"
     },
     {
-      "brief": "Set dual endstop offsets",
+      "brief": "Set/report dual endstop offsets",
       "codes": [
         "M666"
       ],
@@ -23534,7 +24107,7 @@ const AllGcodes = {
       ],
       "related": [],
       "source": "Marlin",
-      "title": "Set dual endstop offsets",
+      "title": "Dual endstop offsets",
       "url": "https://marlinfw.org/docs/gcode/M666-dual"
     },
     {
@@ -24489,24 +25062,12 @@ const AllGcodes = {
       "url": "https://www.klipper3d.org/G-Codes.html#display_status"
     },
     {
-      "brief": "Set current print progress percentage for LCD.",
+      "brief": "Set/report current print progress percentage for LCD.",
       "codes": [
         "M73"
       ],
       "id": "Marlin.M73[0]",
       "parameters": [
-        {
-          "description": "Current print progress percentage",
-          "label": "P<percent>",
-          "optional": false,
-          "tag": "P",
-          "values": [
-            {
-              "tag": "percent",
-              "type": "int"
-            }
-          ]
-        },
         {
           "description": "Set next interaction countdown.",
           "label": "[C<minutes>]",
@@ -24522,10 +25083,23 @@ const AllGcodes = {
           ]
         },
         {
+          "description": "Set current print progress percentage (0-100).",
+          "label": "[P<percent>]",
+          "optional": true,
+          "requires": "SET_PROGRESS_PERCENT",
+          "tag": "P",
+          "values": [
+            {
+              "tag": "percent",
+              "type": "int"
+            }
+          ]
+        },
+        {
           "description": "Set remaining time.",
           "label": "[R<minutes>]",
           "optional": true,
-          "requires": "USE_M73_REMAINING_TIME",
+          "requires": "SET_REMAINING_TIME",
           "since": "2.0.0",
           "tag": "R",
           "values": [
@@ -24628,9 +25202,10 @@ const AllGcodes = {
       "id": "Marlin.M75[0]",
       "parameters": [
         {
-          "description": "A string to display in the LCD heading. (Requires `DWIN_CREALITY_LCD_ENHANCED`)",
+          "description": "A string to display in the LCD heading.",
           "label": "[string]",
           "optional": true,
+          "requires": "DWIN_LCD_PROUI",
           "tag": "string"
         }
       ],
@@ -24927,8 +25502,7 @@ const AllGcodes = {
           "description": "Report Power Supply state",
           "label": "[S]",
           "optional": true,
-          "tag": "S",
-          "values": null
+          "tag": "S"
         }
       ],
       "related": [
@@ -27878,51 +28452,31 @@ const AllGcodes = {
         },
         {
           "description": "Store the value `V` as the Z adjustment at index `I` for the Bed.",
-          "label": "[B<flag>]",
+          "label": "[B]",
           "optional": true,
           "tag": "B",
-          "values": [
-            {
-              "tag": "flag",
-              "type": "bool"
-            }
-          ]
+          "type": "flag"
         },
         {
           "description": "Store the value `V` as the Z adjustment at index `I` for the Probe.",
-          "label": "[P<flag>]",
+          "label": "[P]",
           "optional": true,
           "tag": "P",
-          "values": [
-            {
-              "tag": "flag",
-              "type": "bool"
-            }
-          ]
+          "type": "flag"
         },
         {
           "description": "Store the value `V` as the Z adjustment at index `I` for the Extruder.",
-          "label": "[E<flag>]",
+          "label": "[E]",
           "optional": true,
           "tag": "E",
-          "values": [
-            {
-              "tag": "flag",
-              "type": "bool"
-            }
-          ]
+          "type": "flag"
         },
         {
           "description": "Reset all Z adjustment values to factory defaults (zero).",
-          "label": "[R<flag>]",
+          "label": "[R]",
           "optional": true,
           "tag": "R",
-          "values": [
-            {
-              "tag": "flag",
-              "type": "bool"
-            }
-          ]
+          "type": "flag"
         }
       ],
       "related": [
@@ -28284,7 +28838,9 @@ const AllGcodes = {
           ]
         }
       ],
-      "related": [],
+      "related": [
+        "M907"
+      ],
       "source": "Marlin",
       "title": "Stepper Motor Current",
       "url": "https://marlinfw.org/docs/gcode/M906"
@@ -28340,9 +28896,10 @@ const AllGcodes = {
       "id": "Marlin.M907[0]",
       "parameters": [
         {
-          "description": "Current for the E1 stepper (Requires `DIGIPOTSS_PIN` or `DIGIPOT_I2C`)",
+          "description": "Current for the E1 stepper",
           "label": "[B<current>]",
           "optional": true,
+          "requires": "DIGIPOTSS_PIN | DIGIPOT_I2C",
           "tag": "B",
           "values": [
             {
@@ -28351,9 +28908,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Current for the E2 stepper (Requires `DIGIPOT_I2C`)",
+          "description": "Current for the E2 stepper",
           "label": "[C<current>]",
           "optional": true,
+          "requires": "DIGIPOT_I2C",
           "tag": "C",
           "values": [
             {
@@ -28362,9 +28920,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Current for the E3 stepper (Requires `DIGIPOT_I2C`)",
+          "description": "Current for the E3 stepper",
           "label": "[D<current>]",
           "optional": true,
+          "requires": "DIGIPOT_I2C",
           "tag": "D",
           "values": [
             {
@@ -28384,9 +28943,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Set this current on all steppers (Requires `DIGIPOTSS_PIN` or `DAC_STEPPER_CURRENT`)",
+          "description": "Set this current on all steppers",
           "label": "[S<current>]",
           "optional": true,
+          "requires": "DIGIPOTSS_PIN | DAC_STEPPER_CURRENT",
           "tag": "S",
           "values": [
             {
@@ -28406,7 +28966,7 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Current for the Y stepper (Use `X` with `MOTOR_CURRENT_PWM_XY`)",
+          "description": "Current for the Y stepper. (Use `X` with `MOTOR_CURRENT_PWM_XY`)",
           "label": "[Y<current>]",
           "optional": true,
           "tag": "Y",
@@ -28428,10 +28988,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Current for the I stepper (Use `X` with `MOTOR_CURRENT_PWM_XY`) (Requires `DIGIPOTSS_PIN` or `DIGIPOT_I2C`)",
+          "description": "Current for the I stepper",
           "label": "[I<current>]",
           "optional": true,
-          "requires": "I_DRIVER_TYPE, and `DIGIPOTSS_PIN` or `DIGIPOT_I2C`",
+          "requires": "I_DRIVER_TYPE & (DIGIPOTSS_PIN | DIGIPOT_I2C)",
           "since": "2.0.9",
           "tag": "I",
           "values": [
@@ -28441,10 +29001,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Current for the J stepper (Use `X` with `MOTOR_CURRENT_PWM_XY`) (Requires `DIGIPOTSS_PIN` or `DIGIPOT_I2C`)",
+          "description": "Current for the J stepper",
           "label": "[J<current>]",
           "optional": true,
-          "requires": "J_DRIVER_TYPE, and `DIGIPOTSS_PIN` or `DIGIPOT_I2C`",
+          "requires": "J_DRIVER_TYPE & (DIGIPOTSS_PIN | DIGIPOT_I2C)",
           "since": "2.0.9",
           "tag": "J",
           "values": [
@@ -28454,10 +29014,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Current for the K stepper (Use `X` with `MOTOR_CURRENT_PWM_XY`) (Requires `DIGIPOTSS_PIN` or `DIGIPOT_I2C`)",
+          "description": "Current for the K stepper",
           "label": "[K<current>]",
           "optional": true,
-          "requires": "K_DRIVER_TYPE, and `DIGIPOTSS_PIN` or `DIGIPOT_I2C`",
+          "requires": "K_DRIVER_TYPE & (DIGIPOTSS_PIN | DIGIPOT_I2C)",
           "since": "2.0.9",
           "tag": "K",
           "values": [
@@ -28467,10 +29027,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Current for the U stepper (Use `X` with `MOTOR_CURRENT_PWM_XY`) (Requires `DIGIPOTSS_PIN` or `DIGIPOT_I2C`)",
+          "description": "Current for the U stepper",
           "label": "[U<current>]",
           "optional": true,
-          "requires": "U_DRIVER_TYPE, and `DIGIPOTSS_PIN` or `DIGIPOT_I2C`",
+          "requires": "U_DRIVER_TYPE & (DIGIPOTSS_PIN | DIGIPOT_I2C)",
           "since": 2.1,
           "tag": "U",
           "values": [
@@ -28480,10 +29040,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Current for the V stepper (Use `X` with `MOTOR_CURRENT_PWM_XY`) (Requires `DIGIPOTSS_PIN` or `DIGIPOT_I2C`)",
+          "description": "Current for the V stepper",
           "label": "[V<current>]",
           "optional": true,
-          "requires": "V_DRIVER_TYPE, and `DIGIPOTSS_PIN` or `DIGIPOT_I2C`",
+          "requires": "V_DRIVER_TYPE & (DIGIPOTSS_PIN | DIGIPOT_I2C)",
           "since": 2.1,
           "tag": "V",
           "values": [
@@ -28493,10 +29053,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Current for the W stepper (Use `X` with `MOTOR_CURRENT_PWM_XY`) (Requires `DIGIPOTSS_PIN` or `DIGIPOT_I2C`)",
+          "description": "Current for the W stepper",
           "label": "[W<current>]",
           "optional": true,
-          "requires": "W_DRIVER_TYPE, and `DIGIPOTSS_PIN` or `DIGIPOT_I2C`",
+          "requires": "W_DRIVER_TYPE & (DIGIPOTSS_PIN | DIGIPOT_I2C)",
           "since": 2.1,
           "tag": "W",
           "values": [
@@ -28506,7 +29066,9 @@ const AllGcodes = {
           ]
         }
       ],
-      "related": [],
+      "related": [
+        "M906"
+      ],
       "source": "Marlin",
       "title": "Trimpot Stepper Motor Current",
       "url": "https://marlinfw.org/docs/gcode/M907"
@@ -30440,9 +31002,10 @@ const AllGcodes = {
           ]
         },
         {
-          "description": "Target extruder (Requires `DISTINCT_E_FACTORS`)",
+          "description": "Target extruder",
           "label": "[T<index>]",
           "optional": true,
+          "requires": "DISTINCT_E_FACTORS",
           "tag": "T",
           "values": [
             {
