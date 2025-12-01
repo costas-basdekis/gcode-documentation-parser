@@ -1,4 +1,4 @@
-export AllGcodesDate = new Date(2025, 10, 1, 15, 19, 58);
+export AllGcodesDate = new Date(2025, 11, 1, 15, 27, 43);
 export default const AllGcodes = {
   "ABORT": [
     {
@@ -19885,7 +19885,7 @@ export default const AllGcodes = {
   ],
   "M493": [
     {
-      "brief": "Enable/disable and configure Fixed-Time Motion, Linear Advance, and Input Shaping",
+      "brief": "Enable/disable and configure Fixed-Time Motion and Input Shaping",
       "codes": [
         "M493"
       ],
@@ -19920,30 +19920,6 @@ export default const AllGcodes = {
             {
               "description": "Enabled",
               "tag": 1
-            }
-          ]
-        },
-        {
-          "description": "Enable/disable Linear Advance aka Pressure Advance.",
-          "label": "[P<state>]",
-          "optional": true,
-          "tag": "P",
-          "values": [
-            {
-              "tag": "state",
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Set the gain for Linear Advance aka Pressure Advance.",
-          "label": "[K<gain>]",
-          "optional": true,
-          "tag": "K",
-          "values": [
-            {
-              "tag": "gain",
-              "type": "float"
             }
           ]
         },
@@ -20114,7 +20090,8 @@ export default const AllGcodes = {
       ],
       "related": [
         "M494",
-        "M593"
+        "M593",
+        "M900"
       ],
       "source": "Marlin",
       "title": "Fixed-Time Motion",
@@ -28628,7 +28605,7 @@ export default const AllGcodes = {
   ],
   "M900": [
     {
-      "brief": "Get and set Linear Advance K value",
+      "brief": "Set/report Linear Advance K value",
       "codes": [
         "M900"
       ],

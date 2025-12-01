@@ -1,6 +1,6 @@
 {
   "!": {
-    "date": "2025-11-01T15:19:58.846624",
+    "date": "2025-12-01T15:27:43.790210",
     "type": "meta"
   },
   "ABORT": [
@@ -19888,7 +19888,7 @@
   ],
   "M493": [
     {
-      "brief": "Enable/disable and configure Fixed-Time Motion, Linear Advance, and Input Shaping",
+      "brief": "Enable/disable and configure Fixed-Time Motion and Input Shaping",
       "codes": [
         "M493"
       ],
@@ -19923,30 +19923,6 @@
             {
               "description": "Enabled",
               "tag": 1
-            }
-          ]
-        },
-        {
-          "description": "Enable/disable Linear Advance aka Pressure Advance.",
-          "label": "[P<state>]",
-          "optional": true,
-          "tag": "P",
-          "values": [
-            {
-              "tag": "state",
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Set the gain for Linear Advance aka Pressure Advance.",
-          "label": "[K<gain>]",
-          "optional": true,
-          "tag": "K",
-          "values": [
-            {
-              "tag": "gain",
-              "type": "float"
             }
           ]
         },
@@ -20117,7 +20093,8 @@
       ],
       "related": [
         "M494",
-        "M593"
+        "M593",
+        "M900"
       ],
       "source": "Marlin",
       "title": "Fixed-Time Motion",
@@ -28631,7 +28608,7 @@
   ],
   "M900": [
     {
-      "brief": "Get and set Linear Advance K value",
+      "brief": "Set/report Linear Advance K value",
       "codes": [
         "M900"
       ],
