@@ -1,4 +1,4 @@
-export AllGcodesDate = new Date(2025, 11, 1, 15, 27, 43);
+export AllGcodesDate = new Date(2026, 0, 1, 15, 26, 56);
 export default const AllGcodes = {
   "ABORT": [
     {
@@ -20112,7 +20112,7 @@ export default const AllGcodes = {
   ],
   "M494": [
     {
-      "brief": "Set / get the Fixed Time Motion parameters for Trajectory and Smoothing.",
+      "brief": "Set / get the Fixed Time Motion parameters for Trajectory generation and Smoothing.",
       "codes": [
         "M494"
       ],

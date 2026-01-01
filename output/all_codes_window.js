@@ -1,4 +1,4 @@
-window.AllGcodesDate = new Date(2025, 11, 1, 15, 27, 43);
+window.AllGcodesDate = new Date(2026, 0, 1, 15, 26, 56);
 window.AllGcodes = {
   "ABORT": [
     {
@@ -20112,7 +20112,7 @@ window.AllGcodes = {
   ],
   "M494": [
     {
-      "brief": "Set / get the Fixed Time Motion parameters for Trajectory and Smoothing.",
+      "brief": "Set / get the Fixed Time Motion parameters for Trajectory generation and Smoothing.",
       "codes": [
         "M494"
       ],
