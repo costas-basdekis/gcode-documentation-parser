@@ -34,10 +34,11 @@ class ReprapGcodeDocumentationParser(BaseDocumentationParser):
         return self.parse_documentation(source)
 
     def populate_temporary_directory(self, directory):
-        opener = six.moves.urllib.request.URLopener()
-        # noinspection PyUnresolvedReferences
-        opener.addheader('User-Agent', self.HTTP_USER_AGENT)
-        with opener.open(self.SOURCE_URL) as f:
+        req = six.moves.urllib.request.Request(
+            self.SOURCE_URL,
+            headers={'User-Agent': self.HTTP_USER_AGENT},
+        )
+        with six.moves.urllib.request.urlopen(req) as f:
             page = json.load(f)
 
         path = os.path.join(directory, "reprap-gcode-wiki-source.txt")
