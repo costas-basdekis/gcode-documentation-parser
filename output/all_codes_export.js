@@ -1,4 +1,4 @@
-export AllGcodesDate = new Date(2026, 5, 1, 19, 56, 20);
+export AllGcodesDate = new Date(2026, 6, 1, 17, 20, 7);
 export default const AllGcodes = {
   "ABORT": [
     {
@@ -2417,104 +2417,16 @@ export default const AllGcodes = {
       "url": "https://marlinfw.org/docs/gcode/G029-abl-linear"
     },
     {
-      "brief": "Probe the bed and enable leveling compensation.",
+      "brief": "Probe the bed and enable leveling compensation",
       "codes": [
         "G29"
       ],
       "id": "Marlin.G29[1]",
-      "parameters": [
-        {
-          "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
-          "label": "[A<bool>]",
-          "optional": true,
-          "tag": "A",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Create fake points for testing. (`DEBUG_LEVELING_FEATURE`)",
-          "label": "[C<bool>]",
-          "optional": true,
-          "tag": "C",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Optional. If leveling is already enabled then exit without leveling. (1.1.9)",
-          "label": "[O]",
-          "optional": true,
-          "tag": "O",
-          "type": "bool"
-        },
-        {
-          "description": "Query the current leveling state (`PROBE_MANUALLY`, `DEBUG_LEVELING_FEATURE`)",
-          "label": "[Q<bool>]",
-          "optional": true,
-          "tag": "Q",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "- By default G29 will engage the Z probe, test the bed, then disengage.\n- Include \"E\" to engage/disengage the Z probe for each sample.\n- There's no extra effect if you have a fixed Z probe. (without `PROBE_MANUALLY`)\n",
-          "label": "[E<bool>]",
-          "optional": true,
-          "tag": "E",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Dry-Run mode. Just probe the grid but don't update the bed leveling data",
-          "label": "[D<bool>]",
-          "optional": true,
-          "tag": "D",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Jettison the leveling data stored in SRAM and turn off leveling compensation. Data in EEPROM is not affected.",
-          "label": "[J<bool>]",
-          "optional": true,
-          "tag": "J",
-          "values": [
-            {
-              "type": "bool"
-            }
-          ]
-        },
-        {
-          "description": "Set the verbose level",
-          "label": "[V<0-4>]",
-          "optional": true,
-          "tag": "V",
-          "values": [
-            {
-              "tag": "0-4",
-              "type": "int"
-            }
-          ]
-        }
-      ],
-      "related": [
-        "M420"
-      ],
+      "parameters": [],
+      "related": [],
       "source": "Marlin",
-      "title": "Bed Leveling (3-Point)",
-      "url": "https://marlinfw.org/docs/gcode/G029-abl-3point"
+      "title": "Bed Leveling",
+      "url": "https://marlinfw.org/docs/gcode/G029"
     },
     {
       "brief": "Probe the bed and enable leveling compensation.",
@@ -3035,16 +2947,104 @@ export default const AllGcodes = {
       "url": "https://marlinfw.org/docs/gcode/G029-ubl"
     },
     {
-      "brief": "Probe the bed and enable leveling compensation",
+      "brief": "Probe the bed and enable leveling compensation.",
       "codes": [
         "G29"
       ],
       "id": "Marlin.G29[4]",
-      "parameters": [],
-      "related": [],
+      "parameters": [
+        {
+          "description": "Abort leveling procedure in-progress (`PROBE_MANUALLY`)",
+          "label": "[A<bool>]",
+          "optional": true,
+          "tag": "A",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Create fake points for testing. (`DEBUG_LEVELING_FEATURE`)",
+          "label": "[C<bool>]",
+          "optional": true,
+          "tag": "C",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Optional. If leveling is already enabled then exit without leveling. (1.1.9)",
+          "label": "[O]",
+          "optional": true,
+          "tag": "O",
+          "type": "bool"
+        },
+        {
+          "description": "Query the current leveling state (`PROBE_MANUALLY`, `DEBUG_LEVELING_FEATURE`)",
+          "label": "[Q<bool>]",
+          "optional": true,
+          "tag": "Q",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "- By default G29 will engage the Z probe, test the bed, then disengage.\n- Include \"E\" to engage/disengage the Z probe for each sample.\n- There's no extra effect if you have a fixed Z probe. (without `PROBE_MANUALLY`)\n",
+          "label": "[E<bool>]",
+          "optional": true,
+          "tag": "E",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Dry-Run mode. Just probe the grid but don't update the bed leveling data",
+          "label": "[D<bool>]",
+          "optional": true,
+          "tag": "D",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Jettison the leveling data stored in SRAM and turn off leveling compensation. Data in EEPROM is not affected.",
+          "label": "[J<bool>]",
+          "optional": true,
+          "tag": "J",
+          "values": [
+            {
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "description": "Set the verbose level",
+          "label": "[V<0-4>]",
+          "optional": true,
+          "tag": "V",
+          "values": [
+            {
+              "tag": "0-4",
+              "type": "int"
+            }
+          ]
+        }
+      ],
+      "related": [
+        "M420"
+      ],
       "source": "Marlin",
-      "title": "Bed Leveling",
-      "url": "https://marlinfw.org/docs/gcode/G029"
+      "title": "Bed Leveling (3-Point)",
+      "url": "https://marlinfw.org/docs/gcode/G029-abl-3point"
     },
     {
       "brief": "Measure Z heights in a grid, enable leveling compensation",
@@ -24081,60 +24081,11 @@ export default const AllGcodes = {
   ],
   "M666": [
     {
-      "brief": "Set/report dual endstop offsets",
-      "codes": [
-        "M666"
-      ],
-      "id": "Marlin.M666[0]",
-      "parameters": [
-        {
-          "description": "Offset for the X axis endstops",
-          "label": "[X<adj>]",
-          "optional": true,
-          "tag": "X",
-          "values": [
-            {
-              "tag": "adj",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Offset for the Y axis endstops",
-          "label": "[Y<adj>]",
-          "optional": true,
-          "tag": "Y",
-          "values": [
-            {
-              "tag": "adj",
-              "type": "float"
-            }
-          ]
-        },
-        {
-          "description": "Offset for the Z axis endstops",
-          "label": "[Z<adj>]",
-          "optional": true,
-          "tag": "Z",
-          "values": [
-            {
-              "tag": "adj",
-              "type": "float"
-            }
-          ]
-        }
-      ],
-      "related": [],
-      "source": "Marlin",
-      "title": "Dual endstop offsets",
-      "url": "https://marlinfw.org/docs/gcode/M666-dual"
-    },
-    {
       "brief": "Set Delta endstop adjustments",
       "codes": [
         "M666"
       ],
-      "id": "Marlin.M666[1]",
+      "id": "Marlin.M666[0]",
       "parameters": [
         {
           "description": "Adjustment for the X actuator endstop",
@@ -24177,6 +24128,55 @@ export default const AllGcodes = {
       "source": "Marlin",
       "title": "Set Delta endstop adjustments",
       "url": "https://marlinfw.org/docs/gcode/M666"
+    },
+    {
+      "brief": "Set/report dual endstop offsets",
+      "codes": [
+        "M666"
+      ],
+      "id": "Marlin.M666[1]",
+      "parameters": [
+        {
+          "description": "Offset for the X axis endstops",
+          "label": "[X<adj>]",
+          "optional": true,
+          "tag": "X",
+          "values": [
+            {
+              "tag": "adj",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Offset for the Y axis endstops",
+          "label": "[Y<adj>]",
+          "optional": true,
+          "tag": "Y",
+          "values": [
+            {
+              "tag": "adj",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "description": "Offset for the Z axis endstops",
+          "label": "[Z<adj>]",
+          "optional": true,
+          "tag": "Z",
+          "values": [
+            {
+              "tag": "adj",
+              "type": "float"
+            }
+          ]
+        }
+      ],
+      "related": [],
+      "source": "Marlin",
+      "title": "Dual endstop offsets",
+      "url": "https://marlinfw.org/docs/gcode/M666-dual"
     },
     {
       "brief": "",
